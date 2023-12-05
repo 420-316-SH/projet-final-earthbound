@@ -3,34 +3,34 @@
 
 template <class TYPE>
 class queue {
-	private:
-		struct cellule { // Structure d'une cellule. La file est composée de plusieurs de ces cellules
-			TYPE _element; // Donnée enregistrée dans une des cellules de la file
-			cellule* _next; // Pointeur vers la prochaine cellule de la file
+private:
+	struct cellule { // Structure d'une cellule. La file est composée de plusieurs de ces cellules
+		TYPE _element; // Donnée enregistrée dans une des cellules de la file
+		cellule* _next; // Pointeur vers la prochaine cellule de la file
 
-			// Constructeur d'une cellule (méthode appelée à chaque fois qu'on fait un "new Cellule")
-			cellule(const TYPE& element, cellule* next) {
-				_element = element;
-				_next = next;
-			}
-		};
+		// Constructeur d'une cellule (méthode appelée à chaque fois qu'on fait un "new Cellule")
+		cellule(const TYPE& element, cellule* next) {
+			_element = element;
+			_next = next;
+		}
+	};
 
-		cellule* _queue; // Pointe sur la dernière cellule dont le "next" pointe sur la première
+	cellule* _queue; // Pointe sur la dernière cellule dont le "next" pointe sur la première
 
-	public:
-		queue(); // Constructeur qui initialise "_queue" à "nullptr"
-		~queue(); // Destructeur qui supprime toutes les cellules de la file
+public:
+	queue(); // Constructeur qui initialise "_queue" à "nullptr"
+	~queue(); // Destructeur qui supprime toutes les cellules de la file
 
-		void clear(); // Méthode qui supprime toutes les cellules de la file
-		bool empty() const; // Méthode qui vérifie si la file est vide (retourne true) ou non (retourne false)
-		int size() const; // Méthode qui retourne le nombre de cellules que contient la file
+	void clear(); // Méthode qui supprime toutes les cellules de la file
+	bool empty() const; // Méthode qui vérifie si la file est vide (retourne true) ou non (retourne false)
+	int size() const; // Méthode qui retourne le nombre de cellules que contient la file
 
-		const TYPE& front() const; // Méthode qui retourne l'élément contenu dans la première cellule de la file
-		TYPE pop(); // Méthode qui supprime la première cellule de la file et retourne son élément par valeur
-		void push(const TYPE&); // Méthode qui ajoute une nouvelle cellule à la fin de la file
+	const TYPE& front() const; // Méthode qui retourne l'élément contenu dans la première cellule de la file
+	TYPE pop(); // Méthode qui supprime la première cellule de la file et retourne son élément par valeur
+	void push(const TYPE&); // Méthode qui ajoute une nouvelle cellule à la fin de la file
 
-		const queue<TYPE>& operator=(const queue<TYPE>&); // Surcharge de l'opérateur = pour copier le contenu
-														  // d'une file vers une autre.
+	const queue<TYPE>& operator=(const queue<TYPE>&); // Surcharge de l'opérateur = pour copier le contenu
+	// d'une file vers une autre.
 };
 
 // CODEZ LES MÉTHODES DE VOTRE FILE ICI.
@@ -135,7 +135,7 @@ inline const queue<TYPE>& queue<TYPE>::operator=(const queue<TYPE>& pile)
 
 		do
 		{
-			push(pile._queue->_element);
+			push(temp->_element);
 			temp = temp->_next;
 		} while (temp != pile._queue->_next);
 	}
