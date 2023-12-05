@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="entité.h" />
     <ClInclude Include="joueur.h" />
+    <ClInclude Include="list.hpp" />
     <ClInclude Include="monstre.h" />
     <ClInclude Include="move.h" />
     <ClInclude Include="npc.h" />
