@@ -130,7 +130,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="entité.cpp" />
+    <ClCompile Include="joueur.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="monstre.cpp" />
+    <ClCompile Include="move.cpp" />
+    <ClCompile Include="npc.cpp" />
+    <ClCompile Include="status.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="entité.h" />
+    <ClInclude Include="joueur.h" />
+    <ClInclude Include="monstre.h" />
+    <ClInclude Include="move.h" />
+    <ClInclude Include="npc.h" />
+    <ClInclude Include="status.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
