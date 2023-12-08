@@ -196,7 +196,7 @@ const vecteur<TYPE>& vecteur<TYPE>:: operator=(const vecteur& vect)
 
 	clear();
 
-	_tab = new int[vect._dim];
+	_tab = new TYPE[vect._dim];
 	_dim = vect._dim;
 
 	for (int i = 0; i < _dim; i++)

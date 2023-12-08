@@ -40,7 +40,7 @@ class Monstre : public Entite
 		vecteur<Move> getMoveSet()const;
 
 		void setVivant(bool vivant);
-		void setStatus(Status status);
+		void setStatus(std::string nom, int duree, float selfHeal, std::string alteredStat, int alterValue); //À revoir
 		void setHp(int hp);
 		void setIntel(int intel);
 		void setForce(int force);
@@ -52,4 +52,3 @@ class Monstre : public Entite
 		void setDialogue(std::string dialogue);
 		void setMoveSet(vecteur<Move> moveSet);
 };
-

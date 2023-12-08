@@ -1,8 +1,8 @@
-#include "move.h"
 #include "vecteur.hpp"
 #include "status.h"
+#include "move.h"
 
-const string Move::getNom() const
+const std::string Move::getNom() const
 {
 	return _nom;
 }
@@ -22,7 +22,7 @@ const Status Move::getStatusInflict() const
 	return _statusInflict;
 }
 
-void Move::setNom(string nom) 
+void Move::setNom(std::string nom) 
 {
 	_nom = nom;
 }

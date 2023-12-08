@@ -1,9 +1,9 @@
-#include "joueur.h"
 #include "vecteur.hpp"
 #include "status.h"
-#include "item.h"
+//#include "item.h"
 #include "move.h"
 #include "list.hpp"
+#include "joueur.h"
 
 const bool Joueur::getVivant() const
 {
@@ -15,10 +15,10 @@ const Status Joueur::getStatus() const
 	return _status;
 }
 
-const List<Item> Joueur::getInventaire() const
+/*const List<Item> Joueur::getInventaire() const
 {
 	return _inventaire;
-}
+}*/
 
 const int Joueur::getHp() const
 {
@@ -85,18 +85,18 @@ void Joueur::setStatus(Status status)
 	_status = status;
 }
 
-void Joueur::addItem(Item newItem)
+/*void Joueur::addItem(Item newItem)
 {
 	_inventaire.end();
 	_inventaire.insert(newItem);
-}
+}*/
 
-void Joueur::removeItem(Item usedItem)
+/*void Joueur::removeItem(Item usedItem)
 {
 	assert(!_inventaire.empty());
 
 	_inventaire.erase(_inventaire(usedItem));
-}
+}*/
 
 void Joueur::setHp(int hp)
 {

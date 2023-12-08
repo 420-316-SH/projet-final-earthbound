@@ -85,9 +85,9 @@ void Monstre::setVivant(bool vivant)
 	_vivant = vivant;
 }
 
-void Monstre::setStatus(Status status)
+void Monstre::setStatus(std::string nom, int duree, float selfHeal, std::string alteredStat, int alterValue)
 {
-	_status = status; //il faudra un opérateur = pour la classe status; Quelle propriété du statut on souhaite affiché? on aura besoin d'un opérateur << dans statut et d'une propriété print
+	_status.init(nom, duree, selfHeal, alteredStat, alterValue); //il faudra un opérateur = pour la classe status; Quelle propriété du statut on souhaite affiché? on aura besoin d'un opérateur << dans statut et d'une propriété print
 }
 
 void Monstre::setHp(int hp)
