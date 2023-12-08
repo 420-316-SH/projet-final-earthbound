@@ -1,5 +1,6 @@
 #pragma once
-class joueur
+class Joueur
 {
+	vecteur<int> stats;
 };
 

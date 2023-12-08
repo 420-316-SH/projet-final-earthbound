@@ -143,10 +143,13 @@
     <ClInclude Include="entite.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="joueur.h" />
+    <ClInclude Include="list.hpp" />
     <ClInclude Include="monstre.h" />
     <ClInclude Include="move.h" />
     <ClInclude Include="npc.h" />
+    <ClInclude Include="queue.hpp" />
     <ClInclude Include="status.h" />
+    <ClInclude Include="vecteur.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
