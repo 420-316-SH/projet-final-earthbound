@@ -17,7 +17,12 @@ private :
 	int _nextLvl;
 	vecteur<Move> _moveset;
 
+	
+
 public:
+	Joueur();
+	~Joueur();
+
 	const bool getVivant() const;
 	const Status getStatus() const;
 	const List<Item> getInventaire() const;

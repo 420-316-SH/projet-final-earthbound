@@ -8,6 +8,9 @@ private:
 	Status _statusInflict;
 
 public:
+	Move();
+	~Move();
+
 	const string getNom() const;
 	const int getDegats() const;
 	const int getPpCost() const;
