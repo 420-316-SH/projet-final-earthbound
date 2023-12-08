@@ -2,6 +2,22 @@
 #include "status.h"
 #include "move.h"
 
+Move::Move()
+{
+	_nom = "";
+	_degats = 0;
+	_ppCost = 0;
+	_statusInflict = Status();
+}
+
+Move::~Move()
+{
+	_nom = "";
+	_degats = 0;
+	_ppCost = 0;
+	_statusInflict = Status();
+}
+
 const std::string Move::getNom() const
 {
 	return _nom;
