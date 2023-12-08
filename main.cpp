@@ -4,9 +4,14 @@
 using namespace sf;
 
 int main() {
-	RenderWindow window(VideoMode(1280, 720), "Titre de la fenêtre");
+	RenderWindow window(VideoMode(720, 720), "Titre de la fenêtre");
 	Event event;
 	RectangleShape fondEcran;
+	
+	// Ajout Antho pour test
+	Game earthbound;
+	earthbound.init( -2150,  -190,  3000,  3328, "img/bgMap.png");
+	
 
 	fondEcran.setSize(Vector2f(100, 100));
 	fondEcran.setFillColor(Color::Green);
@@ -18,7 +23,7 @@ int main() {
 		}
 
 		window.clear();
-		window.draw(fondEcran);
+		window.draw(earthbound.getBG());
 		window.display();
 	}
 

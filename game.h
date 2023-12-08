@@ -3,12 +3,16 @@
 // Penser a gèrer des sauvegardes (Stats joueur principal metton et inventaire)
 // Penser a faire un tableau de score. Peut-être le cumul d'exp du joueur?
 
-class game
+class Game
 {
 	private:
 		sf::RenderWindow _window;
+		sf::RectangleShape _fondEcranPlay;
+		sf::Texture _textureBgMap;
+		//Entite _ness;
 	public:
-		void init(/*Mettre les paramètres à init*/);
+		void init(int posX, int posY, int w, int h, const char* nomSprite);
 		void play();
+		const sf::RectangleShape getBG()const;
 };
 

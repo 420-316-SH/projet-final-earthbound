@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 class Joueur
 {
 private :
@@ -54,4 +54,4 @@ public:
 	void setNextLvl(int nextLvl);
 	void addMove(Move move);
 };
-
+*/
