@@ -8,7 +8,7 @@ class game
 	private:
 		sf::RenderWindow _window;
 	public:
-		void init();
+		void init(/*Mettre les paramètres à init*/);
 		void play();
 };
 

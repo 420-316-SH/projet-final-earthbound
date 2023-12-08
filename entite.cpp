@@ -1,18 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
-#include "entite.h"
+#include "Entite.h"
 
-entite::entite()
+Entite::Entite()
 {
 	_nom ="";
 }
 
-entite::~entite()
+Entite::~Entite()
 {
 	_nom = "";
 }
 
-void entite::init(int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite)
+void Entite::init(int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite)
 {
 	_shape.setPosition(posX, posY);
 	_shape.setSize(sf::Vector2f(w, h));
@@ -28,42 +28,42 @@ void entite::init(int posX, int posY, int w, int h, const sf::IntRect& rectSprit
 	_hitbox.setFillColor(sf::Color::Black);
 }
 
-const std::string entite::getNom() const
+const std::string Entite::getNom() const
 {
 	return _nom;
 }
 
-const sf::Vector2f& entite::getPosition() const
+const sf::Vector2f& Entite::getPosition() const
 {
 	return _shape.getPosition();
 }
 
-const sf::Vector2f& entite::getHitboxPosition() const
+const sf::Vector2f& Entite::getHitboxPosition() const
 {
 	return _hitbox.getPosition();
 }
 
-const sf::RectangleShape entite::getHitbox() const
+const sf::RectangleShape Entite::getHitbox() const
 {
 	return _hitbox;
 }
 
-void entite::setNom(std::string nom)
+void Entite::setNom(std::string nom)
 {
 	_nom = nom;
 }
 
-void entite::setPosition(int posX, int posY)
+void Entite::setPosition(int posX, int posY)
 {
 	_shape.setPosition(posX, posY);
 }
 
-void entite::setPosition(const sf::Vector2f& pos)
+void Entite::setPosition(const sf::Vector2f& pos)
 {
 	_shape.setPosition(pos);
 }
 
-void entite::setHitboxPosition(int posX, int posY)
+void Entite::setHitboxPosition(int posX, int posY)
 {
 	_hitbox.setPosition(posX, posY);
 }

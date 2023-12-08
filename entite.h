@@ -1,5 +1,5 @@
 #pragma once
-class entite
+class Entite
 {
 	protected:
 		std::string _nom;
@@ -9,8 +9,8 @@ class entite
 		sf::RectangleShape _hitbox; // Pour les collisions
 
 	public:
-		entite();
-		~entite();
+		Entite();
+		~Entite();
 		void init(int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite);
 
 		const std::string getNom()const;
