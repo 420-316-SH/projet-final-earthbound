@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
-#include "status.h"
+#include "Status.h"
 
-status::status()
+Status::Status()
 {
 	_nom = "";
 	_duree = 0;					
@@ -12,7 +12,7 @@ status::status()
 	_alterValue = 0;
 }
 
-status::~status()
+Status::~Status()
 {
 	_nom = "";
 	_duree = 0;
@@ -22,7 +22,7 @@ status::~status()
 	_alterValue = 0;
 }
 
-void status::init(std::string nom, int duree, float selfHeal, std::string alteredStat, int alterValue)
+void Status::init(std::string nom, int duree, float selfHeal, std::string alteredStat, int alterValue)
 {
 	_nom = nom;
 	_duree = duree;
@@ -32,52 +32,52 @@ void status::init(std::string nom, int duree, float selfHeal, std::string altere
 	_alterValue = alterValue;
 }
 
-std::string status::getNom()
+std::string Status::getNom()
 {
 	return _nom;
 }
 
-int status::getDuree()
+int Status::getDuree()
 {
 	return _duree;
 }
 
-float status::getSelfHeal()
+float Status::getSelfHeal()
 {
 	return _selfHeal;
 }
 
-std::string status::getAlteredStat()
+std::string Status::getAlteredStat()
 {
 	return _alteredStat;
 }
 
-int status::getAlterValue()
+int Status::getAlterValue()
 {
 	return _alterValue;
 }
 
-void status::setNom(std::string nom)
+void Status::setNom(std::string nom)
 {
 	_nom = nom;
 }
 
-void status::setDuree(int duree)
+void Status::setDuree(int duree)
 {
 	_duree = duree;
 }
 
-void status::setSelfHeal(float selfHeal)
+void Status::setSelfHeal(float selfHeal)
 {
 	_selfHeal = selfHeal;
 }
 
-void status::setAlteredStat(std::string alteredStat)
+void Status::setAlteredStat(std::string alteredStat)
 {
 	_alteredStat = alteredStat;
 }
 
-void status::setAlterValue(int alterValue)
+void Status::setAlterValue(int alterValue)
 {
 	_alterValue = alterValue;
 }
