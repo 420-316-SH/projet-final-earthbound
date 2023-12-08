@@ -160,7 +160,7 @@ inline const typename List<T>::Iterator& List<T>::Iterator::operator--()//--it
 
 	if (_current == nullptr) //si on est en fi de liste
 	{
-		_list->_first->_pev;//on revient sur la derniere cellule
+		_list->_first->_prev;//on revient sur la derniere cellule
 	}
 	else
 	{
@@ -215,7 +215,12 @@ inline void List<T>::clear()
 template<typename T>
 inline bool List<T>::empty() const
 {
-	return (_first == nullptr);
+	if (_first == nullptr) 
+	{
+		return true;
+	}
+
+	return false;
 }
 
 template<typename T>
