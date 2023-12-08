@@ -1,6 +1,6 @@
-#pragma once
+/*#pragma once
 class Joueur
 {
 	vecteur<int> stats;
 };
-
+*/
