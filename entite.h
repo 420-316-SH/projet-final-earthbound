@@ -22,8 +22,5 @@ class Entite
 		void setPosition(int posX, int posY);
 		void setPosition(const sf::Vector2f& pos);
 		void setHitboxPosition(int posX, int posY);
-
-
-
 };
 
