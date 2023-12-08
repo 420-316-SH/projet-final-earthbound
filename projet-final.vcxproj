@@ -130,7 +130,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="entité.cpp" />
+    <ClCompile Include="entite.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="joueur.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="monstre.cpp" />
@@ -139,7 +140,8 @@
     <ClCompile Include="status.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="entité.h" />
+    <ClInclude Include="entite.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="joueur.h" />
     <ClInclude Include="list.hpp" />
     <ClInclude Include="monstre.h" />
