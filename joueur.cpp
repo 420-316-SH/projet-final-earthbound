@@ -1,9 +1,9 @@
-#include "joueur.h"
 #include "vecteur.hpp"
 #include "status.h"
 #include "item.h"
 #include "move.h"
 #include "list.hpp"
+#include "joueur.h"
 
 const bool Joueur::getVivant() const
 {
@@ -151,4 +151,40 @@ void Joueur::setNextLvl(int nextLvl)
 void Joueur::addMove(Move move)
 {
 	_moveset.push_back(move);
+}
+
+Joueur::Joueur()
+{
+	_vivant = true;
+	_status = Status();
+	_inventaire = List<Item>();
+	_hp = 0;
+	_intel = 0;
+	_force = 0;
+	_def = 0;
+	_crit = 0;
+	_speed = 0;
+	_lvl = 0;
+	_exp = 0;
+	_pp = 0;
+	_nextLvl = 0;
+	_moveset = vecteur<Move>();
+}
+
+Joueur::~Joueur()
+{
+	_vivant = true;
+	_status = Status();
+	_inventaire = List<Item>();
+	_hp = 0;
+	_intel = 0;
+	_force = 0;
+	_def = 0;
+	_crit = 0;
+	_speed = 0;
+	_lvl = 0;
+	_exp = 0;
+	_pp = 0;
+	_nextLvl = 0;
+	_moveset = vecteur<Move>();
 }

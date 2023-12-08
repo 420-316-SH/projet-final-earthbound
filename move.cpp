@@ -1,6 +1,22 @@
-#include "move.h"
 #include "vecteur.hpp"
 #include "status.h"
+#include "move.h"
+
+Move::Move()
+{
+	_nom = "";
+	_degats = 0;
+	_ppCost = 0;
+	_statusInflict = Status();
+}
+
+Move::~Move()
+{
+	_nom = "";
+	_degats = 0;
+	_ppCost = 0;
+	_statusInflict = Status();
+}
 
 const string Move::getNom() const
 {
