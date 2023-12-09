@@ -1,9 +1,46 @@
-#include "vecteur.hpp"
-#include "status.h"
-//#include "item.h"
-#include "move.h"
+#include <SFML/Graphics.hpp>
 #include "list.hpp"
+#include "vecteur.hpp"
+#include "entite.h"
+#include "status.h"
+#include "move.h"
+//#include "item.h"
 #include "joueur.h"
+
+
+Joueur::Joueur(std::string nom, sf::RectangleShape& shape, sf::Texture& texture, sf::IntRect& rectSprite, sf::RectangleShape& hitbox) : Entite(nom, shape, texture, rectSprite, hitbox)
+{
+	_vivant = false;
+	//_inventaire = List<Item>();
+	_hp = 0;
+	_intel = 0;
+	_force = 0;
+	_def = 0;
+	_crit = 0;
+	_speed = 0;
+	_lvl = 0;
+	_exp = 0;
+	_pp = 0;
+	_nextLvl = 0;
+	//_moveset = vecteur<Move>(); Pas besoin parceque le constructeur de la classe vecteur fera un vecteur vide
+}
+
+Joueur::~Joueur()
+{
+	_vivant = true;
+	//_inventaire = List<Item>();
+	_hp = 0;
+	_intel = 0;
+	_force = 0;
+	_def = 0;
+	_crit = 0;
+	_speed = 0;
+	_lvl = 0;
+	_exp = 0;
+	_pp = 0;
+	_nextLvl = 0;
+	//_moveset = vecteur<Move>(); Pris en charge pas le desctructeur de la classe vecteur
+}
 
 const bool Joueur::getVivant() const
 {
@@ -75,7 +112,7 @@ const vecteur<Move> Joueur::getMoveset() const
 	return _moveset;
 }
 
-void Joueur::setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move> moveset)
+void Joueur::setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move>& moveset, int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite)
 {
 	setVivant(vivant);
 	setHp(hp);
@@ -88,7 +125,9 @@ void Joueur::setJoueur(bool vivant, int hp, int intel, int force, int def, float
 	setExp(exp);
 	setPp(pp);
 	setNextLvl(nextLvl);
+	init(posX,posY,w,h,rectSprite,nomSprite);
 	_moveset = moveset;
+	
 }
 
 void Joueur::setVivant(bool vivant)
@@ -169,38 +208,3 @@ void Joueur::addMove(Move move)
 	_moveset.push_back(move);
 }
 
-Joueur::Joueur()
-{
-	_vivant = true;
-	_status = Status();
-	//_inventaire = List<Item>();
-	_hp = 0;
-	_intel = 0;
-	_force = 0;
-	_def = 0;
-	_crit = 0;
-	_speed = 0;
-	_lvl = 0;
-	_exp = 0;
-	_pp = 0;
-	_nextLvl = 0;
-	_moveset = vecteur<Move>();
-}
-
-Joueur::~Joueur()
-{
-	_vivant = true;
-	_status = Status();
-	//_inventaire = List<Item>();
-	_hp = 0;
-	_intel = 0;
-	_force = 0;
-	_def = 0;
-	_crit = 0;
-	_speed = 0;
-	_lvl = 0;
-	_exp = 0;
-	_pp = 0;
-	_nextLvl = 0;
-	_moveset = vecteur<Move>();
-}

@@ -7,7 +7,7 @@ Move::Move()
 	_nom = "";
 	_degats = 0;
 	_ppCost = 0;
-	_statusInflict = Status();
+	//_statusInflict = Status();
 }
 
 Move::~Move()
@@ -15,7 +15,7 @@ Move::~Move()
 	_nom = "";
 	_degats = 0;
 	_ppCost = 0;
-	_statusInflict = Status();
+	//_statusInflict = Status();
 }
 
 const std::string Move::getNom() const

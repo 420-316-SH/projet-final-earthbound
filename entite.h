@@ -2,14 +2,14 @@
 class Entite
 {
 	protected:
-		std::string _nom;
+		std::string _nom;			
 		sf::RectangleShape _shape;	// Pour la position et la forme
 		sf::Texture _texture;		// Pour les sprite
 		sf::IntRect _rectSprite;	// Pour les animations
 		sf::RectangleShape _hitbox; // Pour les collisions
 
 	public:
-		Entite();
+		Entite(std::string nom, sf::RectangleShape& _shape, sf::Texture& _texture, sf::IntRect& _rectSprite, sf::RectangleShape& _hitbox);
 		~Entite();
 		void init(int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite);
 

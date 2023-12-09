@@ -1,5 +1,5 @@
 #pragma once
-class Joueur
+class Joueur : public Entite
 {
 private :
 	bool _vivant;
@@ -21,7 +21,7 @@ private :
 	
 
 public:
-	Joueur();
+	Joueur(std::string nom, sf::RectangleShape& shape, sf::Texture& texture, sf::IntRect& rectSprite, sf::RectangleShape& hitbox);
 	~Joueur();
 
 	const bool getVivant() const;
@@ -39,7 +39,7 @@ public:
 	const int getNextLvl() const;
 	const vecteur<Move> getMoveset() const;
 
-	void setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move> moveset);
+	void setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move>& moveset, int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite);
 	void setVivant(bool vivant);
 	void setStatus(Status status);
 	//void addItem(Item newItem);

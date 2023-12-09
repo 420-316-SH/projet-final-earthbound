@@ -2,7 +2,7 @@
 #include <cassert>
 #include "entite.h"
 #include "npc.h"
-
+/*
 Npc::Npc()
 {
 	_dialogue = "";
@@ -22,3 +22,4 @@ void Npc::setDialogue(std::string dialogue)
 {
 	_dialogue = dialogue;
 }
+*/

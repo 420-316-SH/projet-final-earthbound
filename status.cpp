@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include <string>
 #include <cassert>
 #include "Status.h"
 
@@ -32,27 +32,27 @@ void Status::init(std::string nom, int duree, float selfHeal, std::string altere
 	_alterValue = alterValue;
 }
 
-std::string Status::getNom()
+std::string Status::getNom()const
 {
 	return _nom;
 }
 
-int Status::getDuree()
+int Status::getDuree()const
 {
 	return _duree;
 }
 
-float Status::getSelfHeal()
+float Status::getSelfHeal()const
 {
 	return _selfHeal;
 }
 
-std::string Status::getAlteredStat()
+std::string Status::getAlteredStat()const
 {
 	return _alteredStat;
 }
 
-int Status::getAlterValue()
+int Status::getAlterValue()const
 {
 	return _alterValue;
 }
@@ -80,4 +80,15 @@ void Status::setAlteredStat(std::string alteredStat)
 void Status::setAlterValue(int alterValue)
 {
 	_alterValue = alterValue;
+}
+
+const Status& Status::operator=(const Status& statusDroite)
+{
+	_nom = statusDroite.getNom();			// Nom du Status
+	_duree = statusDroite.getDuree();					// Durée d'éffet du Status
+	_selfHeal = statusDroite.getSelfHeal();			// Probabilité d'auto gérison
+
+	_alteredStat = statusDroite.getAlteredStat();	// Nom de la stat qui aura un malus
+	_alterValue = statusDroite.getAlterValue();			// Valeur de reduction de la stat
+	return *this;
 }

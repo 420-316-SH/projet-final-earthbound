@@ -1,9 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Windows.h>
+#include "vecteur.hpp"
+#include "status.h"
+#include "move.h"
 #include "entite.h"
 #include "joueur.h"
-#include "Game.h"
+
+#include "game.h"
 
 using namespace sf;
 void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
@@ -15,7 +19,10 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 		exit(1);
 	}
 	_fondEcranPlay.setTexture(&_textureBgMap);
-	//_ness.s
+	vecteur<Move> moveNess;
+	sf::IntRect rectSpriteNess(0, 0, 32, 32);
+	//_ness.setJoueur();
+	//_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, -1, -14, 16, 24, rectSpriteNess, "img/ness.png");
 }
 
 void Game::play()
@@ -27,8 +34,6 @@ void Game::play()
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	viewGame.zoom(0.30);
 	viewGame.move(1800, -100);
-
-
 
 	fondEcran.setSize(Vector2f(100, 100));
 	fondEcran.setFillColor(Color::Green);

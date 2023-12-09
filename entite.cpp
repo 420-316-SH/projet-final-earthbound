@@ -2,9 +2,13 @@
 #include <cassert>
 #include "Entite.h"
 
-Entite::Entite()
+Entite::Entite(std::string nom, sf::RectangleShape& shape, sf::Texture& texture, sf::IntRect& rectSprite, sf::RectangleShape& hitbox)
 {
-	_nom ="";
+	_nom = nom;
+	shape;	// Pour la position et la forme
+	texture;		// Pour les sprite
+	rectSprite;	// Pour les animations
+	hitbox; // Pour les collisions
 }
 
 Entite::~Entite()
