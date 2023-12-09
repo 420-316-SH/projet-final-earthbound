@@ -6,10 +6,9 @@
 class Game
 {
 	private:
-		sf::RenderWindow _window;
 		sf::RectangleShape _fondEcranPlay;
 		sf::Texture _textureBgMap;
-		//Entite _ness;
+		Joueur _ness;
 	public:
 		void init(int posX, int posY, int w, int h, const char* nomSprite);
 		void play();

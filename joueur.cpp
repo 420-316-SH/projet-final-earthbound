@@ -75,6 +75,22 @@ const vecteur<Move> Joueur::getMoveset() const
 	return _moveset;
 }
 
+void Joueur::setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move> moveset)
+{
+	setVivant(vivant);
+	setHp(hp);
+	setIntel(intel);
+	setForce(force);
+	setDef(def);
+	setCrit(crit);
+	setSpeed(speed);
+	setLvl(lvl);
+	setExp(exp);
+	setPp(pp);
+	setNextLvl(nextLvl);
+	_moveset = moveset;
+}
+
 void Joueur::setVivant(bool vivant)
 {
 	_vivant = vivant;

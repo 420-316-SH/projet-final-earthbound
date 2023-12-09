@@ -17,6 +17,7 @@ private :
 	int _nextLvl;
 	vecteur<Move> _moveset;
 
+
 	
 
 public:
@@ -38,6 +39,7 @@ public:
 	const int getNextLvl() const;
 	const vecteur<Move> getMoveset() const;
 
+	void setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move> moveset);
 	void setVivant(bool vivant);
 	void setStatus(Status status);
 	//void addItem(Item newItem);
