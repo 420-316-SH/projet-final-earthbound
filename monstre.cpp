@@ -5,7 +5,7 @@
 #include "move.h"
 #include "vecteur.hpp"
 #include "monstre.h"
-/*
+
 Monstre::Monstre()
 {
 	_vivant = false;
@@ -139,4 +139,3 @@ void Monstre::setMoveSet(vecteur<Move> moveSet)
 {
 	_moveSet = moveSet; //il faudra un opérateur = pour la classe status; Quelle propriété du statut on souhaite affiché? on aura besoin d'un opérateur << dans statut et d'une propriété print
 }
-*/

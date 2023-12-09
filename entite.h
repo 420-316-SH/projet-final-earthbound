@@ -9,11 +9,13 @@ class Entite
 		sf::RectangleShape _hitbox; // Pour les collisions
 
 	public:
+		Entite();
 		Entite(std::string nom, sf::RectangleShape& _shape, sf::Texture& _texture, sf::IntRect& _rectSprite, sf::RectangleShape& _hitbox);
 		~Entite();
 		void init(int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite);
 
 		const std::string getNom()const;
+		const sf::RectangleShape getShape()const;
 		const sf::Vector2f& getPosition()const;
 		const sf::Vector2f& getHitboxPosition()const;
 		const sf::RectangleShape getHitbox()const;

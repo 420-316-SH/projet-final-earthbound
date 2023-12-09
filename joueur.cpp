@@ -8,7 +8,7 @@
 #include "joueur.h"
 
 
-Joueur::Joueur(std::string nom, sf::RectangleShape& shape, sf::Texture& texture, sf::IntRect& rectSprite, sf::RectangleShape& hitbox) : Entite(nom, shape, texture, rectSprite, hitbox)
+Joueur::Joueur()
 {
 	_vivant = false;
 	//_inventaire = List<Item>();

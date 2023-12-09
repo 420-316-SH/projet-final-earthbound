@@ -21,7 +21,7 @@ private :
 	
 
 public:
-	Joueur(std::string nom, sf::RectangleShape& shape, sf::Texture& texture, sf::IntRect& rectSprite, sf::RectangleShape& hitbox);
+	Joueur();
 	~Joueur();
 
 	const bool getVivant() const;

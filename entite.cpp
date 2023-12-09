@@ -1,6 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include <cassert>
+#include <string>
 #include "Entite.h"
+
+Entite::Entite()
+{
+	_nom = "";
+}
 
 Entite::Entite(std::string nom, sf::RectangleShape& shape, sf::Texture& texture, sf::IntRect& rectSprite, sf::RectangleShape& hitbox)
 {
@@ -35,6 +40,11 @@ void Entite::init(int posX, int posY, int w, int h, const sf::IntRect& rectSprit
 const std::string Entite::getNom() const
 {
 	return _nom;
+}
+
+const sf::RectangleShape Entite::getShape() const
+{
+	return _shape;
 }
 
 const sf::Vector2f& Entite::getPosition() const

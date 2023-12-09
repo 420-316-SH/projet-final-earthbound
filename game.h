@@ -10,6 +10,8 @@ class Game
 		sf::Texture _textureBgMap;
 		Joueur _ness;
 	public:
+		Game();
+		~Game();
 		void init(int posX, int posY, int w, int h, const char* nomSprite);
 		void play();
 		const sf::RectangleShape getBG()const;
