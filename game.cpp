@@ -44,17 +44,80 @@ void Game::play()
 	fondEcran.setSize(Vector2f(100, 100));
 	fondEcran.setFillColor(Color::Green);
 
+
+	////////////////////////////////////////////////////////////////////////
+	//TEST MOVE ANIMATION
+
+	//Clock pour limiter les fps surtout pour la gestion des animations
+	Clock clock;
+	Time time;
+
+	RectangleShape animationTest;
+	IntRect animationFrame(1 , 226, 256, 224);
+	animationTest.setSize(Vector2f(256, 224));
+	Texture textureAnimation;
+
+	if (!textureAnimation.loadFromFile("img/testAnimation.png"))
+	{
+		exit(1);
+	}
+
+	animationTest.setTexture(&textureAnimation);
+	animationTest.setTextureRect(animationFrame);
+	int cptLeft=0;
+	int cptTop=0;
+	viewGame.zoom(5);
+	viewGame.move(-1800,100);
+	
+	//////////////////////////////////////////////////////////////////
+
+
+
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				window.close();
 		}
+		/////////////////////////////////////////////////////////////////////
+		//ANIMATION
+		time = clock.getElapsedTime();
+		if (time.asMilliseconds() >= 100.0f)
+		{
+		////////////////////////////////////////////////////////////////////	
+			window.clear();
+			window.setView(viewGame);
+			window.draw(getBG());
+			window.draw(_ness.getShape());
+			//////////////////////////////////////////////////////////////
+			//TEST ANIMATION
 
-		window.clear();
-		window.setView(viewGame);
-		window.draw(getBG());
-		window.draw(_ness.getShape());
-		window.display();
+			window.draw(animationTest);
+			if (cptLeft < 4 )
+			{
+				cptLeft++;
+				animationFrame.left += 257;
+			}
+			else if (cptTop < 17)
+			{
+				cptTop++;
+				cptLeft = 0;
+				animationFrame.left = 1;
+				animationFrame.top += 225;
+				                    
+			}
+			else
+			{
+				cptLeft = 0;
+				cptTop = 0;
+				animationFrame.left = 1;
+				animationFrame.top = 1;
+			}
+			cout << cptLeft << " " << cptTop;
+			animationTest.setTextureRect(animationFrame);
+			clock.restart();
+			/////////////////////////////////////////////////////////////
+			window.display();
+		}
 	}
 }
 
