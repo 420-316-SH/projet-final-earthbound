@@ -28,7 +28,7 @@ class List {
 	private:
 		Cellule<T>* _first; // Pointe sur la première cellule de la liste
 
-		List(const List<T>&); // Copieur (pour le désactiver, il faut le placer dans la section "private")
+		//List(const List<T>&); // Copieur (pour le désactiver, il faut le placer dans la section "private")
 
 	public:
 		// Classe d'un itérateur d'une liste (un itérateur doit être associé à une liste pour pointer une de ses cellules).
@@ -87,13 +87,15 @@ class List {
 template<typename T>
 inline List<T>::Iterator::Iterator()
 {
-	_current = _list = nullptr;
+	_current = nullptr;
+	_list = nullptr;
 }
 
 template<typename T>
 inline List<T>::Iterator::~Iterator()
 {
-	_current = _list = nullptr;
+	_current = nullptr;
+	_list = nullptr;
 }
 
 template<typename T>
@@ -251,13 +253,13 @@ inline typename List<T>::Iterator List<T>::insert(Iterator it, const T& element)
 	assert(it._list == this); //Verifie que l'iterateur recu en entre est initialise sur la liste qui fait l'appel
 	
 	if (_first == nullptr) //cas d'une liste vide
-		it._current = _first->prev = _first = new Cellule(element, nullptr, nullptr);
+		it._current = _first->_prev = _first = new Cellule<T>(element, nullptr, nullptr);
 	else if (it._current == _first) 
-		it._current = _first = _first->_prev = new Cellule(element, _first, _first->prev);
+		it._current = _first = _first->_prev = new Cellule<T>(element, _first, _first->_prev);
 	else if (it._current == nullptr)
-		it._current = _first->_prev = _first->_prev->_next = new Cellule(element, nullptr, _first->_prev);
+		it._current = _first->_prev = _first->_prev->_next = new Cellule<T>(element, nullptr, _first->_prev);
 	else
-		it._current = it._current->_prev = it._current->_prev->_next = new Cellule(element, it._current, it._current->_prev);
+		it._current = it._current->_prev = it._current->_prev->_next = new Cellule<T>(element, it._current, it._current->_prev);
 
 	return it;
 }
@@ -338,7 +340,7 @@ inline typename List<T>::Iterator List<T>::operator()(const T& element) const
 template<typename T>
 inline typename List<T>::Iterator List<T>::operator()(const T& element, Iterator it) const
 {
-	while (it._current != end() && it._current->_element != element) //it._current->_element peut etre remplacer par *it
+	while (it._current != nullptr && it._current->_element != element) //it._current->_element peut etre remplacer par *it
 	{
 		//it++; ou
 		it._current = it._current->_next;

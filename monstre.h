@@ -39,6 +39,7 @@ class Monstre : public Entite
 		std::string getDialogue()const;
 		vecteur<Move> getMoveSet()const;
 
+		void setMonstre(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int expGagne, vecteur<Move>& moveset, int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite);
 		void setVivant(bool vivant);
 		void setStatus(std::string nom, int duree, float selfHeal, std::string alteredStat, int alterValue); //À revoir
 		void setHp(int hp);

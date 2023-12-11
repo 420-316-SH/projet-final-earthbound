@@ -5,9 +5,8 @@
 #include "status.h"
 #include "move.h"
 #include "entite.h"
-#include "joueur.h"
+#include "item.h"
 #include "status.h"
-#include "entite.h"
 #include "joueur.h"
 #include "game.h"
 
@@ -16,7 +15,6 @@ int main() {
 	// Ajout Antho pour test
 	Game earthbound;
 	earthbound.play();
-
 
 	system("pause>0");
 

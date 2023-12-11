@@ -9,6 +9,8 @@ class Game
 		sf::RectangleShape _fondEcranPlay;
 		sf::Texture _textureBgMap;
 		Joueur _ness;
+		//vecteur<Monstre> _monstres;
+		Joueur _monstre;
 	public:
 		Game();
 		~Game();

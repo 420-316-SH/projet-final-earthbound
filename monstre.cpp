@@ -80,6 +80,21 @@ vecteur<Move> Monstre::getMoveSet() const
 	return _moveSet;
 }
 
+void Monstre::setMonstre(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int expGagne, vecteur<Move>& moveset, int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite)
+{
+	setVivant(vivant);
+	setHp(hp);
+	setIntel(intel);
+	setForce(force);
+	setDef(def);
+	setCrit(crit);
+	setSpeed(speed);
+	setLvl(lvl);
+	setExpGagne(expGagne);
+	init(posX, posY, w, h, rectSprite, nomSprite);
+	_moveSet = moveset;
+}
+
 void Monstre::setVivant(bool vivant)
 {
 	_vivant = vivant;
