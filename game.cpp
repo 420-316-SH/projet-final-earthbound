@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Windows.h>
+#include "list.hpp"
 #include "vecteur.hpp"
+#include "item.h"
 #include "status.h"
 #include "move.h"
 #include "entite.h"

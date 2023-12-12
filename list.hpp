@@ -358,7 +358,7 @@ inline const List<T>& List<T>::operator=(const List<T>& liste)
 
 	List<T>::Iterator it = liste.begin();
 
-	while (!liste.end())
+	while (it != liste.end())
 	{
 		insert(end(), it._current->_element); //it._current->_element == *it
 		it++;

@@ -11,7 +11,7 @@
 Joueur::Joueur()
 {
 	_vivant = false;
-	//_inventaire = List<Item>();
+	//_inventaire = List<Item>(); Pas besoin parceque le constructeur de la classe List sera utilisé
 	_hp = 0;
 	_intel = 0;
 	_force = 0;
@@ -52,11 +52,11 @@ const Status Joueur::getStatus() const
 	return _status;
 }
 
-/*const List<int> Joueur::getInventaire() const
+
+const List<Item> Joueur::getInventaire() const
 {
 	return _inventaire;
-}*/
-
+}
 const int Joueur::getHp() const
 {
 	return _hp;
@@ -140,17 +140,20 @@ void Joueur::setStatus(Status status)
 	_status = status;
 }
 
-/*void Joueur::addItem(Item newItem)
-{
-	_inventaire.insert(_inventaire.end(), newItem.getId());
-}*/
 
-/*void Joueur::removeItem(Item usedItem)
+void Joueur::addItem(Item newItem)
+{
+	_inventaire.insert(_inventaire.end(), newItem);
+}
+
+/* À revoir
+void Joueur::removeItem(Item usedItem)
 {
 	assert(!_inventaire.empty());
 
-	_inventaire.erase(_inventaire(usedItem.getId()));
-}*/
+	_inventaire.erase(_inventaire(usedItem));
+}
+*/
 
 void Joueur::setHp(int hp)
 {
