@@ -8,6 +8,7 @@
 #include "item.h"
 #include "status.h"
 #include "joueur.h"
+#include "monstre.h"
 #include "game.h"
 
 
