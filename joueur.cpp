@@ -53,7 +53,7 @@ const Status Joueur::getStatus() const
 }
 
 
-const List<Item> Joueur::getInventaire() const
+const List<int> Joueur::getInventaire() const
 {
 	return _inventaire;
 }
@@ -143,17 +143,17 @@ void Joueur::setStatus(Status status)
 
 void Joueur::addItem(Item newItem)
 {
-	_inventaire.insert(_inventaire.end(), newItem);
+	_inventaire.insert(_inventaire.end(), newItem.getId());
 }
 
-/* À revoir
+//À revoir
 void Joueur::removeItem(Item usedItem)
 {
 	assert(!_inventaire.empty());
 
-	_inventaire.erase(_inventaire(usedItem));
+	_inventaire.erase(_inventaire(usedItem.getId()));
 }
-*/
+
 
 void Joueur::setHp(int hp)
 {

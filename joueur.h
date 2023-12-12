@@ -4,7 +4,7 @@ class Joueur : public Entite
 private :
 	bool _vivant;
 	Status _status;
-	List<Item> _inventaire;
+	List<int> _inventaire;
 	int _hp;
 	int _intel;
 	int _force;
@@ -24,7 +24,7 @@ public:
 
 	const bool getVivant() const;
 	const Status getStatus() const;
-	const List<Item> getInventaire() const;
+	const List<int> getInventaire() const;
 	const int getHp() const;
 	const int getIntel() const;
 	const int getForce() const;
@@ -41,7 +41,7 @@ public:
 	void setVivant(bool vivant);
 	void setStatus(Status status);
 	void addItem(Item newItem); 
-	//void removeItem(Item usedItem); À revoir
+	void removeItem(Item usedItem);
 	void setHp(int hp);
 	void setIntel(int intel);
 	void setForce(int force);

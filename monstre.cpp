@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp> //Est-ce necessaire dans mes pages/dans toutes les pages?
 #include <cassert>
+#include "vecteur.hpp"
 #include "entite.h"
 #include "status.h"
 #include "move.h"
-#include "vecteur.hpp"
 #include "monstre.h"
 
 Monstre::Monstre()

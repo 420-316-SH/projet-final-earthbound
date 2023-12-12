@@ -29,9 +29,9 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	}
 	_fondEcranPlay.setTexture(&_textureBgMap);
 	vecteur<Move> moveNess;
-	sf::IntRect rectSpriteNess(0, 14, 16, 24);
- 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2550, 350, 16, 24, rectSpriteNess, "img/ness.png");
-	_monstre.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2500, 350, 16, 24, rectSpriteNess, "img/ness.png");
+	sf::IntRect rectSpriteNess(0, 0, 16, 24);
+ 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2550, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2500, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 }
 
 void Game::play()
@@ -79,6 +79,7 @@ void Game::play()
 					else
 					{
 						dir = 1;//bas
+						
 					}
 					break;
 				case Keyboard::W:
@@ -325,7 +326,8 @@ void Game::play()
 		window.draw(getBG());
 		window.draw(_ness.getShape());
 		window.draw(_monstre.getShape());
-		_ness.move(dir, lastX, lastY, animationCpt);
+		viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+		
 		cpt = _monstre.moveMonstre(cpt);
 		window.display();
 	}
