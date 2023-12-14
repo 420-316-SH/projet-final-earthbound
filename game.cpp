@@ -45,7 +45,7 @@ void Game::play()
 	int animationCpt = 0;
 	int cpt = 0;
 
-	init(0, 0, 3000, 3328, "img/bgMap.png");
+sw	init(0, 0, 3000, 3328, "img/bgMap.png");
 	RenderWindow window(VideoMode(1600, 900), "Titre de la fenêtre");
 	Event event;
 	RectangleShape fondEcran;
