@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Windows.h>
+
 #include "list.hpp"
 #include "vecteur.hpp"
+#include "entite.h"
 #include "item.h"
 #include "status.h"
 #include "move.h"
-#include "entite.h"
 #include "monstre.h"
 #include "joueur.h"
 #include "game.h"
@@ -31,7 +32,10 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	vecteur<Move> moveNess;
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
  	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2550, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2500, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 2500, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	
+	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 2450, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	
 }
 
 void Game::play()
@@ -43,18 +47,43 @@ void Game::play()
 	int dirY = 0;
 	float temp = 0;
 	int animationCpt = 0;
-	int cpt = 0;
+	int cpt1 = 0;
+	int cpt2 = 0;
 
 	init(0, 0, 3000, 3328, "img/bgMap.png");
-	RenderWindow window(VideoMode(1600, 900), "Titre de la fenêtre");
+	RenderWindow window(VideoMode(1600, 900), "Earthbound");
 	Event event;
 	RectangleShape fondEcran;
+	RectangleShape fondEcranFight;
+	RectangleShape statJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	viewGame.zoom(0.3);
 	viewGame.move(1800, -100);
 
+	fondEcranFight.setSize(Vector2f(_fondEcranPlay.getSize().x, _fondEcranPlay.getSize().y));
+	fondEcranFight.setFillColor(Color::Black);
+
+	statJoueur.setSize(Vector2f(40, 50));
+	statJoueur.setFillColor(Color::Blue);
+	statJoueur.setOutlineThickness(4);
+	statJoueur.setOutlineColor(Color::White);
+
 	fondEcran.setSize(Vector2f(100, 100));
 	fondEcran.setFillColor(Color::Green);
+
+	Font font;
+	Text nomJoueur;
+	if (!font.loadFromFile("ressources/arial.ttf")) {
+		exit(1);
+	}
+
+	nomJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	nomJoueur.setString("Ness");		//Set le texte à afficher
+	nomJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	nomJoueur.setFillColor(Color::Black);			//Set la couleur du texte
+	nomJoueur.setStyle(0);	//Set le style du texte
+	nomJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 38, _ness.getShape().getPosition().y + 50));
+	
 
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
@@ -320,20 +349,49 @@ void Game::play()
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
 		}
-
+		if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) {
+			_monstre1.setPosition(Vector2f(_ness.getShape().getPosition().x + 40, _ness.getShape().getPosition().y));
+			statJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 50));
+			window.clear();
+			window.setView(viewGame);
+			window.draw(fondEcranFight);
+			window.draw(_monstre1.getShape());
+			window.draw(statJoueur);
+			window.draw(nomJoueur);
+			window.display();
+			system("pause>0");
+		}
+		if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
+			_monstre2.setPosition(Vector2f(_ness.getShape().getPosition().x + 40, _ness.getShape().getPosition().y));
+			window.clear();
+			window.setView(viewGame);
+			window.draw(fondEcranFight);
+			window.draw(nomJoueur);
+			window.draw(_monstre2.getShape());
+			window.display();
+			system("pause>0");
+		}
+		
 		window.clear();
 		window.setView(viewGame);
 		window.draw(getBG());
 		window.draw(_ness.getShape());
-		window.draw(_monstre.getShape());
+		window.draw(_monstre1.getShape());
+		window.draw(_monstre2.getShape());
+		
 		viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
 		
-		cpt = _monstre.moveMonstre(cpt);
+		cpt1 = _monstre1.moveMonstre(cpt1);
+		cpt2 = _monstre2.moveMonstre(cpt2);
 		window.display();
 	}
 }
+
 
 const sf::RectangleShape Game::getBG() const
 {
 	return _fondEcranPlay;
 }
+
+
+
