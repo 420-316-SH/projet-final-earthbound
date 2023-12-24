@@ -7,6 +7,7 @@
 #include "entite.h"
 #include "item.h"
 #include "status.h"
+#include "monstre.h"
 #include "joueur.h"
 #include "game.h"
 

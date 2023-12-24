@@ -9,13 +9,14 @@ class Game
 		sf::RectangleShape _fondEcranPlay;
 		sf::Texture _textureBgMap;
 		Joueur _ness;
-		//vecteur<Monstre> _monstres;
-		Joueur _monstre;
+		Monstre _monstre1;
+		Monstre _monstre2;
 	public:
 		Game();
 		~Game();
 		void init(int posX, int posY, int w, int h, const char* nomSprite);
 		void play();
 		const sf::RectangleShape getBG()const;
+		
 };
 
