@@ -24,17 +24,17 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 {
 	_fondEcranPlay.setPosition(posX, posY);
 	_fondEcranPlay.setSize(Vector2f(w, h));
-	if (!_textureBgMap.loadFromFile("img/bgMap.png"))
+	if (!_textureBgMap.loadFromFile("img/mapPetite.png"))
 	{
 		exit(1);
 	}
 	_fondEcranPlay.setTexture(&_textureBgMap);
 	vecteur<Move> moveNess;
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
- 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2550, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 2500, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	
-	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 2450, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+ 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1200, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+
+	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1150, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 	
 }
 
@@ -50,7 +50,7 @@ void Game::play()
 	int cpt1 = 0;
 	int cpt2 = 0;
 
-	init(0, 0, 3000, 3328, "img/bgMap.png");
+	init(0, 0, 1716, 760, "img/mapPetite.png");
 	RenderWindow window(VideoMode(1600, 900), "Earthbound");
 	Event event;
 	RectangleShape fondEcran;
@@ -58,13 +58,13 @@ void Game::play()
 	RectangleShape statJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	viewGame.zoom(0.3);
-	viewGame.move(1800, -100);
+	viewGame.move(500, -100);
 
 	fondEcranFight.setSize(Vector2f(_fondEcranPlay.getSize().x, _fondEcranPlay.getSize().y));
 	fondEcranFight.setFillColor(Color::Black);
 
 	statJoueur.setSize(Vector2f(40, 50));
-	statJoueur.setFillColor(Color::Blue);
+	statJoueur.setFillColor(Color::Black);
 	statJoueur.setOutlineThickness(4);
 	statJoueur.setOutlineColor(Color::White);
 
@@ -72,17 +72,52 @@ void Game::play()
 	fondEcran.setFillColor(Color::Green);
 
 	Font font;
-	Text nomJoueur;
 	if (!font.loadFromFile("ressources/arial.ttf")) {
 		exit(1);
 	}
 
+	Text nomJoueur;
+
 	nomJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
 	nomJoueur.setString("Ness");		//Set le texte à afficher
 	nomJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
-	nomJoueur.setFillColor(Color::Black);			//Set la couleur du texte
+	nomJoueur.setFillColor(Color::White);			//Set la couleur du texte
 	nomJoueur.setStyle(0);	//Set le style du texte
-	nomJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 38, _ness.getShape().getPosition().y + 50));
+	nomJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 18, _ness.getShape().getPosition().y + 50));
+
+	Text pp;
+	Text ppJoueur;
+
+	ppJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	ppJoueur.setString(std::to_string(_ness.getPp()));		//Set le texte à afficher
+	ppJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	ppJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	ppJoueur.setStyle(0);	//Set le style du texte
+	ppJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 80));
+
+	pp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	pp.setString("Pp : ");		//Set le texte à afficher
+	pp.setCharacterSize(10); 			//Set la taille (en pixels)
+	pp.setFillColor(Color::White);			//Set la couleur du texte
+	pp.setStyle(0);	//Set le style du texte
+	pp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 80));
+
+	Text hp;
+	Text hpJoueur;
+
+	hpJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	hpJoueur.setString(std::to_string(_ness.getHp()));		//Set le texte à afficher
+	hpJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	hpJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	hpJoueur.setStyle(0);	//Set le style du texte
+	hpJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 65));
+
+	hp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	hp.setString("Hp : ");		//Set le texte à afficher
+	hp.setCharacterSize(10); 			//Set la taille (en pixels)
+	hp.setFillColor(Color::White);			//Set la couleur du texte
+	hp.setStyle(0);	//Set le style du texte
+	hp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 65));
 	
 
 	while (window.isOpen()) {
@@ -350,14 +385,18 @@ void Game::play()
 			}
 		}
 		if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) {
-			_monstre1.setPosition(Vector2f(_ness.getShape().getPosition().x + 40, _ness.getShape().getPosition().y));
-			statJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 50));
+			_monstre1.setPosition(Vector2f(_ness.getShape().getPosition().x + 20, _ness.getShape().getPosition().y - 20));
+			statJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 50));
 			window.clear();
 			window.setView(viewGame);
 			window.draw(fondEcranFight);
 			window.draw(_monstre1.getShape());
 			window.draw(statJoueur);
 			window.draw(nomJoueur);
+			window.draw(hpJoueur);
+			window.draw(hp);
+			window.draw(ppJoueur);
+			window.draw(pp);
 			window.display();
 			system("pause>0");
 		}
