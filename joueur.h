@@ -4,7 +4,7 @@ class Joueur : public Entite
 private :
 	bool _vivant;
 	Status _status;
-	//List<Item> _inventaire;
+	List<int> _inventaire;
 	int _hp;
 	int _intel;
 	int _force;
@@ -18,15 +18,13 @@ private :
 	vecteur<Move> _moveset;
 
 
-	
-
 public:
 	Joueur();
 	~Joueur();
 
 	const bool getVivant() const;
 	const Status getStatus() const;
-	//const List<Item> getInventaire() const;
+	const List<int> getInventaire() const;
 	const int getHp() const;
 	const int getIntel() const;
 	const int getForce() const;
@@ -42,8 +40,8 @@ public:
 	void setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move>& moveset, int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite);
 	void setVivant(bool vivant);
 	void setStatus(Status status);
-	//void addItem(Item newItem);
-	//void removeItem(Item usedItem);
+	void addItem(Item newItem); 
+	void removeItem(Item usedItem);
 	void setHp(int hp);
 	void setIntel(int intel);
 	void setForce(int force);
@@ -56,4 +54,3 @@ public:
 	void setNextLvl(int nextLvl);
 	void addMove(Move move);
 };
-

@@ -24,5 +24,8 @@ class Entite
 		void setPosition(int posX, int posY);
 		void setPosition(const sf::Vector2f& pos);
 		void setHitboxPosition(int posX, int posY);
+
+		sf::View move(int& dir, float x, float y, int& animationCpt, sf::View viewGame);
+		int moveMonstre(int cpt);
 };
 

@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <Windows.h>
 #include <string>
 #include "Entite.h"
 
@@ -80,4 +82,192 @@ void Entite::setPosition(const sf::Vector2f& pos)
 void Entite::setHitboxPosition(int posX, int posY)
 {
 	_hitbox.setPosition(posX, posY);
+}
+
+sf::View Entite::move(int& dir, float x, float y, int& animationCpt, sf::View viewGame)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) && (x == 0) && (y == 0))
+	{
+		if (dir > 0)
+		{
+			animationCpt++;
+			if (animationCpt >= 400)
+			{
+				_rectSprite.left += 16;
+				animationCpt = 0;
+			}
+			if (_rectSprite.left >= 64)
+			{
+				_rectSprite.left = 0;
+			}
+		}
+		switch (dir)
+		{
+		case 1://down
+			_rectSprite.top = 0;
+			_shape.move(0, 0.025);
+			_hitbox.move(0, 0.025);
+			viewGame.move(0, 0.025);
+			break;
+
+		case 2://up
+			_rectSprite.top = 24;
+			_shape.move(0, -0.025);
+			_hitbox.move(0, -0.025);
+			viewGame.move(0, -0.025);
+			break;
+
+		case 3://left
+			_rectSprite.top = 72;
+			_shape.move(-0.025, 0);
+			_hitbox.move(-0.025, 0);
+			viewGame.move(-0.025, 0);
+			break;
+
+		case 4://right
+			_rectSprite.top = 48;
+			_shape.move(0.025, 0);
+			_hitbox.move(0.025, 0);
+			viewGame.move(0.025, 0);
+			break;
+
+		case 5://down left
+			_rectSprite.top = 0;
+			_shape.move(-0.025, 0.025);
+			_hitbox.move(-0.025, 0.025);
+			viewGame.move(-0.025, 0.025);
+			break;
+
+		case 6://down right
+			_rectSprite.top = 0;
+			_shape.move(0.025, 0.025);
+			_hitbox.move(0.025, 0.025);
+			viewGame.move(0.025, 0.025);
+			break;
+
+		case 7://up left
+			_rectSprite.top = 24;
+			_shape.move(-0.025, -0.025);
+			_hitbox.move(-0.025, -0.025);
+			viewGame.move(-0.025, -0.025);
+			break;
+
+		case 8://up right
+			_rectSprite.top = 24;
+			_shape.move(0.025, -0.025);
+			_hitbox.move(0.025, -0.025);
+			viewGame.move(0.025, -0.025);
+			break;
+
+		case 9://left down
+			_rectSprite.top = 72;
+			_shape.move(-0.025, 0.025);
+			_hitbox.move(-0.025, 0.025);
+			viewGame.move(-0.025, 0.025);
+			break;
+
+		case 10://left up
+			_rectSprite.top = 72;
+			_shape.move(-0.025, -0.025);
+			_hitbox.move(-0.025, -0.025);
+			viewGame.move(-0.025, -0.025);
+			break;
+
+		case 11://right down
+			_rectSprite.top = 48;
+			_shape.move(0.025, 0.025);
+			_hitbox.move(0.025, 0.025);
+			viewGame.move(0.025, 0.025);
+			break;
+
+		case 12://right up
+			_rectSprite.top = 48;
+			_shape.move(0.025, -0.025);
+			_hitbox.move(0.025, -0.025);
+			viewGame.move(0.025, -0.025);
+			break;
+
+		default:
+			animationCpt = 0;
+			break;
+		}
+		_shape.setTextureRect(_rectSprite);
+	}
+	else if (x != 0 || y != 0)//joystick
+	{
+		if (dir != 0)
+		{
+			animationCpt++;
+			switch (dir)
+			{
+			case 1:
+				_rectSprite.top = 0;
+				break;
+
+			case 2:
+				_rectSprite.top = 24;
+				break;
+
+			case 3:
+				_rectSprite.top = 72;
+				break;
+
+			case 4:
+				_rectSprite.top = 48;
+				break;
+			default:
+				break;
+			}
+		}
+		else
+			animationCpt = 0;
+		if (animationCpt == 400)
+		{
+			_rectSprite.left += 16;
+			if (_rectSprite.left >= 64)
+			{
+				_rectSprite.left = 0;
+			}
+			animationCpt = 0;
+		}
+		_shape.setTextureRect(_rectSprite);
+		_shape.move(x/150, y/150);
+		_hitbox.setPosition(_shape.getPosition().x + 6, _shape.getPosition().y + 6);
+		viewGame.move(x/150, y/150);
+	}
+	return viewGame;
+}
+
+int Entite::moveMonstre(int cpt)
+{
+
+	if (cpt >= 0 && cpt < 2500)
+	{
+		_shape.move(0.030, 0);
+		_hitbox.move(0.030, 0);
+		cpt++;
+	}
+	else if (cpt >= 2500 && cpt < 5000)
+	{
+		_shape.move(0, 0.030);
+		_hitbox.move(0, 0.030);
+		cpt++;
+	}
+	else if (cpt >= 5000 && cpt < 7500)
+	{
+		_shape.move(-0.030, 0);
+		_hitbox.move(-0.030, 0);
+		cpt++;
+	}
+	else
+	{
+		_shape.move(0, -0.030);
+		_hitbox.move(0, -0.030);
+		cpt++;
+	}
+	if (cpt == 10000) 
+	{
+		cpt = 0;
+	}
+	return cpt;
 }

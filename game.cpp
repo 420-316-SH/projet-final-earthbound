@@ -1,10 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Windows.h>
+
+#include "list.hpp"
 #include "vecteur.hpp"
+#include "entite.h"
+#include "item.h"
 #include "status.h"
 #include "move.h"
-#include "entite.h"
+#include "monstre.h"
 #include "joueur.h"
 #include "game.h"
 
@@ -20,36 +24,109 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 {
 	_fondEcranPlay.setPosition(posX, posY);
 	_fondEcranPlay.setSize(Vector2f(w, h));
-	if (!_textureBgMap.loadFromFile("img/bgMap.png"))
+	if (!_textureBgMap.loadFromFile("img/mapPetite.png"))
 	{
 		exit(1);
 	}
 	_fondEcranPlay.setTexture(&_textureBgMap);
 	vecteur<Move> moveNess;
-	sf::IntRect rectSpriteNess(35, 14, 16, 24);
- 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2550, 350, 16, 24, rectSpriteNess, "img/ness.png");
+	sf::IntRect rectSpriteNess(0, 0, 16, 24);
+ 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1200, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 
+	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1150, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	
 }
 
 void Game::play()
 {
-	init(0, 0, 3000, 3328, "img/bgMap.png");
-	RenderWindow window(VideoMode(1600, 900), "Titre de la fenêtre");
+	float lastX = 0;
+	float lastY = 0;
+	int dir = 0;
+	int dirX = 0;
+	int dirY = 0;
+	float temp = 0;
+	int animationCpt = 0;
+	int cpt1 = 0;
+	int cpt2 = 0;
+
+	init(0, 0, 1716, 760, "img/mapPetite.png");
+	RenderWindow window(VideoMode(1600, 900), "Earthbound");
 	Event event;
 	RectangleShape fondEcran;
+	RectangleShape fondEcranFight;
+	RectangleShape statJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	viewGame.zoom(0.3);
-	viewGame.move(1800, -100);
+	viewGame.move(500, -100);
+
+	fondEcranFight.setSize(Vector2f(_fondEcranPlay.getSize().x, _fondEcranPlay.getSize().y));
+	fondEcranFight.setFillColor(Color::Black);
+
+	statJoueur.setSize(Vector2f(40, 50));
+	statJoueur.setFillColor(Color::Black);
+	statJoueur.setOutlineThickness(4);
+	statJoueur.setOutlineColor(Color::White);
 
 	fondEcran.setSize(Vector2f(100, 100));
 	fondEcran.setFillColor(Color::Green);
 
+	Font font;
+	if (!font.loadFromFile("ressources/arial.ttf")) {
+		exit(1);
+	}
+
+	Text nomJoueur;
+
+	nomJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	nomJoueur.setString("Ness");		//Set le texte à afficher
+	nomJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	nomJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	nomJoueur.setStyle(0);	//Set le style du texte
+	nomJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 18, _ness.getShape().getPosition().y + 50));
+
+	Text pp;
+	Text ppJoueur;
+
+	ppJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	ppJoueur.setString(std::to_string(_ness.getPp()));		//Set le texte à afficher
+	ppJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	ppJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	ppJoueur.setStyle(0);	//Set le style du texte
+	ppJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 80));
+
+	pp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	pp.setString("Pp : ");		//Set le texte à afficher
+	pp.setCharacterSize(10); 			//Set la taille (en pixels)
+	pp.setFillColor(Color::White);			//Set la couleur du texte
+	pp.setStyle(0);	//Set le style du texte
+	pp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 80));
+
+	Text hp;
+	Text hpJoueur;
+
+	hpJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	hpJoueur.setString(std::to_string(_ness.getHp()));		//Set le texte à afficher
+	hpJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	hpJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	hpJoueur.setStyle(0);	//Set le style du texte
+	hpJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 65));
+
+	hp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	hp.setString("Hp : ");		//Set le texte à afficher
+	hp.setCharacterSize(10); 			//Set la taille (en pixels)
+	hp.setFillColor(Color::White);			//Set la couleur du texte
+	hp.setStyle(0);	//Set le style du texte
+	hp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 65));
+	
+
 
 	////////////////////////////////////////////////////////////////////////
-	//TEST MOVE ANIMATION
+	// MOVE ANIMATION Ne Pas Supprimer SVP
+	// Fonctionnalité qu'on aura surement pas le temps d'implémenter, mais j'aimerais garder ce code quand même,car l'annimation fonctionnais
 
 	//Clock pour limiter les fps surtout pour la gestion des animations
-	Clock clock;
+	/*Clock clock;
 	Time time;
 
 	RectangleShape animationTest;
@@ -68,7 +145,48 @@ void Game::play()
 	int cptTop=0;
 	viewGame.zoom(5);
 	viewGame.move(-1800,100);
-	
+
+	/////////////////////////////////////////////////////////////////////
+	//ANIMATION
+
+	time = clock.getElapsedTime();
+	if (time.asMilliseconds() >= 100.0f)
+	{
+	////////////////////////////////////////////////////////////////////
+		window.clear();
+		window.setView(viewGame);
+		window.draw(getBG());
+		window.draw(_ness.getShape());
+		//////////////////////////////////////////////////////////////
+		//TEST ANIMATION
+
+		window.draw(animationTest);
+		if (cptLeft < 4 )
+		{
+			cptLeft++;
+			animationFrame.left += 257;
+		}
+		else if (cptTop < 17)
+		{
+			cptTop++;
+			cptLeft = 0;
+			animationFrame.left = 1;
+			animationFrame.top += 225;
+
+		}
+		else
+		{
+			cptLeft = 0;
+			cptTop = 0;
+			animationFrame.left = 1;
+			animationFrame.top = 1;
+		}
+		cout << cptLeft << " " << cptTop;
+		animationTest.setTextureRect(animationFrame);
+		clock.restart();
+		/////////////////////////////////////////////////////////////
+		window.display();
+	*/
 	//////////////////////////////////////////////////////////////////
 
 
@@ -77,51 +195,314 @@ void Game::play()
 		while (window.pollEvent(event)) {
 			if (event.type == Event::Closed)
 				window.close();
+			else if (event.type == Event::KeyPressed)
+			{
+				switch (event.key.code) {
+				case Keyboard::Escape:
+					window.close();
+					break;
+				case Keyboard::S:
+
+					if (Keyboard::isKeyPressed(Keyboard::A))
+					{
+						dir = 5;//bas gauche
+					}
+					else if (Keyboard::isKeyPressed(Keyboard::D))
+					{
+						dir = 6;//bas droite
+					}
+					else
+					{
+						dir = 1;//bas
+						
+					}
+					break;
+				case Keyboard::W:
+					if (Keyboard::isKeyPressed(Keyboard::A))
+					{
+						dir = 7;//haut gauche
+					}
+					else if (Keyboard::isKeyPressed(Keyboard::D))
+					{
+						dir = 8;//haut droite
+					}
+					else
+					{
+						dir = 2;//Haut
+					}
+					break;
+				case Keyboard::A:
+					if (Keyboard::isKeyPressed(Keyboard::S))
+					{
+						dir = 9;//Gauche bas
+					}
+					else if (Keyboard::isKeyPressed(Keyboard::W))
+					{
+						dir = 10;//Gauche haut
+					}
+					else
+					{
+						dir = 3;//gauche
+					}
+
+					break;
+				case Keyboard::D:
+					if (Keyboard::isKeyPressed(Keyboard::S))
+					{
+						dir = 11;//Droite bas
+					}
+					else if (Keyboard::isKeyPressed(Keyboard::W))
+					{
+						dir = 12;//Droite haut
+					}
+					else
+					{
+						dir = 4;//Droite
+					}
+					break;
+				default:
+					dir = 0;
+					break;
+				}
+
+				//std::cout << dir << std::endl;
+			}
+			else if (event.type == Event::KeyReleased)//Pour régler les diagonales qui continue même si on à Released une touche
+			{
+				switch (event.key.code)
+				{
+				case Keyboard::S:
+					//std::cout << "Released" << event.type;
+					switch (dir)
+					{
+					case 1:
+						dir = 0;
+						break;
+					case 5:
+						dir = 3;
+						break;
+					case 6:
+						dir = 4;
+						break;
+					case 9:
+						dir = 3;
+						break;
+					case 11:
+						dir = 4;
+					default:
+						break;
+					}
+					break;
+				case Keyboard::W:
+					switch (dir)
+					{
+					case 2:
+						dir = 0;
+						break;
+					case 7:
+						dir = 3;
+						break;
+					case 8:
+						dir = 4;
+						break;
+					case 10:
+						dir = 3;
+						break;
+					case 12:
+						dir = 4;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Keyboard::A:
+					switch (dir)
+					{
+					case 3:
+						dir = 0;
+						break;
+					case 5:
+						dir = 1;
+						break;
+					case 7:
+						dir = 2;
+						break;
+					case 9:
+						dir = 1;
+						break;
+					case 10:
+						dir = 2;
+						break;
+					default:
+						break;
+					}
+					break;
+				case Keyboard::D:
+					switch (dir)
+					{
+					case 4:
+						dir = 0;
+						break;
+					case 6:
+						dir = 1;
+						break;
+					case 8:
+						dir = 2;
+						break;
+					case 11:
+						dir = 1;
+						break;
+					case 12:
+						dir = 2;
+						break;
+					default:
+						break;
+					}
+					break;
+				default:
+					break;
+				}
+			}
+			else if (event.type == Event::JoystickMoved)
+			{
+				if (event.joystickMove.axis == sf::Joystick::X)
+				{
+					lastX = Joystick::getAxisPosition(0, sf::Joystick::X) / 25;
+					std::cout << "X: " << Joystick::getAxisPosition(0, sf::Joystick::X) << std::endl;
+					if (lastX < 0)
+					{
+						dirX = 3;
+					}
+					else if (lastX > 0)
+					{
+						dirX = 4;
+					}
+				}
+				if (event.joystickMove.axis == sf::Joystick::Y)
+				{
+					lastY = event.joystickMove.position / 25;
+					std::cout << "Y: " << Joystick::getAxisPosition(0, sf::Joystick::Y) << std::endl;
+					if (lastY < 0)
+					{
+						dirY = 2;
+					}
+					else if (lastY > 0)
+					{
+						dirY = 1;
+					}
+				}
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// À METTRE EN FONCTIOM SI ON A LE TEMPS
+				// Doit déterminer la valeur la plus importante pour choisir quelle sprite afficher pour le bonhomme
+				// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//comparer lastX et lastY
+				if (lastX < 0 && lastY > 0)
+				{
+					//conversion
+					temp = lastX * -1;
+					if (temp >= lastY)
+					{
+						dir = dirX;
+					}
+					else
+					{
+						dir = dirY;
+					}
+				}
+				else if (lastX > 0 && lastY < 0)
+				{
+					//conversion
+					temp = lastY * -1;
+					if (temp >= lastX)
+					{
+						dir = dirY;
+					}
+					else
+					{
+						dir = dirX;
+					}
+				}
+				else if (lastY < 0 && lastX < 0)
+				{
+					if (lastX <= lastY)
+					{
+						dir = dirX;
+					}
+					else
+					{
+						dir = dirY;
+					}
+				}
+				else if (lastY > 0 && lastX > 0)
+				{
+					if (lastX > lastY)
+					{
+						dir = dirX;
+					}
+					else
+					{
+						dir = dirY;
+					}
+				}
+				//deadZone pas de movement
+				if (lastX < 0.2 && lastX > -0.2 && lastY < 0.2 && lastY > -0.2)
+				{
+					dir = 0;
+					lastX = 0;
+					lastY = 0;
+				}
+				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			}
 		}
-		/////////////////////////////////////////////////////////////////////
-		//ANIMATION
-		time = clock.getElapsedTime();
-		if (time.asMilliseconds() >= 100.0f)
-		{
-		////////////////////////////////////////////////////////////////////	
+		if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) {
+			_monstre1.setPosition(Vector2f(_ness.getShape().getPosition().x + 20, _ness.getShape().getPosition().y - 20));
+			statJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 50));
 			window.clear();
 			window.setView(viewGame);
-			window.draw(getBG());
-			window.draw(_ness.getShape());
-			//////////////////////////////////////////////////////////////
-			//TEST ANIMATION
-
-			window.draw(animationTest);
-			if (cptLeft < 4 )
-			{
-				cptLeft++;
-				animationFrame.left += 257;
-			}
-			else if (cptTop < 17)
-			{
-				cptTop++;
-				cptLeft = 0;
-				animationFrame.left = 1;
-				animationFrame.top += 225;
-				                    
-			}
-			else
-			{
-				cptLeft = 0;
-				cptTop = 0;
-				animationFrame.left = 1;
-				animationFrame.top = 1;
-			}
-			cout << cptLeft << " " << cptTop;
-			animationTest.setTextureRect(animationFrame);
-			clock.restart();
-			/////////////////////////////////////////////////////////////
+			window.draw(fondEcranFight);
+			window.draw(_monstre1.getShape());
+			window.draw(statJoueur);
+			window.draw(nomJoueur);
+			window.draw(hpJoueur);
+			window.draw(hp);
+			window.draw(ppJoueur);
+			window.draw(pp);
 			window.display();
+			system("pause>0");
 		}
+		if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
+			_monstre2.setPosition(Vector2f(_ness.getShape().getPosition().x + 40, _ness.getShape().getPosition().y));
+			window.clear();
+			window.setView(viewGame);
+			window.draw(fondEcranFight);
+			window.draw(nomJoueur);
+			window.draw(_monstre2.getShape());
+			window.display();
+			system("pause>0");
+		}
+		
+		window.clear();
+		window.setView(viewGame);
+		window.draw(getBG());
+		window.draw(_ness.getShape());
+		window.draw(_monstre1.getShape());
+		window.draw(_monstre2.getShape());
+		
+		viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+		
+		cpt1 = _monstre1.moveMonstre(cpt1);
+		cpt2 = _monstre2.moveMonstre(cpt2);
+		window.display();
 	}
 }
+
+
 
 const sf::RectangleShape Game::getBG() const
 {
 	return _fondEcranPlay;
 }
+
+
+

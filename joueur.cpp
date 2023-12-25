@@ -1,17 +1,17 @@
 #include <SFML/Graphics.hpp>
 #include "list.hpp"
 #include "vecteur.hpp"
-#include "entite.h"
 #include "status.h"
 #include "move.h"
-//#include "item.h"
+#include "entite.h"
+#include "item.h"
 #include "joueur.h"
 
 
 Joueur::Joueur()
 {
 	_vivant = false;
-	//_inventaire = List<Item>();
+	//_inventaire = List<Item>(); Pas besoin parceque le constructeur de la classe List sera utilisé
 	_hp = 0;
 	_intel = 0;
 	_force = 0;
@@ -52,11 +52,11 @@ const Status Joueur::getStatus() const
 	return _status;
 }
 
-/*const List<Item> Joueur::getInventaire() const
+
+const List<int> Joueur::getInventaire() const
 {
 	return _inventaire;
-}*/
-
+}
 const int Joueur::getHp() const
 {
 	return _hp;
@@ -140,18 +140,20 @@ void Joueur::setStatus(Status status)
 	_status = status;
 }
 
-/*void Joueur::addItem(Item newItem)
-{
-	_inventaire.end();
-	_inventaire.insert(newItem);
-}*/
 
-/*void Joueur::removeItem(Item usedItem)
+void Joueur::addItem(Item newItem)
+{
+	_inventaire.insert(_inventaire.end(), newItem.getId());
+}
+
+//À revoir
+void Joueur::removeItem(Item usedItem)
 {
 	assert(!_inventaire.empty());
 
-	_inventaire.erase(_inventaire(usedItem));
-}*/
+	_inventaire.erase(_inventaire(usedItem.getId()));
+}
+
 
 void Joueur::setHp(int hp)
 {
