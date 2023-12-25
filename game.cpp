@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <Windows.h>
 
+#include "queue.hpp"
 #include "list.hpp"
 #include "vecteur.hpp"
 #include "entite.h"
@@ -40,6 +41,83 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 
 void Game::play()
 {
+	//Init Menu Principal ///////////////////////////////////
+	bool menubool = true; // Si true, on est dans le menu
+
+	RectangleShape fondEcranMenu;
+	Texture texturefondEcranMenu;
+	fondEcranMenu.setPosition(0, 0);
+	fondEcranMenu.setSize(Vector2f(1600, 900));
+	if (!texturefondEcranMenu.loadFromFile("img/earthboundMenuBG.png"))
+	{
+		cout << "Erreur! L'image du menu background est introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	fondEcranMenu.setTexture(&texturefondEcranMenu);
+
+
+	Sound musicMenu;
+	SoundBuffer bufferMenu;
+	if (!bufferMenu.loadFromFile("music/chooseAFile.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicMenu.setBuffer(bufferMenu);
+	musicMenu.setLoop(true);
+	musicMenu.play();
+	// Si on a le temps:
+	// Faire méthode init menu
+	// faire méthode init fight
+	// faire méthode init jeu
+
+	//////////////////////////////////////////////////////////
+	// Init musique de la world map//////////////////////////
+	Sound arrMusiquePlay[3];
+	Sound musicPlay1;
+	Sound musicPlay2;
+	Sound musicPlay3;
+
+	SoundBuffer bufferPlay1;
+	SoundBuffer bufferPlay2;
+	SoundBuffer bufferPlay3;
+
+	bool mute = false;
+
+	int indiceLecteurMusique = 0;
+
+	if (!bufferPlay1.loadFromFile("music/theMetropolisofFourside.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicPlay1.setBuffer(bufferPlay1);
+
+	if (!bufferPlay2.loadFromFile("music/lisaThePainfulOSTGarbageDay.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicPlay2.setBuffer(bufferPlay2);
+
+	if (!bufferPlay3.loadFromFile("music/youveComeFarNess.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicPlay3.setBuffer(bufferPlay3);
+
+	arrMusiquePlay[0]=musicPlay1;
+	arrMusiquePlay[1]=(musicPlay2);
+	arrMusiquePlay[2]=(musicPlay3);
+
+	///////////////////////////////////////////////////////////
+
 	float lastX = 0;
 	float lastY = 0;
 	int dir = 0;
@@ -260,6 +338,50 @@ void Game::play()
 						dir = 4;//Droite
 					}
 					break;
+				case Keyboard::P:
+						menubool = false;
+						if (musicMenu.getStatus() == sf::Music::Status::Playing)
+						{
+							musicMenu.stop();
+						}
+						if (!mute)
+						{
+							arrMusiquePlay[indiceLecteurMusique].play();
+						}
+					break;
+				case Keyboard::N:
+					arrMusiquePlay[indiceLecteurMusique].stop();
+					break;
+				case Keyboard::M:
+
+					if (menubool == true)
+					{
+						if (mute == false)
+						{
+							musicMenu.stop();
+							mute = true;
+						}
+						else
+						{
+							musicMenu.play();
+							mute = false;
+						}
+					}
+					else
+					{
+						if (mute == false)
+						{
+							mute = true;
+							arrMusiquePlay[indiceLecteurMusique].stop();
+						}
+						else
+						{
+							mute = false;
+							arrMusiquePlay[indiceLecteurMusique].play();
+						}
+					}
+				
+					break;
 				default:
 					dir = 0;
 					break;
@@ -454,8 +576,42 @@ void Game::play()
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
+		} 
+		// FIN DU POLLEVENT //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		// GESTION DE L'AFFICHAGE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		// Affichage menu
+		if (menubool)
+		{
+			window.clear();
+			window.draw(fondEcranMenu);
+			window.display();
+			/*
+			if (nomJoueurTemp.length() == 3)
+			{
+
+				window.draw(nomJoueur);
+
+				for (int i = 0; i < 3; i++)
+				{
+					window.draw(menu[i]);
+					window.draw(txt1);
+					window.draw(txt2);
+					window.draw(txt3);
+				}
+
+			}
+			else
+			{
+				window.draw(txtInfo);
+				window.draw(nomJoueur);
+
+			}*/
 		}
-		if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) {
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) 
+		{ // Si un combat doit s'ammorcer
 			_monstre1.setPosition(Vector2f(_ness.getShape().getPosition().x + 20, _ness.getShape().getPosition().y - 20));
 			statJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 50));
 			window.clear();
@@ -471,7 +627,7 @@ void Game::play()
 			window.display();
 			system("pause>0");
 		}
-		if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
 			_monstre2.setPosition(Vector2f(_ness.getShape().getPosition().x + 40, _ness.getShape().getPosition().y));
 			window.clear();
 			window.setView(viewGame);
@@ -481,19 +637,34 @@ void Game::play()
 			window.display();
 			system("pause>0");
 		}
-		
-		window.clear();
-		window.setView(viewGame);
-		window.draw(getBG());
-		window.draw(_ness.getShape());
-		window.draw(_monstre1.getShape());
-		window.draw(_monstre2.getShape());
-		
-		viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
-		
-		cpt1 = _monstre1.moveMonstre(cpt1);
-		cpt2 = _monstre2.moveMonstre(cpt2);
-		window.display();
+		else
+		{	// Affichage normal en jeu /////////////////////////////////////////////////
+			
+			//gestion musique
+			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Stopped && mute == false)
+			{
+				if (indiceLecteurMusique < sizeof(arrMusiquePlay)/ sizeof(Sound) - 1)
+					indiceLecteurMusique++;
+				else
+					indiceLecteurMusique = 0;
+
+				arrMusiquePlay[indiceLecteurMusique].play();
+			}
+			
+			window.clear();
+			window.setView(viewGame);
+			window.draw(getBG());
+			window.draw(_ness.getShape());
+			window.draw(_monstre1.getShape());
+			window.draw(_monstre2.getShape());
+
+			viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+
+			cpt1 = _monstre1.moveMonstre(cpt1);
+			cpt2 = _monstre2.moveMonstre(cpt2);
+			window.display();
+		}
+
 	}
 }
 
