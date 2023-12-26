@@ -57,6 +57,7 @@ void Game::play()
 	//Init Menu Principal ///////////////////////////////////
 	RenderWindow window(VideoMode(1600, 900), "Earthbound");
 	bool menubool = true; // Si true, on est dans le menu
+	string nomJoueurTemp = "test";
 	RectangleShape fondEcranMenu;
 	Texture texturefondEcranMenu;
 	fondEcranMenu.setPosition(0, 0);
@@ -624,7 +625,68 @@ void Game::play()
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
-		} 
+			else if (event.type == Event::MouseButtonPressed && menubool && nomJoueurTemp.length() >= 3)
+			{
+				if (play.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					play.setFillColor(Color::Black);
+				}
+				else if (stat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					stat.setFillColor(Color::Black);
+				}
+				else if (reglage.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					reglage.setFillColor(Color::Black);
+				}
+				else if (quit.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					exit(0);
+				}
+
+			}
+			else if (event.type == sf::Event::MouseMoved && menubool && nomJoueurTemp.length() >= 3)
+			{
+				
+				if (play.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					play.setFillColor(Color::Red);
+				}
+				else
+				{
+					play.setFillColor(Color::White);
+				}
+
+				if (stat.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					stat.setFillColor(Color::Red);
+				}
+				else
+				{
+					stat.setFillColor(Color::White);
+				}
+
+				if (reglage.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					reglage.setFillColor(Color::Red);
+				}
+				else
+				{
+					reglage.setFillColor(Color::White);
+				}
+
+				if (quit.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					quit.setFillColor(Color::Red);
+				}
+				else
+				{
+					quit.setFillColor(Color::White);
+				}
+				
+			}
+		}
+
 		// FIN DU POLLEVENT //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -633,13 +695,29 @@ void Game::play()
 		// Affichage menu
 		if (menubool)
 		{
-			window.clear();
-			window.draw(fondEcranMenu);
-			window.draw(play);
-			window.draw(stat);
-			window.draw(reglage);
-			window.draw(quit);
-			window.display();
+			if (play.getFillColor() == Color::Black)
+			{
+				if (musicMenu.getStatus() == sf::Music::Status::Playing)
+				{
+					musicMenu.stop();
+				}
+				if (!mute && menubool)
+				{
+					arrMusiquePlay[indiceLecteurMusique].play();
+				}
+				menubool = false;
+			}
+			else
+			{
+				window.clear();
+				window.draw(fondEcranMenu);
+				window.draw(play);
+				window.draw(stat);
+				window.draw(reglage);
+				window.draw(quit);
+				window.display();
+			}
+
 			/*
 			if (nomJoueurTemp.length() == 3)
 			{
