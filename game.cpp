@@ -339,15 +339,15 @@ void Game::play()
 					}
 					break;
 				case Keyboard::P:
-						menubool = false;
 						if (musicMenu.getStatus() == sf::Music::Status::Playing)
 						{
 							musicMenu.stop();
 						}
-						if (!mute)
+						if (!mute && menubool)
 						{
 							arrMusiquePlay[indiceLecteurMusique].play();
 						}
+						menubool = false;
 					break;
 				case Keyboard::N:
 					arrMusiquePlay[indiceLecteurMusique].stop();
