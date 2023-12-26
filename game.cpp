@@ -39,11 +39,24 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	
 }
 
+void Game::setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style)
+{
+	if (!font.loadFromFile(police))
+		exit(1);
+
+	text.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	text.setString(message);		//Set le texte à afficher
+	text.setCharacterSize(taille); 			//Set la taille (en pixels)
+	text.setFillColor(color);			//Set la couleur du texte
+	text.setStyle(style);	//Set le style du texte
+	text.setPosition(posX, posY);
+}
+
 void Game::play()
 {
 	//Init Menu Principal ///////////////////////////////////
+	RenderWindow window(VideoMode(1600, 900), "Earthbound");
 	bool menubool = true; // Si true, on est dans le menu
-
 	RectangleShape fondEcranMenu;
 	Texture texturefondEcranMenu;
 	fondEcranMenu.setPosition(0, 0);
@@ -55,7 +68,41 @@ void Game::play()
 		exit(1); // Fichier musique Menu introuvable
 	}
 	fondEcranMenu.setTexture(&texturefondEcranMenu);
+	
+	// Texte menu //////////////////////////////////////////////
+	Text play;
+	Text stat;
+	Text reglage;
+	Text quit;
 
+	Font font;
+	if (!font.loadFromFile("ressources/arial.ttf")) {
+		exit(1);
+	}
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		switch (i)
+		{
+		case 0:
+			setText(play, "Play", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 1:
+			setText(stat, "Stat", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 2:
+			setText(reglage, "Reglage", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 3:
+			setText(quit, "Quit", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		default:
+			break;
+		}
+	}
+
+	////////////////////////////////////////////////////////////
 
 	Sound musicMenu;
 	SoundBuffer bufferMenu;
@@ -72,9 +119,10 @@ void Game::play()
 	// Faire méthode init menu
 	// faire méthode init fight
 	// faire méthode init jeu
-
 	//////////////////////////////////////////////////////////
-	// Init musique de la world map//////////////////////////
+
+
+	// Init musique de la world map //////////////////////////
 	Sound arrMusiquePlay[3];
 	Sound musicPlay1;
 	Sound musicPlay2;
@@ -113,10 +161,14 @@ void Game::play()
 	musicPlay3.setBuffer(bufferPlay3);
 
 	arrMusiquePlay[0]=musicPlay1;
-	arrMusiquePlay[1]=(musicPlay2);
-	arrMusiquePlay[2]=(musicPlay3);
+	arrMusiquePlay[1]=musicPlay2;
+	arrMusiquePlay[2]=musicPlay3;
 
 	///////////////////////////////////////////////////////////
+
+	// Lecture d'un fichier ayant le nom du joueur et ses stats. Si aucun nom est trouver crée un nouveau nom ///////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	float lastX = 0;
 	float lastY = 0;
@@ -129,7 +181,6 @@ void Game::play()
 	int cpt2 = 0;
 
 	init(0, 0, 1716, 760, "img/mapPetite.png");
-	RenderWindow window(VideoMode(1600, 900), "Earthbound");
 	Event event;
 	RectangleShape fondEcran;
 	RectangleShape fondEcranFight;
@@ -149,10 +200,7 @@ void Game::play()
 	fondEcran.setSize(Vector2f(100, 100));
 	fondEcran.setFillColor(Color::Green);
 
-	Font font;
-	if (!font.loadFromFile("ressources/arial.ttf")) {
-		exit(1);
-	}
+
 
 	Text nomJoueur;
 
@@ -587,6 +635,10 @@ void Game::play()
 		{
 			window.clear();
 			window.draw(fondEcranMenu);
+			window.draw(play);
+			window.draw(stat);
+			window.draw(reglage);
+			window.draw(quit);
 			window.display();
 			/*
 			if (nomJoueurTemp.length() == 3)

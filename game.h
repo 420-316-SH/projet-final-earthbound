@@ -15,6 +15,7 @@ class Game
 		Game();
 		~Game();
 		void init(int posX, int posY, int w, int h, const char* nomSprite);
+		void setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style);
 		void play();
 		const sf::RectangleShape getBG()const;
 		
