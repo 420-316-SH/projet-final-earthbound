@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Windows.h>
+#include <fstream>
 #include "list.hpp"
 #include "vecteur.hpp"
 #include "item.h"
@@ -36,6 +37,8 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 
 void Game::play()
 {
+	readFile("ressources/collision.txt");
+
 	float lastX = 0;
 	float lastY = 0;
 	int dir = 0;
@@ -331,6 +334,30 @@ void Game::play()
 		cpt = _monstre.moveMonstre(cpt);
 		window.display();
 	}
+}
+
+bool Game::readFile(const char* fileName) {
+	int typeCollision, multiplicateur;
+	char garbage;
+	std::string ligne;
+
+	ifstream fileObj(fileName);
+
+	if (fileObj.is_open()) {
+		getline(fileObj, ligne);
+
+		typeCollision = int(ligne[0]);
+
+		cout << typeCollision;
+
+		//fileObj >> typeCollision >> garbage >> multiplicateur;
+
+
+	}
+
+	fileObj.close();
+
+	return false;
 }
 
 const sf::RectangleShape Game::getBG() const

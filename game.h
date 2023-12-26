@@ -11,11 +11,13 @@ class Game
 		Joueur _ness;
 		//vecteur<Monstre> _monstres;
 		Joueur _monstre;
+		vecteur<sf::RectangleShape> _mapCollision;
 	public:
 		Game();
 		~Game();
 		void init(int posX, int posY, int w, int h, const char* nomSprite);
 		void play();
 		const sf::RectangleShape getBG()const;
+		bool readFile(const char*);
 };
 
