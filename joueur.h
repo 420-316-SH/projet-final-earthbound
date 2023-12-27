@@ -4,7 +4,7 @@ class Joueur : public Entite
 private :
 	bool _vivant;
 	Status _status;
-	List<int> _inventaire;
+	liste<Item> _inventaire;
 	int _hp;
 	int _intel;
 	int _force;
@@ -24,7 +24,7 @@ public:
 
 	const bool getVivant() const;
 	const Status getStatus() const;
-	const List<int> getInventaire() const;
+	liste<Item>& getInventaire();
 	const int getHp() const;
 	const int getIntel() const;
 	const int getForce() const;
@@ -36,6 +36,7 @@ public:
 	const int getPp() const;
 	const int getNextLvl() const;
 	const vecteur<Move> getMoveset() const;
+
 
 	void setJoueur(bool vivant, int hp, int intel, int force, int def, float crit, int speed, int lvl, int exp, int pp, int nextLvl, vecteur<Move>& moveset, int posX, int posY, int w, int h, const sf::IntRect& rectSprite, const char* nomSprite);
 	void setVivant(bool vivant);

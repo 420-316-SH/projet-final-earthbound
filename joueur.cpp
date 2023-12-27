@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "list.hpp"
+#include "liste.hpp"
 #include "vecteur.hpp"
 #include "status.h"
 #include "move.h"
@@ -53,10 +53,11 @@ const Status Joueur::getStatus() const
 }
 
 
-const List<int> Joueur::getInventaire() const
+liste<Item>& Joueur::getInventaire()
 {
 	return _inventaire;
 }
+
 const int Joueur::getHp() const
 {
 	return _hp;
@@ -143,15 +144,23 @@ void Joueur::setStatus(Status status)
 
 void Joueur::addItem(Item newItem)
 {
-	_inventaire.insert(_inventaire.end(), newItem.getId());
+	_inventaire.insert(newItem);
 }
 
 //À revoir
 void Joueur::removeItem(Item usedItem)
 {
 	assert(!_inventaire.empty());
-
-	_inventaire.erase(_inventaire(usedItem.getId()));
+	_inventaire.begin();
+	for (int i = 0; i < _inventaire.size(); i++) {
+		if (_inventaire.value().getNom() == usedItem.getNom()) {
+			_inventaire.erase();
+			break;
+		}
+		else {
+			_inventaire.next();
+		}
+	}
 }
 
 
