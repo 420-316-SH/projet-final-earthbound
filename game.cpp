@@ -55,9 +55,9 @@ void Game::setText(sf::Text& text, const char* message, sf::Font& font, const ch
 void Game::play()
 {
 	//Init Menu Principal ///////////////////////////////////
-	RenderWindow window(VideoMode(1600, 900), "Earthbound");
+	RenderWindow window(VideoMode(1600, 900), "Earthbound Window");
 	bool menubool = true; // Si true, on est dans le menu
-	string nomJoueurTemp = "test";
+	bool menuReglage = false;
 	RectangleShape fondEcranMenu;
 	Texture texturefondEcranMenu;
 	fondEcranMenu.setPosition(0, 0);
@@ -72,9 +72,16 @@ void Game::play()
 	
 	// Texte menu //////////////////////////////////////////////
 	Text play;
-	Text stat;
 	Text reglage;
 	Text quit;
+
+	Text reglageSon;
+	Text difficulte;
+	Text fullscreen;
+	Text retourMenu;
+	Text bonusActif;
+
+	float boost = 1;
 
 	Font font;
 	if (!font.loadFromFile("ressources/arial.ttf")) {
@@ -82,15 +89,12 @@ void Game::play()
 	}
 
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 1; i < 4; i++)
 	{
 		switch (i)
 		{
-		case 0:
-			setText(play, "Play", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
-			break;
 		case 1:
-			setText(stat, "Stat", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			setText(play, "Play", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
 			break;
 		case 2:
 			setText(reglage, "Reglage", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
@@ -102,6 +106,30 @@ void Game::play()
 			break;
 		}
 	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		switch (i)
+		{
+		case 0:
+			setText(reglageSon, "Désactiver le son", font, "ressources/arial.ttf", window.getSize().x / 2 - 100, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 1:
+			setText(difficulte, "Hard mode", font, "ressources/arial.ttf", window.getSize().x / 2 - 100, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 2:
+			setText(fullscreen, "Mode plein écran", font, "ressources/arial.ttf", window.getSize().x / 2 - 100, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 3:
+			setText(retourMenu, "Retour", font, "ressources/arial.ttf", window.getSize().x / 2 - 100, 50 * i + 300, 24, Color::White, 0);
+			break;
+		default:
+			break;
+		}
+	}
+		
+	setText(bonusActif, "HARD MODE", font, "ressources/arial.ttf", window.getSize().x - 200, 10, 16, Color::Red, 0);
+		
 
 	////////////////////////////////////////////////////////////
 
@@ -134,6 +162,7 @@ void Game::play()
 	SoundBuffer bufferPlay3;
 
 	bool mute = false;
+	bool fullscrmode = false;
 
 	int indiceLecteurMusique = 0;
 
@@ -166,8 +195,6 @@ void Game::play()
 	arrMusiquePlay[2]=musicPlay3;
 
 	///////////////////////////////////////////////////////////
-
-	// Lecture d'un fichier ayant le nom du joueur et ses stats. Si aucun nom est trouver crée un nouveau nom ///////////////////
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -403,17 +430,19 @@ void Game::play()
 					break;
 				case Keyboard::M:
 
-					if (menubool == true)
+					if (menubool == true || menuReglage == true)
 					{
 						if (mute == false)
 						{
 							musicMenu.stop();
 							mute = true;
+							reglageSon.setFillColor(Color::Green);
 						}
 						else
 						{
 							musicMenu.play();
 							mute = false;
+							reglageSon.setFillColor(Color::White);
 						}
 					}
 					else
@@ -625,19 +654,16 @@ void Game::play()
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
-			else if (event.type == Event::MouseButtonPressed && menubool && nomJoueurTemp.length() >= 3)
+			else if (event.type == Event::MouseButtonPressed && menubool)
 			{
 				if (play.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 				{
 					play.setFillColor(Color::Black);
 				}
-				else if (stat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
-				{
-					stat.setFillColor(Color::Black);
-				}
 				else if (reglage.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 				{
-					reglage.setFillColor(Color::Black);
+					menubool = false;
+					menuReglage = true;
 				}
 				else if (quit.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 				{
@@ -645,7 +671,61 @@ void Game::play()
 				}
 
 			}
-			else if (event.type == sf::Event::MouseMoved && menubool && nomJoueurTemp.length() >= 3)
+			else if (event.type == Event::MouseButtonPressed && menuReglage == true)
+			{
+				if (reglageSon.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					if (mute == true)
+					{
+						reglageSon.setFillColor(Color::White);
+						mute = false;
+						musicMenu.play();
+					}
+					else
+					{
+						reglageSon.setFillColor(Color::Green);
+						mute = true;
+						musicMenu.stop();
+					}
+					
+				}
+				else if (difficulte.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					if (boost == 1)
+					{
+						boost = 1.5;
+						difficulte.setFillColor(Color::Green);
+					}
+					else
+					{
+						boost = 1;
+						difficulte.setFillColor(Color::White);
+					}
+				}
+				else if (fullscreen.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					if (fullscrmode == false)
+					{
+						window.create((VideoMode(1600, 900)), "Earthbound Fullscreen", sf::Style::Fullscreen);
+						fullscrmode = true;
+						fullscreen.setFillColor(Color::Green);
+
+					}
+					else
+					{
+						window.create((VideoMode(1600, 900)), "Earthbound Window", sf::Style::Default);
+						fullscrmode = false;
+						fullscreen.setFillColor(Color::White);
+					}
+				}
+				else if (retourMenu.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+				{
+					menubool = true;
+					menuReglage = false;
+				}
+
+			}
+			else if (event.type == sf::Event::MouseMoved && menubool)
 			{
 				
 				if (play.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
@@ -657,14 +737,6 @@ void Game::play()
 					play.setFillColor(Color::White);
 				}
 
-				if (stat.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
-				{
-					stat.setFillColor(Color::Red);
-				}
-				else
-				{
-					stat.setFillColor(Color::White);
-				}
 
 				if (reglage.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
 				{
@@ -684,6 +756,68 @@ void Game::play()
 					quit.setFillColor(Color::White);
 				}
 				
+			}
+			else if (event.type == sf::Event::MouseMoved && menuReglage)
+			{
+				if (reglageSon.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					reglageSon.setFillColor(Color::Red);
+				}
+				else
+				{
+					if (mute)
+					{
+						reglageSon.setFillColor(Color::Green);
+					}
+					else
+					{
+						reglageSon.setFillColor(Color::White);
+					}
+				}
+
+
+				if (difficulte.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					difficulte.setFillColor(Color::Red);
+				}
+				else
+				{
+					if (boost == 1)
+					{
+						difficulte.setFillColor(Color::White);
+					}
+					else
+					{
+						difficulte.setFillColor(Color::Green);
+					}
+					
+				}
+
+				if (fullscreen.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					fullscreen.setFillColor(Color::Red);
+				}
+				else
+				{
+					if (fullscrmode == true)
+					{
+						fullscreen.setFillColor(Color::Green);
+					}
+					else
+					{
+						fullscreen.setFillColor(Color::White);
+					}	
+				}
+
+				if (retourMenu.getGlobalBounds().contains(Vector2f(sf::Mouse::getPosition(window))))
+				{
+					retourMenu.setFillColor(Color::Red);
+				}
+				else
+				{
+					retourMenu.setFillColor(Color::White);
+				}
+
 			}
 		}
 
@@ -712,33 +846,28 @@ void Game::play()
 				window.clear();
 				window.draw(fondEcranMenu);
 				window.draw(play);
-				window.draw(stat);
 				window.draw(reglage);
 				window.draw(quit);
+				if (boost == 1.5)
+				{
+					window.draw(bonusActif);
+				}
 				window.display();
 			}
-
-			/*
-			if (nomJoueurTemp.length() == 3)
+		}
+		else if (menuReglage)
+		{
+			window.clear();
+			window.draw(fondEcranMenu);
+			window.draw(reglageSon);
+			window.draw(difficulte);
+			window.draw(fullscreen);
+			window.draw(retourMenu);
+			if (boost == 1.5)
 			{
-
-				window.draw(nomJoueur);
-
-				for (int i = 0; i < 3; i++)
-				{
-					window.draw(menu[i]);
-					window.draw(txt1);
-					window.draw(txt2);
-					window.draw(txt3);
-				}
-
+				window.draw(bonusActif);
 			}
-			else
-			{
-				window.draw(txtInfo);
-				window.draw(nomJoueur);
-
-			}*/
+			window.display();
 		}
 		else if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) 
 		{ // Si un combat doit s'ammorcer
@@ -787,6 +916,10 @@ void Game::play()
 			window.draw(_ness.getShape());
 			window.draw(_monstre1.getShape());
 			window.draw(_monstre2.getShape());
+			if (boost == 1.5)
+			{
+				window.draw(bonusActif);
+			}
 
 			viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
 
