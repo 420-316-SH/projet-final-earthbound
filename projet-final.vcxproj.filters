@@ -62,9 +62,6 @@
     <ClInclude Include="vecteur.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="list.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="queue.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -75,6 +72,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="item.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\OneDrive - Cegep de Sherbrooke\A23\Structures\examFormatif\Project1\Project1\liste.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

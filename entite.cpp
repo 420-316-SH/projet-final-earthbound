@@ -84,6 +84,11 @@ void Entite::setHitboxPosition(int posX, int posY)
 	_hitbox.setPosition(posX, posY);
 }
 
+void Entite::setSize(int w, int h)
+{
+	_shape.setSize(sf::Vector2f(w, h));
+}
+
 sf::View Entite::move(int& dir, float x, float y, int& animationCpt, sf::View viewGame)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D) && (x == 0) && (y == 0))

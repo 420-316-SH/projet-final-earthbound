@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
-#include "list.hpp"
+#include "liste.hpp"
 #include "vecteur.hpp"
 #include "status.h"
 #include "move.h"
@@ -15,6 +15,7 @@
 
 int main() {
 	// Ajout Antho pour test
+	srand(time(NULL));
 	Game earthbound;
 	earthbound.play();
 

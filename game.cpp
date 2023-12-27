@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Windows.h>
-
+#include <cmath>
+#include <time.h>
 #include "queue.hpp"
-#include "list.hpp"
+#include "liste.hpp"
 #include "vecteur.hpp"
 #include "entite.h"
 #include "item.h"
@@ -185,16 +186,25 @@ void Game::play()
 	RectangleShape fondEcran;
 	RectangleShape fondEcranFight;
 	RectangleShape statJoueur;
+	RectangleShape actionJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	viewGame.zoom(0.3);
 	viewGame.move(500, -100);
+	View viewFight(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
+	
+	
 
-	fondEcranFight.setSize(Vector2f(_fondEcranPlay.getSize().x, _fondEcranPlay.getSize().y));
+	fondEcranFight.setSize(Vector2f(1600, 900));
 	fondEcranFight.setFillColor(Color::Black);
 
-	statJoueur.setSize(Vector2f(40, 50));
+	actionJoueur.setSize(Vector2f(400, 180));
+	actionJoueur.setFillColor(Color::Black);
+	actionJoueur.setOutlineThickness(16);
+	actionJoueur.setOutlineColor(Color::White);
+
+	statJoueur.setSize(Vector2f(160, 200));
 	statJoueur.setFillColor(Color::Black);
-	statJoueur.setOutlineThickness(4);
+	statJoueur.setOutlineThickness(16);
 	statJoueur.setOutlineColor(Color::White);
 
 	fondEcran.setSize(Vector2f(100, 100));
@@ -206,45 +216,102 @@ void Game::play()
 
 	nomJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
 	nomJoueur.setString("Ness");		//Set le texte à afficher
-	nomJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	nomJoueur.setCharacterSize(40); 			//Set la taille (en pixels)
 	nomJoueur.setFillColor(Color::White);			//Set la couleur du texte
 	nomJoueur.setStyle(0);	//Set le style du texte
-	nomJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 18, _ness.getShape().getPosition().y + 50));
+	
 
 	Text pp;
 	Text ppJoueur;
 
 	ppJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
 	ppJoueur.setString(std::to_string(_ness.getPp()));		//Set le texte à afficher
-	ppJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	ppJoueur.setCharacterSize(40); 			//Set la taille (en pixels)
 	ppJoueur.setFillColor(Color::White);			//Set la couleur du texte
 	ppJoueur.setStyle(0);	//Set le style du texte
-	ppJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 80));
+	
 
 	pp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
 	pp.setString("Pp : ");		//Set le texte à afficher
-	pp.setCharacterSize(10); 			//Set la taille (en pixels)
+	pp.setCharacterSize(40); 			//Set la taille (en pixels)
 	pp.setFillColor(Color::White);			//Set la couleur du texte
 	pp.setStyle(0);	//Set le style du texte
-	pp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 80));
+	
 
 	Text hp;
 	Text hpJoueur;
 
 	hpJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
 	hpJoueur.setString(std::to_string(_ness.getHp()));		//Set le texte à afficher
-	hpJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	hpJoueur.setCharacterSize(40); 			//Set la taille (en pixels)
 	hpJoueur.setFillColor(Color::White);			//Set la couleur du texte
 	hpJoueur.setStyle(0);	//Set le style du texte
-	hpJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 65));
+	
 
 	hp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
 	hp.setString("Hp : ");		//Set le texte à afficher
-	hp.setCharacterSize(10); 			//Set la taille (en pixels)
+	hp.setCharacterSize(40); 			//Set la taille (en pixels)
 	hp.setFillColor(Color::White);			//Set la couleur du texte
 	hp.setStyle(0);	//Set le style du texte
-	hp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 65));
 	
+	Text attaque;
+
+	attaque.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	attaque.setString("Move");		//Set le texte à afficher
+	attaque.setCharacterSize(40); 			//Set la taille (en pixels)
+	attaque.setFillColor(Color::White);			//Set la couleur du texte
+	attaque.setStyle(0);	//Set le style du texte
+
+	Text fuite;
+
+	fuite.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	fuite.setString("Fuite");		//Set le texte à afficher
+	fuite.setCharacterSize(40); 			//Set la taille (en pixels)
+	fuite.setFillColor(Color::White);			//Set la couleur du texte
+	fuite.setStyle(0);	//Set le style du texte
+
+	Text item;
+
+	item.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	item.setString("Item");		//Set le texte à afficher
+	item.setCharacterSize(40); 			//Set la taille (en pixels)
+	item.setFillColor(Color::White);			//Set la couleur du texte
+	item.setStyle(0);	//Set le style du texte
+
+	Text resultSuite;
+
+	resultSuite.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	resultSuite.setString("");		//Set le texte à afficher
+	resultSuite.setCharacterSize(40); 			//Set la taille (en pixels)
+	resultSuite.setFillColor(Color::White);			//Set la couleur du texte
+	resultSuite.setStyle(0);	//Set le style du texte
+
+	Text suivant;
+
+	suivant.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	suivant.setString("Suivant");		//Set le texte à afficher
+	suivant.setCharacterSize(40); 			//Set la taille (en pixels)
+	suivant.setFillColor(Color::White);			//Set la couleur du texte
+	suivant.setStyle(0);	//Set le style du texte
+
+	Text retour;
+
+	retour.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	retour.setString("Retour");		//Set le texte à afficher
+	retour.setCharacterSize(40); 			//Set la taille (en pixels)
+	retour.setFillColor(Color::White);			//Set la couleur du texte
+	retour.setStyle(0);	//Set le style du texte
+
+	Item arme(1, "big league bat", 10, "force", false);
+	Item armure(2, "diamond band", 10, "def", false);
+	Item frites(3, "bag of fries", 10, "hp", true);
+	Item banane(4, "banana", 10, "force", true);
+	Item burger(5, "double burger", 10, "pp", true);
+	Item cookie(6, "cookie", 10, "def", true);
+
+	_ness.addItem(burger);
+	_ness.addItem(arme);
+	_ness.addItem(cookie);
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -631,6 +698,7 @@ void Game::play()
 		// GESTION DE L'AFFICHAGE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		// Affichage menu
+		
 		if (menubool)
 		{
 			window.clear();
@@ -662,32 +730,266 @@ void Game::play()
 
 			}*/
 		}
+		
+
 		else if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) 
 		{ // Si un combat doit s'ammorcer
-			_monstre1.setPosition(Vector2f(_ness.getShape().getPosition().x + 20, _ness.getShape().getPosition().y - 20));
-			statJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 50));
-			window.clear();
-			window.setView(viewGame);
-			window.draw(fondEcranFight);
-			window.draw(_monstre1.getShape());
-			window.draw(statJoueur);
-			window.draw(nomJoueur);
-			window.draw(hpJoueur);
-			window.draw(hp);
-			window.draw(ppJoueur);
-			window.draw(pp);
-			window.display();
-			system("pause>0");
+			
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre1.getPosition().x;
+			float positionMonstreY = _monstre1.getPosition().y;
+			_monstre1.setPosition(Vector2f(700, 360));
+			_monstre1.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+			retour.setPosition(Vector2f(500, 150));
+		
+			while (fight==true) {
+				while (window.pollEvent(event)) {
+					
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre1.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0) 
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+					
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+							_ness.getInventaire().begin();
+							window.draw(actionJoueur);
+							for (int i = 0; i < _ness.getInventaire().size(); i++) {
+								cout << _ness.getInventaire().value().getNom();
+								_ness.getInventaire().next();
+							}
+							window.draw(retour);
+							window.draw(statJoueur);
+							window.draw(nomJoueur);
+							window.draw(hpJoueur);
+							window.draw(hp);
+							window.draw(ppJoueur);
+							window.draw(pp);
+							window.display();
+								
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								 do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre1.~Monstre();
+												
+											}
+										}
+									}
+								} while (next == false);
+
+								
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+							
+							
+						}
+
+					}
+					
+				}
+		
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+
 		}
 		else if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
-			_monstre2.setPosition(Vector2f(_ness.getShape().getPosition().x + 40, _ness.getShape().getPosition().y));
-			window.clear();
-			window.setView(viewGame);
-			window.draw(fondEcranFight);
-			window.draw(nomJoueur);
-			window.draw(_monstre2.getShape());
-			window.display();
-			system("pause>0");
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre2.getPosition().x;
+		float positionMonstreY = _monstre2.getPosition().y;
+		_monstre2.setPosition(Vector2f(700, 360));
+		_monstre2.setSize(200, 180);
+		actionJoueur.setPosition(Vector2f(60, 45));
+		attaque.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 720));
+		hpJoueur.setPosition(Vector2f(800, 720));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+		while (fight == true) {
+			while (window.pollEvent(event)) {
+
+
+				window.clear();
+				window.setView(viewFight);
+				window.draw(fondEcranFight);
+				window.draw(_monstre2.getShape());
+				window.draw(actionJoueur);
+				if (menu == 0)
+				{
+					window.draw(attaque);
+					window.draw(item);
+					window.draw(fuite);
+					window.draw(statJoueur);
+					window.draw(nomJoueur);
+					window.draw(hpJoueur);
+					window.draw(hp);
+					window.draw(ppJoueur);
+					window.draw(pp);
+					window.display();
+				}
+
+				if (event.type == Event::MouseButtonPressed || menu > 0)
+				{
+					if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+						
+						window.draw(actionJoueur);
+						window.draw(attaque);
+						menu = 1;
+					}
+					else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+						
+						menu = 2;
+					}
+					else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+						
+						int chanceFuite = rand() % (4 + 1 - 1) + 1;
+						bool next = false;
+						if (chanceFuite == 1) {
+							do {
+								window.draw(actionJoueur);
+								resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+								resultSuite.setPosition(Vector2f(75, 50));
+								window.draw(resultSuite);
+								window.draw(suivant);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(hp);
+								window.draw(ppJoueur);
+								window.draw(pp);
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											next = true;
+											_monstre2.~Monstre();
+										}
+									}
+								}
+							} while (next == false);
+							fight = false;
+						}
+						else {
+							do {
+								window.draw(actionJoueur);
+								resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+								resultSuite.setPosition(Vector2f(75, 50));
+								window.draw(resultSuite);
+								window.draw(suivant);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(hp);
+								window.draw(ppJoueur);
+								window.draw(pp);
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											next = true;
+										}
+									}
+								}
+							} while (next == false);
+						}
+
+
+					}
+
+				}
+
+			}
+
+		}
+		attaque.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
 		}
 		else
 		{	// Affichage normal en jeu /////////////////////////////////////////////////
