@@ -330,12 +330,14 @@ void Game::play()
 	retour.setFillColor(Color::White);			//Set la couleur du texte
 	retour.setStyle(0);	//Set le style du texte
 
+	Text obj[10];
+
 	Item arme(1, "big league bat", 10, "force", false);
 	Item armure(2, "diamond band", 10, "def", false);
-	Item frites(3, "bag of fries", 10, "hp", true);
+	Item frites(3, "bag of fries", 10, "def", true);
 	Item banane(4, "banana", 10, "force", true);
 	Item burger(5, "double burger", 10, "pp", true);
-	Item cookie(6, "cookie", 10, "def", true);
+	Item cookie(6, "cookie", 10, "hp", true);
 
 	_ness.addItem(burger);
 	_ness.addItem(arme);
@@ -949,6 +951,7 @@ void Game::play()
 			_monstre1.setPosition(Vector2f(700, 360));
 			_monstre1.setSize(200, 180);
 			actionJoueur.setPosition(Vector2f(60, 45));
+			actionJoueur.setSize(Vector2f(400, 180));
 			attaque.setPosition(Vector2f(75, 50));
 			item.setPosition(Vector2f(75, 150));
 			fuite.setPosition(Vector2f(300, 150));
@@ -959,12 +962,12 @@ void Game::play()
 			pp.setPosition(Vector2f(725, 780));
 			ppJoueur.setPosition(Vector2f(800, 780));
 			suivant.setPosition(Vector2f(500, 150));
-			retour.setPosition(Vector2f(500, 150));
+			retour.setPosition(Vector2f(500, 90 * _ness.getInventaire().size()));
 		
 			while (fight==true) {
 				while (window.pollEvent(event)) {
 					
-
+					actionJoueur.setSize(Vector2f(400, 180));
 					window.clear();
 					window.setView(viewFight);
 					window.draw(fondEcranFight);
@@ -972,6 +975,7 @@ void Game::play()
 					window.draw(actionJoueur);
 					if (menu == 0) 
 					{
+						
 						window.draw(attaque);
 						window.draw(item);
 						window.draw(fuite);
@@ -992,27 +996,78 @@ void Game::play()
 							menu = 1;
 						}
 						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
-							_ness.getInventaire().begin();
-							window.draw(actionJoueur);
-							for (int i = 0; i < _ness.getInventaire().size(); i++) {
-								cout << _ness.getInventaire().value().getNom();
-								_ness.getInventaire().next();
-							}
-							window.draw(retour);
-							window.draw(statJoueur);
-							window.draw(nomJoueur);
-							window.draw(hpJoueur);
-							window.draw(hp);
-							window.draw(ppJoueur);
-							window.draw(pp);
-							window.display();
-								
+							
+							bool prev = false; 
 							menu = 2;
+							
+							
+							do {
+								_ness.getInventaire().begin();
+								actionJoueur.setSize(Vector2f(400, 90 * _ness.getInventaire().size()));
+								window.draw(actionJoueur);
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+									obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									obj[i].setString("");		//Set le texte à afficher
+									obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									obj[i].setFillColor(Color::White);			//Set la couleur du texte
+									obj[i].setStyle(0);	//Set le style du texte
+									obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+									obj[i].setPosition(Vector2f(75, 50 + (90 * i)));
+									window.draw(obj[i]);
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(hp);
+								window.draw(ppJoueur);
+								window.draw(pp);
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getInventaire().size(); i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+													
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+												}
+											}
+										}
+										
+									}
+
+								}
+							} while (prev == false);
+						
+							
 						}
 						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
-							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
 							bool next = false;
-							if (chanceFuite == 1) {
+							if (chanceFuite > 1 && chanceFuite < 5) {
 								 do {
 									window.draw(actionJoueur);
 									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
