@@ -916,10 +916,6 @@ void Game::play()
 			window.draw(_ness.getShape());
 			window.draw(_monstre1.getShape());
 			window.draw(_monstre2.getShape());
-			if (boost == 1.5)
-			{
-				window.draw(bonusActif);
-			}
 
 			viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
 
