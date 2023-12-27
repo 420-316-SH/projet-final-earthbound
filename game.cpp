@@ -130,7 +130,43 @@ void Game::play()
 	}
 		
 	setText(bonusActif, "HARD MODE", font, "ressources/arial.ttf", window.getSize().x - 200, 10, 16, Color::Red, 0);
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
+	// Init affichage Win /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	RectangleShape winBG;
+
+
+	Text finDePartie;
+
+	setText(finDePartie, "Retour au menu", font, "ressources/arial.ttf", window.getSize().x - 200, 10, 16, Color::White, 0);
+
+	Texture texturefondEcranWin;
+	winBG.setPosition(0, 0);
+	winBG.setSize(Vector2f(300, 150));
+	if (!texturefondEcranWin.loadFromFile("img/winBG.png"))
+	{
+		cout << "Erreur! L'image du menu background est introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	winBG.setTexture(&texturefondEcranWin);
+
+	// Init affichage Loose /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	RectangleShape loseBG;
+
+	Texture texturefondEcranLose;
+	loseBG.setPosition(0, 0);
+	loseBG.setSize(Vector2f(300, 150));
+	if (!texturefondEcranLose.loadFromFile("img/loseBG.png"))
+	{
+		cout << "Erreur! L'image du menu background est introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	loseBG.setTexture(&texturefondEcranLose);
+
 
 	////////////////////////////////////////////////////////////
 
@@ -145,6 +181,27 @@ void Game::play()
 	musicMenu.setBuffer(bufferMenu);
 	musicMenu.setLoop(true);
 	musicMenu.play();
+	///////////////////////////////////////////////////////////////////
+	Sound musicWin;
+	SoundBuffer bufferWin;
+	if (!bufferWin.loadFromFile("music/youWin.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicWin.setBuffer(bufferWin);
+	///////////////////////////////////////////////////////////////////
+	Sound musicLose;
+	SoundBuffer bufferLose;
+	if (!bufferLose.loadFromFile("music/aBadDream.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicLose.setBuffer(bufferLose);
+
 	// Si on a le temps:
 	// Faire méthode init menu
 	// faire méthode init fight
@@ -209,6 +266,9 @@ void Game::play()
 	int cpt1 = 0;
 	int cpt2 = 0;
 
+	bool win = false;
+	bool lose = false;
+
 	init(0, 0, 1716, 760, "img/mapPetite.png");
 	Event event;
 	RectangleShape fondEcran;
@@ -219,6 +279,9 @@ void Game::play()
 	viewGame.zoom(0.3);
 	viewGame.move(500, -100);
 	View viewFight(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
+	View endGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
+	endGame.zoom(0.3);
+	endGame.setCenter(150, 75);
 	
 	
 
@@ -543,6 +606,12 @@ void Game::play()
 						fullscreen.setFillColor(Color::White);
 					}
 
+					break;
+				case Keyboard::I:
+						win = true;
+					break;
+				case Keyboard::O:
+						lose = true;
 					break;
 				default:
 					dir = 0;
@@ -954,8 +1023,50 @@ void Game::play()
 			}
 			window.display();
 		}
-		
+		else if (win == true)
+		{
+			window.setView(endGame);
+			window.clear();
+			window.draw(winBG);
+			window.display();
+			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
+			{
+				arrMusiquePlay[indiceLecteurMusique].stop();
+			}
 
+			if (mute == false && musicWin.getStatus() == sf::Music::Status::Stopped)
+			{
+				musicWin.play();
+			}
+			else if (musicWin.getStatus() == sf::Music::Status::Playing && mute == true)
+			{
+				musicWin.stop();
+			}
+			
+
+		}
+		else if (lose == true)
+		{
+			window.setView(endGame);
+			window.clear();
+			window.draw(loseBG);
+			window.display();
+			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
+			{
+				arrMusiquePlay[indiceLecteurMusique].stop();
+			}
+
+			if ( mute == false && musicLose.getStatus() == sf::Music::Status::Stopped)
+			{
+				musicLose.play();
+			}
+			else if (musicLose.getStatus() == sf::Music::Status::Playing && mute == true)
+			{
+				musicLose.stop();
+			}
+
+
+		}
 		else if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) 
 		{ // Si un combat doit s'ammorcer
 			
