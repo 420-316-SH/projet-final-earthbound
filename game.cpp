@@ -527,6 +527,23 @@ void Game::play()
 					}
 				
 					break;
+				case Keyboard::F:
+
+					if (fullscrmode == false)
+					{
+						window.create((VideoMode(1600, 900)), "Earthbound Fullscreen", sf::Style::Fullscreen);
+						fullscrmode = true;
+						fullscreen.setFillColor(Color::Green);
+
+					}
+					else
+					{
+						window.create((VideoMode(1600, 900)), "Earthbound Window", sf::Style::Default);
+						fullscrmode = false;
+						fullscreen.setFillColor(Color::White);
+					}
+
+					break;
 				default:
 					dir = 0;
 					break;
