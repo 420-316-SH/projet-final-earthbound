@@ -350,7 +350,7 @@ void Game::play()
 	RectangleShape actionJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	viewGame.zoom(0.3);
-	viewGame.move(500, -100);
+	viewGame.setCenter(_ness.getPosition());
 	View viewFight(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	View endGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	endGame.zoom(0.3);
