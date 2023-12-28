@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include <cmath>
 #include <time.h>
+#include <fstream>
+#include <sstream>
 #include "queue.hpp"
 #include "liste.hpp"
 #include "vecteur.hpp"
@@ -37,7 +39,7 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1200, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 
 	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1150, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	
+
 }
 
 void Game::setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style)
@@ -55,6 +57,74 @@ void Game::setText(sf::Text& text, const char* message, sf::Font& font, const ch
 
 void Game::play()
 {
+	// ReadFile ////////////////////////////////////////////
+	//_ness.getShape().getGlobalBounds().intersects()
+	int typeCollision, multiplicateur;
+	char garbage;
+	int y = 0, x = 0, cptHitboxe = 0;
+	std::string ligne;
+	RectangleShape obstacle;
+	std::vector<RectangleShape> mapHitbox;
+
+
+	std::ifstream fileObj("ressources/collision.txt");
+	std::string line;
+
+	while (std::getline(fileObj, line))
+	{
+		std::istringstream iss(line);
+		while (!iss.eof())
+		{
+			iss >> typeCollision >> garbage >> multiplicateur;
+
+			switch (typeCollision)
+			{
+			case 1:
+				for (int i = 0; i < multiplicateur; i++)
+				{
+					obstacle.setPosition(x, y);
+					x += 5;
+					obstacle.setSize(sf::Vector2f(5, 5));
+					obstacle.setFillColor(sf::Color::Red);
+					mapHitbox.push_back(obstacle);
+					cptHitboxe++;
+				}
+				break;
+			case 0:
+				for (int i = 0; i < multiplicateur; i++)
+				{
+					obstacle.setPosition(x, y);
+					x += 5;
+					obstacle.setSize(sf::Vector2f(5, 5));
+					obstacle.setFillColor(sf::Color::Green);
+					mapHitbox.push_back(obstacle);
+					cptHitboxe++;
+				}
+				break;
+			case 2:
+				for (int i = 0; i < multiplicateur; i++)
+				{
+					obstacle.setPosition(x, y);
+					x += 5;
+					obstacle.setSize(sf::Vector2f(5, 5));
+					obstacle.setFillColor(sf::Color::Blue);
+					mapHitbox.push_back(obstacle);
+					cptHitboxe++;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		//cout << "y = " << y << endl;
+		x = 0;
+		y += 5;
+	}
+
+	cout << cptHitboxe;
+	fileObj.close();
+
+	////////////////////////////////////////////////////////
 	//Init Menu Principal ///////////////////////////////////
 	RenderWindow window(VideoMode(1600, 900), "Earthbound Window");
 	bool menubool = true; // Si true, on est dans le menu
@@ -270,6 +340,8 @@ void Game::play()
 	bool win = false;
 	bool lose = false;
 
+
+	Vector2f dernierePosition;
 
 	init(0, 0, 1716, 760, "img/mapPetite.png");
 	Event event;
@@ -1354,13 +1426,33 @@ void Game::play()
 			
 			window.clear();
 			window.setView(viewGame);
+
 			window.draw(getBG());
 			window.draw(_ness.getShape());
 			window.draw(_monstre1.getShape());
 			window.draw(_monstre2.getShape());
 
 
-			viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+
+			if (dir != 0)
+			{
+				if (!ifcollision(mapHitbox))
+				{
+					dernierePosition = _ness.getPosition();
+					viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+				}
+				else
+				{
+					_ness.setHitboxPosition(dernierePosition.x + 6, dernierePosition.y + 6);
+					_ness.setPosition(dernierePosition.x, dernierePosition.y);
+					viewGame.setCenter(dernierePosition.x, dernierePosition.y);
+
+				}
+			}
+
+
+			//window.draw(mapHitbox.at(nbCellule));
+			//window.draw(mapHitbox.at(nbCellule - 1));
 
 			cpt1 = _monstre1.moveMonstre(cpt1);
 			cpt2 = _monstre2.moveMonstre(cpt2);
@@ -1370,7 +1462,14 @@ void Game::play()
 	}
 }
 
+bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
+{
+	int ligne = _ness.getHitboxPosition().y / 5;
+	int col = _ness.getHitboxPosition().x / 5;
+	int nbCellule = ((ligne + 3) * 343) + col + 1;
 
+	return (Hitbox.at(nbCellule).getFillColor() == Color::Red || Hitbox.at(nbCellule - 1).getFillColor() == Color::Red);
+}
 
 const sf::RectangleShape Game::getBG() const
 {

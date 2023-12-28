@@ -11,6 +11,8 @@ class Game
 		Joueur _ness;
 		Monstre _monstre1;
 		Monstre _monstre2;
+		//vecteur<RectangleShape> mapHitbox;
+
 	public:
 		Game();
 		~Game();
@@ -19,5 +21,6 @@ class Game
 		void play();
 		const sf::RectangleShape getBG()const;
 		
+		bool ifcollision(vector<sf::RectangleShape> &Hitbox);
 };
 
