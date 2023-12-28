@@ -266,8 +266,10 @@ void Game::play()
 	int cpt1 = 0;
 	int cpt2 = 0;
 
+	int deadMonster = 0;
 	bool win = false;
 	bool lose = false;
+
 
 	init(0, 0, 1716, 760, "img/mapPetite.png");
 	Event event;
@@ -608,10 +610,14 @@ void Game::play()
 
 					break;
 				case Keyboard::I:
-						win = true;
+					if (lose == true)
+						lose = false;
+					win = true;
 					break;
 				case Keyboard::O:
-						lose = true;
+					if (win == true)
+						win = false;
+					lose = true;
 					break;
 				default:
 					dir = 0;
@@ -1033,7 +1039,10 @@ void Game::play()
 			{
 				arrMusiquePlay[indiceLecteurMusique].stop();
 			}
-
+			if (musicLose.getStatus() == sf::Music::Status::Playing)
+			{
+				musicLose.stop();
+			}
 			if (mute == false && musicWin.getStatus() == sf::Music::Status::Stopped)
 			{
 				musicWin.play();
@@ -1055,7 +1064,10 @@ void Game::play()
 			{
 				arrMusiquePlay[indiceLecteurMusique].stop();
 			}
-
+			if (musicWin.getStatus() == sf::Music::Status::Playing)
+			{
+				musicWin.stop();
+			}
 			if ( mute == false && musicLose.getStatus() == sf::Music::Status::Stopped)
 			{
 				musicLose.play();
@@ -1346,6 +1358,7 @@ void Game::play()
 			window.draw(_ness.getShape());
 			window.draw(_monstre1.getShape());
 			window.draw(_monstre2.getShape());
+
 
 			viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
 
