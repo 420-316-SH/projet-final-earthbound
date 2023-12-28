@@ -36,9 +36,16 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	vecteur<Move> moveNess;
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
  	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1200, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 
-	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1150, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1380, 430, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 845, 380, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre3.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1020, 625, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre4.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 690, 450, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre5.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 490, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre6.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 240, 280, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre7.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 400, 230, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre8.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 860, 205, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre9.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 775, 105, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 
 }
 
@@ -335,6 +342,13 @@ void Game::play()
 	int animationCpt = 0;
 	int cpt1 = 0;
 	int cpt2 = 0;
+	int cpt3 = 0;
+	int cpt4 = 0;
+	int cpt5 = 0;
+	int cpt6 = 0;
+	int cpt7 = 0;
+	int cpt8 = 0;
+	int cpt9 = 0;
 
 	int deadMonster = 0;
 	bool win = false;
@@ -1484,8 +1498,16 @@ void Game::play()
 
 			window.draw(getBG());
 			window.draw(_ness.getShape());
+
 			window.draw(_monstre1.getShape());
 			window.draw(_monstre2.getShape());
+			window.draw(_monstre3.getShape());
+			window.draw(_monstre4.getShape());
+			window.draw(_monstre5.getShape());
+			window.draw(_monstre6.getShape());
+			window.draw(_monstre7.getShape());
+			window.draw(_monstre8.getShape());
+			window.draw(_monstre9.getShape());
 
 
 
@@ -1511,6 +1533,13 @@ void Game::play()
 
 			cpt1 = _monstre1.moveMonstre(cpt1);
 			cpt2 = _monstre2.moveMonstre(cpt2);
+			cpt3 = _monstre3.moveMonstre(cpt3);
+			cpt4 = _monstre4.moveMonstre(cpt4);
+			cpt5 = _monstre5.moveMonstre(cpt5);
+			cpt6 = _monstre6.moveMonstre(cpt6);
+			cpt7 = _monstre7.moveMonstre(cpt7);
+			cpt8 = _monstre8.moveMonstre(cpt8);
+			cpt9 = _monstre9.moveMonstre(cpt9);
 			window.display();
 		}
 

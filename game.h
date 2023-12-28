@@ -11,6 +11,13 @@ class Game
 		Joueur _ness;
 		Monstre _monstre1;
 		Monstre _monstre2;
+		Monstre _monstre3;
+		Monstre _monstre4;
+		Monstre _monstre5;
+		Monstre _monstre6;
+		Monstre _monstre7;
+		Monstre _monstre8;
+		Monstre _monstre9;
 		//vecteur<RectangleShape> mapHitbox;
 
 	public:
