@@ -9,15 +9,19 @@ class Game
 		sf::RectangleShape _fondEcranPlay;
 		sf::Texture _textureBgMap;
 		Joueur _ness;
-		//vecteur<Monstre> _monstres;
-		Joueur _monstre;
-		vecteur<sf::RectangleShape> _mapCollision;
+		Monstre _monstre1;
+		Monstre _monstre2;
+		//vecteur<RectangleShape> mapHitbox;
+
 	public:
 		Game();
 		~Game();
 		void init(int posX, int posY, int w, int h, const char* nomSprite);
+		void setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style);
 		void play();
 		const sf::RectangleShape getBG()const;
-		bool readFile(const char*);
+		
+		bool ifcollision(vector<sf::RectangleShape> &Hitbox);
+		void readFile();
 };
 

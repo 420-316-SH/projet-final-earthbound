@@ -1,13 +1,16 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Windows.h>
+
+#include "queue.hpp"
 #include <fstream>
+#include <sstream>
 #include "list.hpp"
 #include "vecteur.hpp"
+#include "entite.h"
 #include "item.h"
 #include "status.h"
 #include "move.h"
-#include "entite.h"
 #include "monstre.h"
 #include "joueur.h"
 #include "game.h"
@@ -24,20 +27,218 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 {
 	_fondEcranPlay.setPosition(posX, posY);
 	_fondEcranPlay.setSize(Vector2f(w, h));
-	if (!_textureBgMap.loadFromFile("img/bgMap.png"))
+	if (!_textureBgMap.loadFromFile("img/mapPetite.png"))
 	{
 		exit(1);
 	}
 	_fondEcranPlay.setTexture(&_textureBgMap);
 	vecteur<Move> moveNess;
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
- 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2550, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 2500, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+ 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1200, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+
+	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1150, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+
+}
+
+void Game::setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style)
+{
+	if (!font.loadFromFile(police))
+		exit(1);
+
+	text.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	text.setString(message);		//Set le texte à afficher
+	text.setCharacterSize(taille); 			//Set la taille (en pixels)
+	text.setFillColor(color);			//Set la couleur du texte
+	text.setStyle(style);	//Set le style du texte
+	text.setPosition(posX, posY);
 }
 
 void Game::play()
 {
-	readFile("ressources/collision.txt");
+	// ReadFile ////////////////////////////////////////////
+	//_ness.getShape().getGlobalBounds().intersects()
+	int typeCollision, multiplicateur;
+	char garbage;
+	int y = 0, x = 0, cptHitboxe = 0;
+	std::string ligne;
+	RectangleShape obstacle;
+	std::vector<RectangleShape> mapHitbox;
+
+
+	std::ifstream fileObj("ressources/collision.txt");
+	std::string line;
+
+	while (std::getline(fileObj, line))
+	{
+		std::istringstream iss(line);
+		while (!iss.eof())
+		{
+			iss >> typeCollision >> garbage >> multiplicateur;
+
+			switch (typeCollision)
+			{
+			case 1:
+				for (int i = 0; i < multiplicateur; i++)
+				{
+					obstacle.setPosition(x, y);
+					x += 5;
+					obstacle.setSize(sf::Vector2f(5, 5));
+					obstacle.setFillColor(sf::Color::Red);
+					mapHitbox.push_back(obstacle);
+					cptHitboxe++;
+				}
+				break;
+			case 0:
+				for (int i = 0; i < multiplicateur; i++)
+				{
+					obstacle.setPosition(x, y);
+					x += 5;
+					obstacle.setSize(sf::Vector2f(5, 5));
+					obstacle.setFillColor(sf::Color::Green);
+					mapHitbox.push_back(obstacle);
+					cptHitboxe++;
+				}
+				break;
+			case 2:
+				for (int i = 0; i < multiplicateur; i++)
+				{
+					obstacle.setPosition(x, y);
+					x += 5;
+					obstacle.setSize(sf::Vector2f(5, 5));
+					obstacle.setFillColor(sf::Color::Blue);
+					mapHitbox.push_back(obstacle);
+					cptHitboxe++;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		cout << "y = " << y << endl;
+		x = 0;
+		y += 5;
+	}
+
+	cout << cptHitboxe;
+	fileObj.close();
+
+	////////////////////////////////////////////////////////
+	//Init Menu Principal ///////////////////////////////////
+	RenderWindow window(VideoMode(1600, 900), "Earthbound");
+	bool menubool = true; // Si true, on est dans le menu
+	RectangleShape fondEcranMenu;
+	Texture texturefondEcranMenu;
+	fondEcranMenu.setPosition(0, 0);
+	fondEcranMenu.setSize(Vector2f(1600, 900));
+	if (!texturefondEcranMenu.loadFromFile("img/earthboundMenuBG.png"))
+	{
+		cout << "Erreur! L'image du menu background est introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	fondEcranMenu.setTexture(&texturefondEcranMenu);
+	
+	// Texte menu //////////////////////////////////////////////
+	Text play;
+	Text stat;
+	Text reglage;
+	Text quit;
+
+	Font font;
+	if (!font.loadFromFile("ressources/arial.ttf")) {
+		exit(1);
+	}
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		switch (i)
+		{
+		case 0:
+			setText(play, "Play", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 1:
+			setText(stat, "Stat", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 2:
+			setText(reglage, "Reglage", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		case 3:
+			setText(quit, "Quit", font, "ressources/arial.ttf", window.getSize().x / 2 - 60, 50 * i + 300, 24, Color::White, 0);
+			break;
+		default:
+			break;
+		}
+	}
+
+	////////////////////////////////////////////////////////////
+
+	Sound musicMenu;
+	SoundBuffer bufferMenu;
+	if (!bufferMenu.loadFromFile("music/chooseAFile.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicMenu.setBuffer(bufferMenu);
+	musicMenu.setLoop(true);
+	musicMenu.play();
+	// Si on a le temps:
+	// Faire méthode init menu
+	// faire méthode init fight
+	// faire méthode init jeu
+	//////////////////////////////////////////////////////////
+
+
+	// Init musique de la world map //////////////////////////
+	Sound arrMusiquePlay[3];
+	Sound musicPlay1;
+	Sound musicPlay2;
+	Sound musicPlay3;
+
+	SoundBuffer bufferPlay1;
+	SoundBuffer bufferPlay2;
+	SoundBuffer bufferPlay3;
+
+	bool mute = false;
+
+	int indiceLecteurMusique = 0;
+
+	if (!bufferPlay1.loadFromFile("music/theMetropolisofFourside.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicPlay1.setBuffer(bufferPlay1);
+
+	if (!bufferPlay2.loadFromFile("music/lisaThePainfulOSTGarbageDay.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicPlay2.setBuffer(bufferPlay2);
+
+	if (!bufferPlay3.loadFromFile("music/youveComeFarNess.mp3"))
+	{
+		cout << "Erreur! Fichier de musique pour le menu introuvable";
+		system("pause");
+		exit(1); // Fichier musique Menu introuvable
+	}
+	musicPlay3.setBuffer(bufferPlay3);
+
+	arrMusiquePlay[0]=musicPlay1;
+	arrMusiquePlay[1]=musicPlay2;
+	arrMusiquePlay[2]=musicPlay3;
+
+	///////////////////////////////////////////////////////////
+
+	// Lecture d'un fichier ayant le nom du joueur et ses stats. Si aucun nom est trouver crée un nouveau nom ///////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	float lastX = 0;
 	float lastY = 0;
@@ -46,18 +247,145 @@ void Game::play()
 	int dirY = 0;
 	float temp = 0;
 	int animationCpt = 0;
-	int cpt = 0;
+	int cpt1 = 0;
+	int cpt2 = 0;
 
-	init(0, 0, 3000, 3328, "img/bgMap.png");
-	RenderWindow window(VideoMode(1600, 900), "Titre de la fenêtre");
+	init(0, 0, 1716, 760, "img/mapPetite.png");
 	Event event;
 	RectangleShape fondEcran;
+	RectangleShape fondEcranFight;
+	RectangleShape statJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	viewGame.zoom(0.3);
-	viewGame.move(1800, -100);
+	viewGame.move(500, -100);
+
+	fondEcranFight.setSize(Vector2f(_fondEcranPlay.getSize().x, _fondEcranPlay.getSize().y));
+	fondEcranFight.setFillColor(Color::Black);
+
+	statJoueur.setSize(Vector2f(40, 50));
+	statJoueur.setFillColor(Color::Black);
+	statJoueur.setOutlineThickness(4);
+	statJoueur.setOutlineColor(Color::White);
 
 	fondEcran.setSize(Vector2f(100, 100));
 	fondEcran.setFillColor(Color::Green);
+
+
+
+	Text nomJoueur;
+
+	nomJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	nomJoueur.setString("Ness");		//Set le texte à afficher
+	nomJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	nomJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	nomJoueur.setStyle(0);	//Set le style du texte
+	nomJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 18, _ness.getShape().getPosition().y + 50));
+
+	Text pp;
+	Text ppJoueur;
+
+	ppJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	ppJoueur.setString(std::to_string(_ness.getPp()));		//Set le texte à afficher
+	ppJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	ppJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	ppJoueur.setStyle(0);	//Set le style du texte
+	ppJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 80));
+
+	pp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	pp.setString("Pp : ");		//Set le texte à afficher
+	pp.setCharacterSize(10); 			//Set la taille (en pixels)
+	pp.setFillColor(Color::White);			//Set la couleur du texte
+	pp.setStyle(0);	//Set le style du texte
+	pp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 80));
+
+	Text hp;
+	Text hpJoueur;
+
+	hpJoueur.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	hpJoueur.setString(std::to_string(_ness.getHp()));		//Set le texte à afficher
+	hpJoueur.setCharacterSize(10); 			//Set la taille (en pixels)
+	hpJoueur.setFillColor(Color::White);			//Set la couleur du texte
+	hpJoueur.setStyle(0);	//Set le style du texte
+	hpJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 30, _ness.getShape().getPosition().y + 65));
+
+	hp.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	hp.setString("Hp : ");		//Set le texte à afficher
+	hp.setCharacterSize(10); 			//Set la taille (en pixels)
+	hp.setFillColor(Color::White);			//Set la couleur du texte
+	hp.setStyle(0);	//Set le style du texte
+	hp.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 65));
+	
+
+
+	////////////////////////////////////////////////////////////////////////
+	// MOVE ANIMATION Ne Pas Supprimer SVP
+	// Fonctionnalité qu'on aura surement pas le temps d'implémenter, mais j'aimerais garder ce code quand même,car l'annimation fonctionnais
+
+	//Clock pour limiter les fps surtout pour la gestion des animations
+	/*Clock clock;
+	Time time;
+
+	RectangleShape animationTest;
+	IntRect animationFrame(1 , 226, 256, 224);
+	animationTest.setSize(Vector2f(256, 224));
+	Texture textureAnimation;
+
+	if (!textureAnimation.loadFromFile("img/testAnimation.png"))
+	{
+		exit(1);
+	}
+
+	animationTest.setTexture(&textureAnimation);
+	animationTest.setTextureRect(animationFrame);
+	int cptLeft=0;
+	int cptTop=0;
+	viewGame.zoom(5);
+	viewGame.move(-1800,100);
+
+	/////////////////////////////////////////////////////////////////////
+	//ANIMATION
+
+	time = clock.getElapsedTime();
+	if (time.asMilliseconds() >= 100.0f)
+	{
+	////////////////////////////////////////////////////////////////////
+		window.clear();
+		window.setView(viewGame);
+		window.draw(getBG());
+		window.draw(_ness.getShape());
+		//////////////////////////////////////////////////////////////
+		//TEST ANIMATION
+
+		window.draw(animationTest);
+		if (cptLeft < 4 )
+		{
+			cptLeft++;
+			animationFrame.left += 257;
+		}
+		else if (cptTop < 17)
+		{
+			cptTop++;
+			cptLeft = 0;
+			animationFrame.left = 1;
+			animationFrame.top += 225;
+
+		}
+		else
+		{
+			cptLeft = 0;
+			cptTop = 0;
+			animationFrame.left = 1;
+			animationFrame.top = 1;
+		}
+		cout << cptLeft << " " << cptTop;
+		animationTest.setTextureRect(animationFrame);
+		clock.restart();
+		/////////////////////////////////////////////////////////////
+		window.display();
+	*/
+	//////////////////////////////////////////////////////////////////
+
+
 
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
@@ -127,6 +455,50 @@ void Game::play()
 					{
 						dir = 4;//Droite
 					}
+					break;
+				case Keyboard::P:
+						if (musicMenu.getStatus() == sf::Music::Status::Playing)
+						{
+							musicMenu.stop();
+						}
+						if (!mute && menubool)
+						{
+							arrMusiquePlay[indiceLecteurMusique].play();
+						}
+						menubool = false;
+					break;
+				case Keyboard::N:
+					arrMusiquePlay[indiceLecteurMusique].stop();
+					break;
+				case Keyboard::M:
+
+					if (menubool == true)
+					{
+						if (mute == false)
+						{
+							musicMenu.stop();
+							mute = true;
+						}
+						else
+						{
+							musicMenu.play();
+							mute = false;
+						}
+					}
+					else
+					{
+						if (mute == false)
+						{
+							mute = true;
+							arrMusiquePlay[indiceLecteurMusique].stop();
+						}
+						else
+						{
+							mute = false;
+							arrMusiquePlay[indiceLecteurMusique].play();
+						}
+					}
+				
 					break;
 				default:
 					dir = 0;
@@ -322,45 +694,182 @@ void Game::play()
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
+		} 
+		// FIN DU POLLEVENT //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		// GESTION DE L'AFFICHAGE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		// Affichage menu
+		if (menubool)
+		{
+			window.clear();
+			window.draw(fondEcranMenu);
+			/*for (int i = 0; i < mapHitbox.size(); i++)
+				window.draw(mapHitbox.at(i));*/
+			window.draw(play);
+			window.draw(stat);
+			window.draw(reglage);
+			window.draw(quit);
+			window.display();
+			/*
+			if (nomJoueurTemp.length() == 3)
+			{
+
+				window.draw(nomJoueur);
+
+				for (int i = 0; i < 3; i++)
+				{
+					window.draw(menu[i]);
+					window.draw(txt1);
+					window.draw(txt2);
+					window.draw(txt3);
+				}
+
+			}
+			else
+			{
+				window.draw(txtInfo);
+				window.draw(nomJoueur);
+
+			}*/
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) 
+		{ // Si un combat doit s'ammorcer
+			_monstre1.setPosition(Vector2f(_ness.getShape().getPosition().x + 20, _ness.getShape().getPosition().y - 20));
+			statJoueur.setPosition(Vector2f(_ness.getShape().getPosition().x + 10, _ness.getShape().getPosition().y + 50));
+			window.clear();
+			window.setView(viewGame);
+			window.draw(fondEcranFight);
+			window.draw(_monstre1.getShape());
+			window.draw(statJoueur);
+			window.draw(nomJoueur);
+			window.draw(hpJoueur);
+			window.draw(hp);
+			window.draw(ppJoueur);
+			window.draw(pp);
+			window.display();
+			system("pause>0");
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
+			_monstre2.setPosition(Vector2f(_ness.getShape().getPosition().x + 40, _ness.getShape().getPosition().y));
+			window.clear();
+			window.setView(viewGame);
+			window.draw(fondEcranFight);
+			window.draw(nomJoueur);
+			window.draw(_monstre2.getShape());
+			window.display();
+			system("pause>0");
+		}
+		else
+		{	// Affichage normal en jeu /////////////////////////////////////////////////
+			
+			//gestion musique
+			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Stopped && mute == false)
+			{
+				if (indiceLecteurMusique < sizeof(arrMusiquePlay)/ sizeof(Sound) - 1)
+					indiceLecteurMusique++;
+				else
+					indiceLecteurMusique = 0;
+
+				arrMusiquePlay[indiceLecteurMusique].play();
+			}
+			
+			window.clear();
+			window.setView(viewGame);
+
+			window.draw(getBG());
+			window.draw(_ness.getShape());
+			window.draw(_monstre1.getShape());
+			window.draw(_monstre2.getShape());
+
+
+			//cout << _ness.getHitboxPosition().x << " " << _ness.getHitboxPosition().y;
+
+			/*for (int i = 0; i < mapHitbox.size(); i++)
+							window.draw(mapHitbox.at(i));*/
+
+
+			if (dir != 0)
+			{
+				if (!ifcollision(mapHitbox))
+					viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+				else
+					//_ness.move(dir, )
+				cout << dir << " ";
+			}
+
+
+			//window.draw(mapHitbox.at(nbCellule));
+			//window.draw(mapHitbox.at(nbCellule - 1));
+
+			cpt1 = _monstre1.moveMonstre(cpt1);
+			cpt2 = _monstre2.moveMonstre(cpt2);
+			window.display();
 		}
 
-		window.clear();
-		window.setView(viewGame);
-		window.draw(getBG());
-		window.draw(_ness.getShape());
-		window.draw(_monstre.getShape());
-		viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
-		
-		cpt = _monstre.moveMonstre(cpt);
-		window.display();
 	}
 }
 
-bool Game::readFile(const char* fileName) {
+bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
+{
+	int ligne = _ness.getHitboxPosition().y / 5;
+	int col = _ness.getHitboxPosition().x / 5;
+	int nbCellule = ((ligne + 3) * 343) + col + 1;
+
+	return (Hitbox.at(nbCellule).getFillColor() == Color::Red || Hitbox.at(nbCellule - 1).getFillColor() == Color::Red);
+}
+
+void Game::readFile() {
 	int typeCollision, multiplicateur;
 	char garbage;
+	int y = 0, x = 0, cptHitboxe = 0;
 	std::string ligne;
-
-	ifstream fileObj(fileName);
-
-	if (fileObj.is_open()) {
-		getline(fileObj, ligne);
-
-		typeCollision = int(ligne[0]);
-
-		cout << typeCollision;
-
-		//fileObj >> typeCollision >> garbage >> multiplicateur;
+	RectangleShape obstacle;
 
 
+	std::ifstream fileObj("ressources/collision.txt");
+	std::string line;
+
+	while (std::getline(fileObj, line))
+	{
+		std::istringstream iss(line);
+		while (!iss.eof())
+		{
+			iss >> typeCollision >> garbage >> multiplicateur;
+
+			switch (typeCollision)
+			{
+			case 1:
+				for (int i = 0; i < multiplicateur; i++)
+				{
+					obstacle.setPosition(x, y);
+					x += 5;
+					obstacle.setSize(sf::Vector2f(5, 5));
+					obstacle.setFillColor(sf::Color::Red);
+					cptHitboxe++;
+				}
+				break;
+			case 0:
+				x += 5 * multiplicateur;
+				break;
+			default:
+				break;
+			}
+		}
+		cout << "y = " <<  y << endl;
+		x = 0;
+		y += 5;
 	}
 
+	cout << cptHitboxe;
 	fileObj.close();
-
-	return false;
 }
 
 const sf::RectangleShape Game::getBG() const
 {
 	return _fondEcranPlay;
 }
+
+
+
