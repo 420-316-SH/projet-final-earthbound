@@ -381,7 +381,7 @@ void Game::play()
 	RectangleShape statJoueur;
 	RectangleShape actionJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
-	viewGame.zoom(1.3);
+	viewGame.zoom(0.3);
 	viewGame.setCenter(_ness.getPosition());
 	View viewFight(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	View endGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
@@ -1181,6 +1181,11 @@ void Game::play()
 			window.clear();
 			window.draw(winBG);
 			window.draw(finDePartie);
+			window.draw(txtTimer);
+			window.draw(finalhp);
+			window.draw(finalforce);
+			window.draw(finaldef);
+			window.draw(finalpp);
 			window.display();
 			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
 			{
@@ -1212,7 +1217,7 @@ void Game::play()
 			window.draw(finalforce);
 			window.draw(finaldef);
 			window.draw(finalpp);
-			window.draw(killedMonster);
+			//window.draw(killedMonster);
 
 			window.display();
 			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
