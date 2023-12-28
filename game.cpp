@@ -35,18 +35,29 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	_fondEcranPlay.setTexture(&_textureBgMap);
 	vecteur<Move> moveNess;
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
+	sf::IntRect monstre1(0, 0, 32, 60);
+	sf::IntRect monstre2(0, 0, 28, 30);
+	sf::IntRect monstre3(0, 0, 41, 59);
+	sf::IntRect monstre4(0, 0, 29, 30);
+	sf::IntRect monstre5(0, 0, 30, 32);
+	sf::IntRect monstre6(0, 0, 28, 32);
+	sf::IntRect monstre7(0, 0, 32, 54);
+	sf::IntRect monstre8(0, 0, 126, 64);
+	sf::IntRect monstre9(0, 0, 63, 64);
+	sf::IntRect monstre10(0, 0, 61, 64);
+
  	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 
-	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1380, 410, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 845, 370, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre3.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1020, 610, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre4.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 705, 450, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre5.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 480, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre6.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 280, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre7.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 370, 210, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre8.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 820, 165, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre9.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 740, 85, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-
+	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1380, 410, 22, 40, monstre1, "img/monstre1.png");
+	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 845, 370, 28, 30, monstre2, "img/monstre2.png");
+	_monstre3.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1020, 610, 24, 30, monstre3, "img/monstre3.png");
+	_monstre4.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 705, 450, 29, 30, monstre4, "img/monstre4.png");
+	_monstre5.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 480, 30, 32, monstre5, "img/monstre5.png");
+	_monstre6.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 280, 28, 32, monstre6, "img/monstre6.png");
+	_monstre7.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 370, 210, 32, 54, monstre7, "img/monstre7.png");
+	_monstre8.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 820, 165, 63, 32, monstre8, "img/monstre8.png");
+	_monstre9.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 740, 85, 33, 34, monstre9, "img/monstre9.png");
+	_monstre10.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 740, 85, 61, 64, monstre10, "img/monstre10.png");
 }
 
 void Game::setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style)

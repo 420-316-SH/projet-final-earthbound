@@ -18,6 +18,7 @@ class Game
 		Monstre _monstre7;
 		Monstre _monstre8;
 		Monstre _monstre9;
+		Monstre _monstre10;
 		//vecteur<RectangleShape> mapHitbox;
 
 	public:
