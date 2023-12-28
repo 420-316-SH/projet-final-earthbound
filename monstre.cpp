@@ -15,6 +15,8 @@ Monstre::Monstre()
 Monstre::~Monstre()
 {
 	_vivant = false;
+	_shape.setSize(sf::Vector2f(0, 0));
+	_shape.setPosition(sf::Vector2f(-1000, -1000));
 
 	_hp = _intel = _force = _def = _speed = _lvl = _expGagne = _crit = 0;
 }

@@ -112,84 +112,84 @@ sf::View Entite::move(int& dir, float x, float y, int& animationCpt, sf::View vi
 			_rectSprite.top = 0;
 			_shape.move(0, 0.025);
 			_hitbox.move(0, 0.025);
-			viewGame.move(0, 0.025);
+			//viewGame.move(0, 0.025);
 			break;
 
 		case 2://up
 			_rectSprite.top = 24;
 			_shape.move(0, -0.025);
 			_hitbox.move(0, -0.025);
-			viewGame.move(0, -0.025);
+			//viewGame.move(0, -0.025);
 			break;
 
 		case 3://left
 			_rectSprite.top = 72;
 			_shape.move(-0.025, 0);
 			_hitbox.move(-0.025, 0);
-			viewGame.move(-0.025, 0);
+			//viewGame.move(-0.025, 0);
 			break;
 
 		case 4://right
 			_rectSprite.top = 48;
 			_shape.move(0.025, 0);
 			_hitbox.move(0.025, 0);
-			viewGame.move(0.025, 0);
+			//viewGame.move(0.025, 0);
 			break;
 
 		case 5://down left
 			_rectSprite.top = 0;
 			_shape.move(-0.025, 0.025);
 			_hitbox.move(-0.025, 0.025);
-			viewGame.move(-0.025, 0.025);
+			//viewGame.move(-0.025, 0.025);
 			break;
 
 		case 6://down right
 			_rectSprite.top = 0;
 			_shape.move(0.025, 0.025);
 			_hitbox.move(0.025, 0.025);
-			viewGame.move(0.025, 0.025);
+			//viewGame.move(0.025, 0.025);
 			break;
 
 		case 7://up left
 			_rectSprite.top = 24;
 			_shape.move(-0.025, -0.025);
 			_hitbox.move(-0.025, -0.025);
-			viewGame.move(-0.025, -0.025);
+			//viewGame.move(-0.025, -0.025);
 			break;
 
 		case 8://up right
 			_rectSprite.top = 24;
 			_shape.move(0.025, -0.025);
 			_hitbox.move(0.025, -0.025);
-			viewGame.move(0.025, -0.025);
+			//viewGame.move(0.025, -0.025);
 			break;
 
 		case 9://left down
 			_rectSprite.top = 72;
 			_shape.move(-0.025, 0.025);
 			_hitbox.move(-0.025, 0.025);
-			viewGame.move(-0.025, 0.025);
+			//viewGame.move(-0.025, 0.025);
 			break;
 
 		case 10://left up
 			_rectSprite.top = 72;
 			_shape.move(-0.025, -0.025);
 			_hitbox.move(-0.025, -0.025);
-			viewGame.move(-0.025, -0.025);
+			//viewGame.move(-0.025, -0.025);
 			break;
 
 		case 11://right down
 			_rectSprite.top = 48;
 			_shape.move(0.025, 0.025);
 			_hitbox.move(0.025, 0.025);
-			viewGame.move(0.025, 0.025);
+			//viewGame.move(0.025, 0.025);
 			break;
 
 		case 12://right up
 			_rectSprite.top = 48;
 			_shape.move(0.025, -0.025);
 			_hitbox.move(0.025, -0.025);
-			viewGame.move(0.025, -0.025);
+			//viewGame.move(0.025, -0.025);
 			break;
 
 		default:
@@ -238,12 +238,10 @@ sf::View Entite::move(int& dir, float x, float y, int& animationCpt, sf::View vi
 		_shape.setTextureRect(_rectSprite);
 		_shape.move(x/150, y/150);
 		_hitbox.setPosition(_shape.getPosition().x + 6, _shape.getPosition().y + 6);
-		viewGame.move(x/150, y/150);
+		//viewGame.move(x/150, y/150);
+
 	}
-
-	// À voir avec max : setCenter est beaucoup plus efficace et peut être fait dans game play après le move une seule fois.
-	viewGame.setCenter(getPosition());
-
+	//viewGame.setCenter(_shape.getPosition());
 	return viewGame;
 }
 
@@ -252,26 +250,26 @@ int Entite::moveMonstre(int cpt)
 
 	if (cpt >= 0 && cpt < 2500)
 	{
-		_shape.move(0.030, 0);
-		_hitbox.move(0.030, 0);
+		_shape.move(0.015, 0);
+		_hitbox.move(0.015, 0);
 		cpt++;
 	}
 	else if (cpt >= 2500 && cpt < 5000)
 	{
-		_shape.move(0, 0.030);
-		_hitbox.move(0, 0.030);
+		_shape.move(0, 0.015);
+		_hitbox.move(0, 0.015);
 		cpt++;
 	}
 	else if (cpt >= 5000 && cpt < 7500)
 	{
-		_shape.move(-0.030, 0);
-		_hitbox.move(-0.030, 0);
+		_shape.move(-0.015, 0);
+		_hitbox.move(-0.015, 0);
 		cpt++;
 	}
 	else
 	{
-		_shape.move(0, -0.030);
-		_hitbox.move(0, -0.030);
+		_shape.move(0, -0.015);
+		_hitbox.move(0, -0.015);
 		cpt++;
 	}
 	if (cpt == 10000) 

@@ -37,15 +37,15 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
  	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 
-	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1380, 430, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 845, 380, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre3.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1020, 625, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre4.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 690, 450, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre5.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 490, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre6.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 240, 280, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre7.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 400, 230, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre8.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 860, 205, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre9.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 775, 105, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1380, 410, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 845, 370, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre3.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1020, 610, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre4.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 705, 450, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre5.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 480, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre6.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 280, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre7.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 370, 210, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre8.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 820, 165, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_monstre9.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 740, 85, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 
 }
 
@@ -364,8 +364,8 @@ void Game::play()
 	RectangleShape statJoueur;
 	RectangleShape actionJoueur;
 	View viewGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
-	viewGame.zoom(0.3);
-	viewGame.move(500, -100);
+	viewGame.zoom(1.3);
+	viewGame.setCenter(_ness.getPosition());
 	View viewFight(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	View endGame(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 	endGame.zoom(0.3);
@@ -1509,14 +1509,13 @@ void Game::play()
 			window.draw(_monstre8.getShape());
 			window.draw(_monstre9.getShape());
 
-
-
 			if (dir != 0)
 			{
 				if (!ifcollision(mapHitbox))
 				{
 					dernierePosition = _ness.getPosition();
 					viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+					viewGame.setCenter(_ness.getPosition());
 				}
 				else
 				{
@@ -1528,8 +1527,12 @@ void Game::play()
 			}
 
 
-			//window.draw(mapHitbox.at(nbCellule));
-			//window.draw(mapHitbox.at(nbCellule - 1));
+			int ligne = _ness.getHitboxPosition().y / 5;
+			int col = _ness.getHitboxPosition().x / 5;
+			int nbCellule = ((ligne + 3) * 343) + col + 1;
+			window.draw(mapHitbox.at(nbCellule+1));
+			window.draw(mapHitbox.at(nbCellule - 2));
+
 
 			cpt1 = _monstre1.moveMonstre(cpt1);
 			cpt2 = _monstre2.moveMonstre(cpt2);
@@ -1552,7 +1555,8 @@ bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
 	int col = _ness.getHitboxPosition().x / 5;
 	int nbCellule = ((ligne + 3) * 343) + col + 1;
 
-	return (Hitbox.at(nbCellule).getFillColor() == Color::Red || Hitbox.at(nbCellule - 1).getFillColor() == Color::Red);
+
+	return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
 }
 
 const sf::RectangleShape Game::getBG() const
