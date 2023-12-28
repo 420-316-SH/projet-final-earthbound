@@ -22,6 +22,5 @@ class Game
 		const sf::RectangleShape getBG()const;
 		
 		bool ifcollision(vector<sf::RectangleShape> &Hitbox);
-		void readFile();
 };
 

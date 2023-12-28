@@ -115,7 +115,7 @@ void Game::play()
 				break;
 			}
 		}
-		cout << "y = " << y << endl;
+		//cout << "y = " << y << endl;
 		x = 0;
 		y += 5;
 	}
@@ -249,6 +249,8 @@ void Game::play()
 	int animationCpt = 0;
 	int cpt1 = 0;
 	int cpt2 = 0;
+
+	Vector2f dernierePosition;
 
 	init(0, 0, 1716, 760, "img/mapPetite.png");
 	Event event;
@@ -793,10 +795,17 @@ void Game::play()
 			if (dir != 0)
 			{
 				if (!ifcollision(mapHitbox))
+				{
+					dernierePosition = _ness.getPosition();
 					viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+				}
 				else
-					//_ness.move(dir, )
-				cout << dir << " ";
+				{
+					_ness.setHitboxPosition(dernierePosition.x + 6, dernierePosition.y + 6);
+					_ness.setPosition(dernierePosition.x, dernierePosition.y);
+					viewGame.setCenter(dernierePosition.x, dernierePosition.y);
+
+				}
 			}
 
 
@@ -818,52 +827,6 @@ bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
 	int nbCellule = ((ligne + 3) * 343) + col + 1;
 
 	return (Hitbox.at(nbCellule).getFillColor() == Color::Red || Hitbox.at(nbCellule - 1).getFillColor() == Color::Red);
-}
-
-void Game::readFile() {
-	int typeCollision, multiplicateur;
-	char garbage;
-	int y = 0, x = 0, cptHitboxe = 0;
-	std::string ligne;
-	RectangleShape obstacle;
-
-
-	std::ifstream fileObj("ressources/collision.txt");
-	std::string line;
-
-	while (std::getline(fileObj, line))
-	{
-		std::istringstream iss(line);
-		while (!iss.eof())
-		{
-			iss >> typeCollision >> garbage >> multiplicateur;
-
-			switch (typeCollision)
-			{
-			case 1:
-				for (int i = 0; i < multiplicateur; i++)
-				{
-					obstacle.setPosition(x, y);
-					x += 5;
-					obstacle.setSize(sf::Vector2f(5, 5));
-					obstacle.setFillColor(sf::Color::Red);
-					cptHitboxe++;
-				}
-				break;
-			case 0:
-				x += 5 * multiplicateur;
-				break;
-			default:
-				break;
-			}
-		}
-		cout << "y = " <<  y << endl;
-		x = 0;
-		y += 5;
-	}
-
-	cout << cptHitboxe;
-	fileObj.close();
 }
 
 const sf::RectangleShape Game::getBG() const
