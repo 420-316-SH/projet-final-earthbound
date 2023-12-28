@@ -240,6 +240,10 @@ sf::View Entite::move(int& dir, float x, float y, int& animationCpt, sf::View vi
 		_hitbox.setPosition(_shape.getPosition().x + 6, _shape.getPosition().y + 6);
 		viewGame.move(x/150, y/150);
 	}
+
+	// À voir avec max : setCenter est beaucoup plus efficace et peut être fait dans game play après le move une seule fois.
+	viewGame.setCenter(getPosition());
+
 	return viewGame;
 }
 
