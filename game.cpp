@@ -1185,7 +1185,7 @@ void Game::play()
 			window.draw(finalhp);
 			window.draw(finalforce);
 			window.draw(finaldef);
-			window.draw(finalpp);
+			//window.draw(finalpp);
 			window.display();
 			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
 			{
@@ -1216,7 +1216,7 @@ void Game::play()
 			window.draw(finalhp);
 			window.draw(finalforce);
 			window.draw(finaldef);
-			window.draw(finalpp);
+			//window.draw(finalpp);
 			//window.draw(killedMonster);
 
 			window.display();
