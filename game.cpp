@@ -1487,14 +1487,13 @@ void Game::play()
 			window.draw(_monstre1.getShape());
 			window.draw(_monstre2.getShape());
 
-
-
 			if (dir != 0)
 			{
 				if (!ifcollision(mapHitbox))
 				{
 					dernierePosition = _ness.getPosition();
 					viewGame = _ness.move(dir, lastX, lastY, animationCpt, viewGame);
+					viewGame.setCenter(_ness.getPosition());
 				}
 				else
 				{
@@ -1506,8 +1505,12 @@ void Game::play()
 			}
 
 
-			//window.draw(mapHitbox.at(nbCellule));
-			//window.draw(mapHitbox.at(nbCellule - 1));
+			int ligne = _ness.getHitboxPosition().y / 5;
+			int col = _ness.getHitboxPosition().x / 5;
+			int nbCellule = ((ligne + 3) * 343) + col + 1;
+			window.draw(mapHitbox.at(nbCellule+1));
+			window.draw(mapHitbox.at(nbCellule - 2));
+
 
 			cpt1 = _monstre1.moveMonstre(cpt1);
 			cpt2 = _monstre2.moveMonstre(cpt2);
@@ -1523,7 +1526,8 @@ bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
 	int col = _ness.getHitboxPosition().x / 5;
 	int nbCellule = ((ligne + 3) * 343) + col + 1;
 
-	return (Hitbox.at(nbCellule).getFillColor() == Color::Red || Hitbox.at(nbCellule - 1).getFillColor() == Color::Red);
+
+	return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
 }
 
 const sf::RectangleShape Game::getBG() const
