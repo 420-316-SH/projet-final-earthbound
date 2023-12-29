@@ -77,10 +77,13 @@ void Game::play()
 {
 	// ReadFile ////////////////////////////////////////////
 	//_ness.getShape().getGlobalBounds().intersects()
+	int ligne =0;
+	int col = 0;
+	int nbCellule =0;
 	int typeCollision, multiplicateur;
 	char garbage;
 	int y = 0, x = 0, cptHitboxe = 0;
-	std::string ligne;
+	//std::string ligne;
 	RectangleShape obstacle;
 	std::vector<RectangleShape> mapHitbox;
 
@@ -1138,6 +1141,9 @@ void Game::play()
 		// GESTION DE L'AFFICHAGE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		// Affichage menu
+		ligne = _ness.getHitboxPosition().y / 5;
+		col = _ness.getHitboxPosition().x / 5;
+		nbCellule = ((ligne + 3) * 343) + col + 1;
 		
 		if (menubool == true)
 		{
@@ -1562,6 +1568,971 @@ void Game::play()
 		fuite.setFillColor(Color::White);
 		suivant.setFillColor(Color::White);
 		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre3.getShape().getGlobalBounds())) {
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre3.getPosition().x;
+			float positionMonstreY = _monstre3.getPosition().y;
+			_monstre3.setPosition(Vector2f(700, 360));
+			_monstre3.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre3.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre3.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre4.getShape().getGlobalBounds())) {
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre4.getPosition().x;
+			float positionMonstreY = _monstre4.getPosition().y;
+			_monstre4.setPosition(Vector2f(700, 360));
+			_monstre4.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre4.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre4.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre5.getShape().getGlobalBounds())) {
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre5.getPosition().x;
+			float positionMonstreY = _monstre5.getPosition().y;
+			_monstre5.setPosition(Vector2f(700, 360));
+			_monstre5.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre5.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre5.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre6.getShape().getGlobalBounds())) {
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre6.getPosition().x;
+			float positionMonstreY = _monstre6.getPosition().y;
+			_monstre6.setPosition(Vector2f(700, 360));
+			_monstre6.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre6.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre6.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre7.getShape().getGlobalBounds())) {
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre7.getPosition().x;
+			float positionMonstreY = _monstre7.getPosition().y;
+			_monstre7.setPosition(Vector2f(700, 360));
+			_monstre7.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre7.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre7.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre8.getShape().getGlobalBounds())) {
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre8.getPosition().x;
+			float positionMonstreY = _monstre8.getPosition().y;
+			_monstre8.setPosition(Vector2f(700, 360));
+			_monstre8.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre8.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre8.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre9.getShape().getGlobalBounds())) {
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre9.getPosition().x;
+			float positionMonstreY = _monstre9.getPosition().y;
+			_monstre9.setPosition(Vector2f(700, 360));
+			_monstre9.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre9.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre9.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
+
+		//window.draw(mapHitbox.at(nbCellule + 1));
+		//window.draw(mapHitbox.at(nbCellule - 2));
+
+		else if (mapHitbox.at(nbCellule + 1).getFillColor() == Color::Blue || mapHitbox.at(nbCellule - 2).getFillColor()==Color::Blue) 
+		{
+			bool fight = true;
+			int menu = 0;
+			float positionMonstreX = _monstre10.getPosition().x;
+			float positionMonstreY = _monstre10.getPosition().y;
+			_monstre10.setPosition(Vector2f(700, 360));
+			_monstre10.setSize(200, 180);
+			actionJoueur.setPosition(Vector2f(60, 45));
+			attaque.setPosition(Vector2f(75, 50));
+			item.setPosition(Vector2f(75, 150));
+			fuite.setPosition(Vector2f(300, 150));
+			statJoueur.setPosition(Vector2f(720, 650));
+			nomJoueur.setPosition(Vector2f(755, 660));
+			hp.setPosition(Vector2f(725, 720));
+			hpJoueur.setPosition(Vector2f(800, 720));
+			pp.setPosition(Vector2f(725, 780));
+			ppJoueur.setPosition(Vector2f(800, 780));
+			suivant.setPosition(Vector2f(500, 150));
+
+			while (fight == true) {
+				while (window.pollEvent(event)) {
+
+
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre10.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(attaque);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(hp);
+						window.draw(ppJoueur);
+						window.draw(pp);
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+
+							window.draw(actionJoueur);
+							window.draw(attaque);
+							menu = 1;
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							menu = 2;
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+
+							int chanceFuite = rand() % (4 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite == 1) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre10.~Monstre();
+											}
+										}
+									}
+								} while (next == false);
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+									window.draw(ppJoueur);
+									window.draw(pp);
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+								} while (next == false);
+							}
+
+
+						}
+
+					}
+
+				}
+
+			}
+			attaque.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+		}
 		else
 		{	// Affichage normal en jeu /////////////////////////////////////////////////
 			
@@ -1609,10 +2580,7 @@ void Game::play()
 				}
 			}
 
-
-			int ligne = _ness.getHitboxPosition().y / 5;
-			int col = _ness.getHitboxPosition().x / 5;
-			int nbCellule = ((ligne + 3) * 343) + col + 1;
+			// Affichage carré hitbox
 			window.draw(mapHitbox.at(nbCellule+1));
 			window.draw(mapHitbox.at(nbCellule - 2));
 
@@ -1638,8 +2606,8 @@ bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
 	int col = _ness.getHitboxPosition().x / 5;
 	int nbCellule = ((ligne + 3) * 343) + col + 1;
 
-
-	return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
+	return false;
+	//return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
 }
 
 const sf::RectangleShape Game::getBG() const
