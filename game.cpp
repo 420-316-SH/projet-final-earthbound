@@ -136,8 +136,6 @@ void Game::play()
 	RenderWindow window(VideoMode(1600, 900), "Earthbound Window");
 	bool menubool = true; // Si true, on est dans le menu
 	bool menuReglage = false;
-	View viewMenu;
-	viewMenu=(window.getDefaultView());
 	RectangleShape fondEcranMenu;
 	Texture texturefondEcranMenu;
 	fondEcranMenu.setPosition(0, 0);
@@ -217,20 +215,8 @@ void Game::play()
 
 
 	Text finDePartie;
-	Text txtTimer;
-	Text killedMonster;
-	Text finalhp;
-	Text finalforce;
-	Text finaldef;
-	Text finalpp;
 
-	setText(finDePartie, "Cliquer sur Enter pour retourner au menu", font, "ressources/arial.ttf", -50,150, 10, Color::White, 0);
-	setText(txtTimer, "", font, "ressources/arial.ttf", 75, -60, 10, Color::White, 0);
-	setText(killedMonster, "", font, "ressources/arial.ttf", 75, -50, 10, Color::White, 0);
-	setText(finalhp, "", font, "ressources/arial.ttf", 75, -40, 10, Color::White, 0);
-	setText(finalforce, "", font, "ressources/arial.ttf", 75, -30, 10, Color::White, 0);
-	setText(finaldef, "", font, "ressources/arial.ttf", 75, -20, 10, Color::White, 0);
-	setText(finalpp, "", font, "ressources/arial.ttf", 75, -10, 10, Color::White, 0);
+	setText(finDePartie, "Retour au menu", font, "ressources/arial.ttf", window.getSize().x - 200, 10, 16, Color::White, 0);
 
 	Texture texturefondEcranWin;
 	winBG.setPosition(0, 0);
@@ -367,9 +353,6 @@ void Game::play()
 	int deadMonster = 0;
 	bool win = false;
 	bool lose = false;
-	Time timer;
-	float gameTime = 0;
-	Clock clock;
 
 
 	Vector2f dernierePosition;
@@ -718,46 +701,11 @@ void Game::play()
 					if (lose == true)
 						lose = false;
 					win = true;
-					timer = clock.getElapsedTime();
-					gameTime = timer.asSeconds();
-					txtTimer.setString("Temps de jeux: " + std::to_string(gameTime).erase(std::to_string(gameTime).size() - 4, 4) + " secondes");
-					//killedMonster.setString(_ness.);
-					finalhp.setString("Hp: " + std::to_string(_ness.getHp()));
-					finalforce.setString("Force: " + std::to_string(_ness.getForce()));;
-					finaldef.setString("Def: " + std::to_string(_ness.getDef()));;
-					finalpp.setString("pp: " + std::to_string(_ness.getPp()));;
-					cout << " " << gameTime;
 					break;
 				case Keyboard::O:
 					if (win == true)
 						win = false;
 					lose = true;
-					timer = clock.getElapsedTime();
-					gameTime = timer.asSeconds();
-					txtTimer.setString("Temps de jeux: " + std::to_string(gameTime).erase(std::to_string(gameTime).size() - 4, 4)+ " secondes");
-					txtTimer.setString("Temps de jeux: " + std::to_string(gameTime).erase(std::to_string(gameTime).size() - 4, 4) + " secondes");
-					//killedMonster.setString(_ness.);
-					finalhp.setString("Hp: " + std::to_string(_ness.getHp()));
-					finalforce.setString("Force: " + std::to_string(_ness.getForce()));;
-					finaldef.setString("Def: " + std::to_string(_ness.getDef()));;
-					finalpp.setString("pp: " + std::to_string(_ness.getPp()));;
-					cout << " " << gameTime;
-					break;
-				case Keyboard::Enter:
-					if (win == true)
-					{
-						win = false;
-						musicWin.stop();
-						menubool = true;
-						play.setFillColor(Color::White);
-					}
-					else if (lose == true)
-					{
-						lose = false;
-						musicLose.stop();
-						menubool = true;
-						play.setFillColor(Color::White);
-					}
 					break;
 				default:
 					dir = 0;
@@ -958,7 +906,6 @@ void Game::play()
 				if (play.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 				{
 					play.setFillColor(Color::Black);
-					clock.restart();
 				}
 				else if (reglage.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 				{
@@ -971,7 +918,7 @@ void Game::play()
 				}
 
 			}
-			else if (event.type == Event::MouseButtonPressed && (menuReglage == true))
+			else if (event.type == Event::MouseButtonPressed && menuReglage == true)
 			{
 				if (reglageSon.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
 				{
@@ -1128,7 +1075,7 @@ void Game::play()
 		
 		// Affichage menu
 		
-		if (menubool == true)
+		if (menubool)
 		{
 			if (play.getFillColor() == Color::Black)
 			{
@@ -1144,12 +1091,7 @@ void Game::play()
 			}
 			else
 			{
-				if (!mute && musicMenu.getStatus() == sf::Music::Status::Stopped)
-				{
-					musicMenu.play();
-				}
 				window.clear();
-				window.setView(viewMenu);
 				window.draw(fondEcranMenu);
 				window.draw(play);
 				window.draw(reglage);
@@ -1180,12 +1122,6 @@ void Game::play()
 			window.setView(endGame);
 			window.clear();
 			window.draw(winBG);
-			window.draw(finDePartie);
-			window.draw(txtTimer);
-			window.draw(finalhp);
-			window.draw(finalforce);
-			window.draw(finaldef);
-			window.draw(finalpp);
 			window.display();
 			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
 			{
@@ -1211,14 +1147,6 @@ void Game::play()
 			window.setView(endGame);
 			window.clear();
 			window.draw(loseBG);
-			window.draw(finDePartie);
-			window.draw(txtTimer);
-			window.draw(finalhp);
-			window.draw(finalforce);
-			window.draw(finaldef);
-			window.draw(finalpp);
-			//window.draw(killedMonster);
-
 			window.display();
 			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
 			{
@@ -1432,23 +1360,23 @@ void Game::play()
 
 		}
 		else if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
-			bool fight = true;
-			int menu = 0;
-			float positionMonstreX = _monstre2.getPosition().x;
-			float positionMonstreY = _monstre2.getPosition().y;
-			_monstre2.setPosition(Vector2f(700, 360));
-			_monstre2.setSize(200, 180);
-			actionJoueur.setPosition(Vector2f(60, 45));
-			attaque.setPosition(Vector2f(75, 50));
-			item.setPosition(Vector2f(75, 150));
-			fuite.setPosition(Vector2f(300, 150));
-			statJoueur.setPosition(Vector2f(720, 650));
-			nomJoueur.setPosition(Vector2f(755, 660));
-			hp.setPosition(Vector2f(725, 720));
-			hpJoueur.setPosition(Vector2f(800, 720));
-			pp.setPosition(Vector2f(725, 780));
-			ppJoueur.setPosition(Vector2f(800, 780));
-			suivant.setPosition(Vector2f(500, 150));
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre2.getPosition().x;
+		float positionMonstreY = _monstre2.getPosition().y;
+		_monstre2.setPosition(Vector2f(700, 360));
+		_monstre2.setSize(200, 180);
+		actionJoueur.setPosition(Vector2f(60, 45));
+		attaque.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 720));
+		hpJoueur.setPosition(Vector2f(800, 720));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
 
 		while (fight == true) {
 			while (window.pollEvent(event)) {
