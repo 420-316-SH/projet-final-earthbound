@@ -10,6 +10,14 @@ Move::Move()
 	//_statusInflict = Status();
 }
 
+Move::Move(std::string nom, int degats, int ppCost, std::string statAffect)
+{
+	_nom = nom;
+	_degats = degats;
+	_ppCost = ppCost;
+	_statAffect = statAffect;
+}
+
 Move::~Move()
 {
 	_nom = "";
@@ -33,9 +41,9 @@ const int Move::getPpCost() const
 	return _ppCost;
 }
 
-const Status Move::getStatusInflict() const
+const std::string Move::getStatAffect() const
 {
-	return _statusInflict;
+	return _statAffect;
 }
 
 void Move::setNom(std::string nom) 
@@ -53,7 +61,7 @@ void Move::setPpCost(int ppCost)
 	_ppCost = ppCost;
 }
 
-void Move::setStatusInflict(Status statusInflict)
+void Move::setStatAffect(std::string statAffect)
 {
-	_statusInflict = statusInflict;
+	_statAffect = statAffect;
 }

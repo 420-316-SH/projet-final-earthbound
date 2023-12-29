@@ -35,18 +35,30 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	_fondEcranPlay.setTexture(&_textureBgMap);
 	vecteur<Move> moveNess;
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
- 	_ness.setJoueur(true, 100, 2, 2, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	sf::IntRect monstre1(0, 0, 32, 60);
+	sf::IntRect monstre2(0, 0, 28, 30);
+	sf::IntRect monstre3(0, 0, 41, 59);
+	sf::IntRect monstre4(0, 0, 29, 30);
+	sf::IntRect monstre5(0, 0, 30, 32);
+	sf::IntRect monstre6(0, 0, 28, 32);
+	sf::IntRect monstre7(0, 0, 32, 54);
+	sf::IntRect monstre8(0, 0, 126, 64);
+	sf::IntRect monstre9(0, 0, 63, 64);
+	sf::IntRect monstre10(0, 0, 61, 64);
 
-	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1380, 410, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 845, 370, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre3.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1020, 610, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre4.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 705, 450, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre5.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 480, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre6.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 280, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre7.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 370, 210, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre8.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 820, 165, 16, 24, rectSpriteNess, "img/charsetsNess.png");
-	_monstre9.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 740, 85, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+ 	_ness.setJoueur(true, 10, 1, 2, 0, 0, 5, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+	_ness.setNom("Ness");
 
+	_monstre1.setMonstre(true, 10, 2, 1, 0, 0, 1, 1, 0, moveNess, 1380, 410, 22, 40, monstre1, "img/monstre1.png");
+	_monstre2.setMonstre(true, 20, 2, 2, 0, 0, 3, 1, 0, moveNess, 845, 370, 28, 30, monstre2, "img/monstre2.png");
+	_monstre3.setMonstre(true, 30, 2, 3, 0, 0, 7, 1, 0, moveNess, 1020, 610, 24, 30, monstre3, "img/monstre3.png");
+	_monstre4.setMonstre(true, 40, 2, 4, 0, 0, 8, 1, 0, moveNess, 705, 450, 29, 30, monstre4, "img/monstre4.png");
+	_monstre5.setMonstre(true, 50, 2, 6, 0, 0, 6, 1, 0, moveNess, 265, 480, 30, 32, monstre5, "img/monstre5.png");
+	_monstre6.setMonstre(true, 60, 2, 8, 0, 0, 4, 1, 0, moveNess, 265, 280, 28, 32, monstre6, "img/monstre6.png");
+	_monstre7.setMonstre(true, 70, 2, 7, 0, 0, 8, 1, 0, moveNess, 370, 210, 32, 54, monstre7, "img/monstre7.png");
+	_monstre8.setMonstre(true, 80, 2, 9, 0, 0, 15, 1, 0, moveNess, 820, 165, 63, 32, monstre8, "img/monstre8.png");
+	_monstre9.setMonstre(true, 90, 2, 12, 0, 0, 10, 1, 0, moveNess, 740, 85, 33, 34, monstre9, "img/monstre9.png");
+	_monstre10.setMonstre(true, 100, 2, 10, 0, 0, 20, 1, 0, moveNess, 740, 85, 61, 64, monstre10, "img/monstre10.png");
 }
 
 void Game::setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style)
@@ -66,10 +78,13 @@ void Game::play()
 {
 	// ReadFile ////////////////////////////////////////////
 	//_ness.getShape().getGlobalBounds().intersects()
+	int ligne =0;
+	int col = 0;
+	int nbCellule =0;
 	int typeCollision, multiplicateur;
 	char garbage;
 	int y = 0, x = 0, cptHitboxe = 0;
-	std::string ligne;
+	//std::string ligne;
 	RectangleShape obstacle;
 	std::vector<RectangleShape> mapHitbox;
 
@@ -160,6 +175,8 @@ void Game::play()
 	Text bonusActif;
 
 	float boost = 1;
+
+	queue<Entite> ordreCombat;
 
 	Font font;
 	if (!font.loadFromFile("ressources/arial.ttf")) {
@@ -433,13 +450,13 @@ void Game::play()
 	hp.setFillColor(Color::White);			//Set la couleur du texte
 	hp.setStyle(0);	//Set le style du texte
 	
-	Text attaque;
+	Text combat;
 
-	attaque.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
-	attaque.setString("Move");		//Set le texte à afficher
-	attaque.setCharacterSize(40); 			//Set la taille (en pixels)
-	attaque.setFillColor(Color::White);			//Set la couleur du texte
-	attaque.setStyle(0);	//Set le style du texte
+	combat.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	combat.setString("Move");		//Set le texte à afficher
+	combat.setCharacterSize(40); 			//Set la taille (en pixels)
+	combat.setFillColor(Color::White);			//Set la couleur du texte
+	combat.setStyle(0);	//Set le style du texte
 
 	Text fuite;
 
@@ -481,18 +498,47 @@ void Game::play()
 	retour.setFillColor(Color::White);			//Set la couleur du texte
 	retour.setStyle(0);	//Set le style du texte
 
+	Text vieMonstre;
+
+	vieMonstre.setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+	vieMonstre.setString("");		//Set le texte à afficher
+	vieMonstre.setCharacterSize(40); 			//Set la taille (en pixels)
+	vieMonstre.setFillColor(Color::White);			//Set la couleur du texte
+	vieMonstre.setStyle(0);	//Set le style du texte
+
 	Text obj[10];
+	Text move[10];
 
 	Item arme(1, "big league bat", 10, "force", false);
 	Item armure(2, "diamond band", 10, "def", false);
 	Item frites(3, "bag of fries", 10, "def", true);
 	Item banane(4, "banana", 10, "force", true);
-	Item burger(5, "double burger", 10, "pp", true);
+	Item burger(5, "double burger", 10, "hp", true);
 	Item cookie(6, "cookie", 10, "hp", true);
+	Item casquette(7, "casquette", 10, "hp", false);
 
-	_ness.addItem(burger);
-	_ness.addItem(arme);
-	_ness.addItem(cookie);
+	_monstre1.setButtin(burger);
+	_monstre2.setButtin(banane);
+	_monstre3.setButtin(frites);
+	_monstre4.setButtin(cookie);
+	_monstre5.setButtin(banane);
+	_monstre6.setButtin(cookie);
+	_monstre7.setButtin(burger);
+	_monstre8.setButtin(frites);
+	_monstre9.setButtin(burger);
+
+
+	Move attaque("Pow", _ness.getForce(), 1, "hpMonstre");
+	Move defense("Boost def", _ness.getForce(), 1, "defJoueur");
+	Move diminue("Def drop", _ness.getForce(), 1, "defMonstre");
+	Move boostAttaque("Boost force", _ness.getForce(), 1, "attJoueur");
+
+	_ness.addItem(casquette);
+	
+	_ness.addMove(attaque);
+	_ness.addMove(defense);
+	_ness.addMove(diminue);
+	_ness.addMove(boostAttaque);
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -706,6 +752,32 @@ void Game::play()
 					if (win == true)
 						win = false;
 					lose = true;
+					timer = clock.getElapsedTime();
+					gameTime = timer.asSeconds();
+					txtTimer.setString("Temps de jeux: " + std::to_string(gameTime).erase(std::to_string(gameTime).size() - 4, 4) + " secondes");
+					txtTimer.setString("Temps de jeux: " + std::to_string(gameTime).erase(std::to_string(gameTime).size() - 4, 4) + " secondes");
+					//killedMonster.setString(_ness.);
+					finalhp.setString("Hp: " + std::to_string(_ness.getHp()));
+					finalforce.setString("Force: " + std::to_string(_ness.getForce()));;
+					finaldef.setString("Def: " + std::to_string(_ness.getDef()));;
+					finalpp.setString("pp: " + std::to_string(_ness.getPp()));;
+					cout << " " << gameTime;
+					break;
+				case Keyboard::Enter:
+					if (win == true)
+					{
+						win = false;
+						musicWin.stop();
+						menubool = true;
+						play.setFillColor(Color::White);
+					}
+					else if (lose == true)
+					{
+						lose = false;
+						musicLose.stop();
+						menubool = true;
+						play.setFillColor(Color::White);
+					}
 					break;
 				default:
 					dir = 0;
@@ -1074,6 +1146,9 @@ void Game::play()
 		// GESTION DE L'AFFICHAGE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		// Affichage menu
+		ligne = _ness.getHitboxPosition().y / 5;
+		col = _ness.getHitboxPosition().x / 5;
+		nbCellule = ((ligne + 3) * 343) + col + 1;
 		
 		if (menubool)
 		{
@@ -1119,9 +1194,18 @@ void Game::play()
 		}
 		else if (win == true)
 		{
+			txtTimer.setString("Temps de jeux: " + std::to_string(gameTime).erase(std::to_string(gameTime).size() - 4, 4) + " secondes");
+			finalforce.setString("Force final : " + std::to_string(_ness.getForce()));
+			finaldef.setString("Défense final : " + std::to_string(_ness.getDef()));
 			window.setView(endGame);
 			window.clear();
 			window.draw(winBG);
+			window.draw(finDePartie);
+			window.draw(txtTimer);
+			window.draw(finalhp);
+			window.draw(finalforce);
+			window.draw(finaldef);
+			//window.draw(finalpp);
 			window.display();
 			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
 			{
@@ -1144,9 +1228,19 @@ void Game::play()
 		}
 		else if (lose == true)
 		{
+			txtTimer.setString("Temps de jeux: " + std::to_string(gameTime).erase(std::to_string(gameTime).size() - 4, 4) + " secondes");
+			finalforce.setString("Force final : " + std::to_string(_ness.getForce()));
+			finaldef.setString("Défense final : " + std::to_string(_ness.getDef()));
 			window.setView(endGame);
 			window.clear();
 			window.draw(loseBG);
+			window.draw(finDePartie);
+			window.draw(txtTimer);
+			window.draw(finalforce);
+			window.draw(finaldef);
+			//window.draw(finalpp);
+			//window.draw(killedMonster);
+
 			window.display();
 			if (arrMusiquePlay[indiceLecteurMusique].getStatus() == sf::Music::Status::Playing)
 			{
@@ -1170,85 +1264,867 @@ void Game::play()
 		else if (_ness.getShape().getGlobalBounds().intersects(_monstre1.getShape().getGlobalBounds())) 
 		{ // Si un combat doit s'ammorcer
 			
+			bool premiereAttaque = false;
 			bool fight = true;
 			int menu = 0;
 			float positionMonstreX = _monstre1.getPosition().x;
 			float positionMonstreY = _monstre1.getPosition().y;
 			_monstre1.setPosition(Vector2f(700, 360));
 			_monstre1.setSize(200, 180);
+			vieMonstre.setString("Hp : " + std::to_string(_monstre1.getHp()));
+			vieMonstre.setPosition(Vector2f(700, _monstre1.getPosition().y - 60));
 			actionJoueur.setPosition(Vector2f(60, 45));
 			actionJoueur.setSize(Vector2f(400, 180));
-			attaque.setPosition(Vector2f(75, 50));
+			combat.setPosition(Vector2f(75, 50));
 			item.setPosition(Vector2f(75, 150));
 			fuite.setPosition(Vector2f(300, 150));
 			statJoueur.setPosition(Vector2f(720, 650));
 			nomJoueur.setPosition(Vector2f(755, 660));
-			hp.setPosition(Vector2f(725, 720));
-			hpJoueur.setPosition(Vector2f(800, 720));
+			hp.setPosition(Vector2f(725, 750));
+			hpJoueur.setPosition(Vector2f(800, 750));
+			hpJoueur.setString(std::to_string(_ness.getHp()));
 			pp.setPosition(Vector2f(725, 780));
 			ppJoueur.setPosition(Vector2f(800, 780));
 			suivant.setPosition(Vector2f(500, 150));
-			retour.setPosition(Vector2f(500, 90 * _ness.getInventaire().size()));
+			
 		
 			while (fight==true) {
+				if(_monstre1.getSpeed() > _ness.getSpeed()){
+					ordreCombat.push(_monstre1);
+					ordreCombat.push(_ness);
+				}
+				else {
+					ordreCombat.push(_ness);
+					ordreCombat.push(_monstre1);
+				}
+				if (ordreCombat.front().getNom() == _ness.getNom()) {
+					while (window.pollEvent(event)) {
+
+						actionJoueur.setSize(Vector2f(400, 180));
+						window.clear();
+						window.setView(viewFight);
+						window.draw(fondEcranFight);
+						window.draw(_monstre1.getShape());
+						window.draw(actionJoueur);
+						if (menu == 0)
+						{
+							window.draw(combat);
+							window.draw(item);
+							window.draw(fuite);
+							window.draw(statJoueur);
+							window.draw(nomJoueur);
+							window.draw(hpJoueur);
+							window.draw(vieMonstre);
+							window.draw(hp);
+
+
+							window.display();
+						}
+
+						if (event.type == Event::MouseButtonPressed || menu > 0)
+						{
+							if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+								bool prev = false;
+								menu = 2;
+
+
+								do {
+
+									int cpt = 0;
+									for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+										cpt++;
+									}
+									window.clear();
+									actionJoueur.setSize(Vector2f(400, 90 * cpt));
+									retour.setPosition(Vector2f(500, 90 * cpt));
+									window.draw(fondEcranFight);
+									window.draw(_monstre1.getShape());
+									window.draw(actionJoueur);
+
+									int cpt1 = 0;
+									for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+										move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										move[i].setString("");		//Set le texte à afficher
+										move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										move[i].setFillColor(Color::White);			//Set la couleur du texte
+										move[i].setStyle(0);	//Set le style du texte
+										move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+										move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(move[i]);
+										cpt1++;
+
+
+
+									}
+									window.draw(retour);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(vieMonstre);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												prev = true;
+												menu = 0;
+											}
+											for (int i = 0; i < _ness.getMoveset().size(); i++) {
+												if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+													if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+														if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+															if (_monstre1.getHp() - (_ness.getForce() - _monstre1.getDef()) <= 0) {
+																_monstre1.setHp(0);
+																fight = false;
+																vieMonstre.setString("Hp : " + std::to_string(_monstre1.getHp()));
+																_ness.addItem(_monstre1.getButtin());
+																_monstre1.~Monstre();
+																
+																_ness.setDef(_ness.getDef() + 1);
+																_ness.setForce(_ness.getForce() + 1);
+																_ness.setIntel(_ness.getIntel() + 1);
+																_ness.setHp(_ness.getHp() + 10);
+																_ness.setSpeed(_ness.getSpeed() + 2);
+																break;
+															}
+															else {
+																_monstre1.setHp(_monstre1.getHp() - (_ness.getForce() - _monstre1.getDef()));
+																vieMonstre.setString("Hp : " + std::to_string(_monstre1.getHp()));
+															}
+
+															/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+															ppJoueur.setString(std::to_string(_ness.getPp()));*/
+														}
+														else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+															_monstre1.setDef(_monstre1.getDef() - _ness.getIntel());
+
+															/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+															ppJoueur.setString(std::to_string(_ness.getPp()));*/
+														}
+														else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+															_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+															/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+															ppJoueur.setString(std::to_string(_ness.getPp()));*/
+														}
+														else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+															_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+															/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+															ppJoueur.setString(std::to_string(_ness.getPp()));*/
+														}
+														if ((_monstre1.getForce() - _ness.getDef()) >= 0) {
+															
+															if (_ness.getHp() - (_monstre1.getForce() - _ness.getDef()) <= 0) {
+																_ness.setHp(0);
+																fight = false;
+																lose = true;
+																hpJoueur.setString(std::to_string(_ness.getHp()));
+																break;
+															}
+															else {
+																_ness.setHp(_ness.getHp() - (_monstre1.getForce() - _ness.getDef()));
+																hpJoueur.setString(std::to_string(_ness.getHp()));
+															}
+															
+															
+														}
+														
+
+													}
+
+												}
+											}
+											if (!fight) {
+												break;
+											}
+
+										}
+										
+
+									}
+									if (!fight) {
+										break;
+									}
+								} while (prev == false);
+							}
+							else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+								bool prev = false;
+								menu = 2;
+
+
+								do {
+									_ness.getInventaire().begin();
+									int cpt = 0;
+									for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+										if (_ness.getInventaire().value().getConso() == true) {
+
+											cpt++;
+										}
+
+										_ness.getInventaire().next();
+									}
+									window.clear();
+									actionJoueur.setSize(Vector2f(400, 90 * cpt));
+									retour.setPosition(Vector2f(500, 90 * cpt));
+									window.draw(fondEcranFight);
+									window.draw(_monstre1.getShape());
+									window.draw(actionJoueur);
+									_ness.getInventaire().begin();
+									int cpt1 = 0;
+									for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+										if (_ness.getInventaire().value().getConso() == true) {
+											obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+											obj[i].setString("");		//Set le texte à afficher
+											obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+											obj[i].setFillColor(Color::White);			//Set la couleur du texte
+											obj[i].setStyle(0);	//Set le style du texte
+											obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+											obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+											window.draw(obj[i]);
+											cpt1++;
+										}
+
+										_ness.getInventaire().next();
+									}
+									window.draw(retour);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(vieMonstre);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												prev = true;
+												menu = 0;
+											}
+											int sizeInventaire = _ness.getInventaire().size();
+											for (int i = 0; i < sizeInventaire; i++) {
+												if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+													_ness.getInventaire().begin();
+													for (int j = 0; j < i; j++) {
+														_ness.getInventaire().next();
+													}
+													std::string effetObj = _ness.getInventaire().value().getStat();
+													if (effetObj == "pp") {
+														_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+														ppJoueur.setString(std::to_string(_ness.getPp()));
+
+													}
+													else if (effetObj == "force") {
+														_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+														ppJoueur.setString(std::to_string(_ness.getForce()));
+													}
+													else if (effetObj == "def") {
+														_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+														ppJoueur.setString(std::to_string(_ness.getDef()));
+													}
+													else if (effetObj == "hp") {
+														_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+
+													}
+													if (_ness.getInventaire().value().getConso() == true) {
+														_ness.getInventaire().erase();
+													}
+													if ((_monstre1.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre1.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre1.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+												}
+											}
+
+										}
+
+									}
+								} while (prev == false);
+
+
+							}
+							else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+								int chanceFuite = rand() % (10 + 1 - 1) + 1;
+								bool next = false;
+								if (chanceFuite > 1 && chanceFuite < 5) {
+									do {
+										window.draw(actionJoueur);
+										resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+										resultSuite.setPosition(Vector2f(75, 50));
+										window.draw(resultSuite);
+										window.draw(suivant);
+										window.draw(statJoueur);
+										window.draw(nomJoueur);
+										window.draw(hpJoueur);
+										window.draw(hp);
+
+
+										window.display();
+										while (window.pollEvent(event)) {
+											if (event.type == Event::MouseButtonPressed) {
+												if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+													next = true;
+													_monstre1.~Monstre();
+
+												}
+											}
+										}
+									} while (next == false);
+
+
+									fight = false;
+								}
+								else {
+									do {
+										window.draw(actionJoueur);
+										resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+										resultSuite.setPosition(Vector2f(75, 50));
+										window.draw(resultSuite);
+										window.draw(suivant);
+										window.draw(statJoueur);
+										window.draw(nomJoueur);
+										window.draw(hpJoueur);
+										window.draw(hp);
+
+
+										window.display();
+										while (window.pollEvent(event)) {
+											if (event.type == Event::MouseButtonPressed) {
+												if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+													next = true;
+												}
+											}
+										}
+										
+									} while (next == false);
+									if ((_monstre1.getForce() - _ness.getDef()) >= 0) {
+
+										if (_ness.getHp() - (_monstre1.getForce() - _ness.getDef()) <= 0) {
+											_ness.setHp(0);
+											fight = false;
+											lose = true;
+											hpJoueur.setString(std::to_string(_ness.getHp()));
+											break;
+										}
+										else {
+											_ness.setHp(_ness.getHp() - (_monstre1.getForce() - _ness.getDef()));
+											hpJoueur.setString(std::to_string(_ness.getHp()));
+										}
+
+
+									}
+								}
+
+
+							}
+
+						}
+						
+
+					}
+				}
+				else {
+				if ((_monstre1.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre1.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre1.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+						while (window.pollEvent(event)) {
+
+							actionJoueur.setSize(Vector2f(400, 180));
+							window.clear();
+							window.setView(viewFight);
+							window.draw(fondEcranFight);
+							window.draw(_monstre1.getShape());
+							window.draw(actionJoueur);
+							if (menu == 0)
+							{
+								window.draw(combat);
+								window.draw(item);
+								window.draw(fuite);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+							}
+
+							if (event.type == Event::MouseButtonPressed || menu > 0)
+							{
+								if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+									bool prev = false;
+									menu = 2;
+
+
+									do {
+
+										int cpt = 0;
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+											cpt++;
+										}
+										window.clear();
+										actionJoueur.setSize(Vector2f(400, 90 * cpt));
+										retour.setPosition(Vector2f(500, 90 * cpt));
+										window.draw(fondEcranFight);
+										window.draw(_monstre1.getShape());
+										window.draw(actionJoueur);
+
+										int cpt1 = 0;
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+											move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+											move[i].setString("");		//Set le texte à afficher
+											move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+											move[i].setFillColor(Color::White);			//Set la couleur du texte
+											move[i].setStyle(0);	//Set le style du texte
+											move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+											move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+											window.draw(move[i]);
+											cpt1++;
+
+
+
+										}
+										window.draw(retour);
+										window.draw(statJoueur);
+										window.draw(nomJoueur);
+										window.draw(hpJoueur);
+										window.draw(vieMonstre);
+										window.draw(hp);
+
+
+										window.display();
+										while (window.pollEvent(event)) {
+											if (event.type == Event::MouseButtonPressed) {
+												if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+													prev = true;
+													menu = 0;
+												}
+												for (int i = 0; i < _ness.getMoveset().size(); i++) {
+													if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+														if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+															if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+																if (_monstre1.getHp() - (_ness.getForce() - _monstre1.getDef()) <= 0) {
+																	_monstre1.setHp(0);
+																	fight = false;
+																	vieMonstre.setString("Hp : " + std::to_string(_monstre1.getHp()));
+																	_ness.addItem(_monstre1.getButtin());
+																	_monstre1.~Monstre();
+																	_ness.setDef(_ness.getDef() + 1);
+																	_ness.setForce(_ness.getForce() + 1);
+																	_ness.setIntel(_ness.getIntel() + 1);
+																	_ness.setHp(_ness.getHp() + 10);
+																	_ness.setSpeed(_ness.getSpeed() + 2);
+																}
+																else {
+																	_monstre1.setHp(_monstre1.getHp() - (_ness.getForce() - _monstre1.getDef()));
+																	vieMonstre.setString("Hp : " + std::to_string(_monstre1.getHp()));
+																}
+																
+																
+
+																/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+																ppJoueur.setString(std::to_string(_ness.getPp()));*/
+															}
+															else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+																_monstre1.setDef(_monstre1.getDef() - _ness.getIntel());
+
+																/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+																ppJoueur.setString(std::to_string(_ness.getPp()));*/
+															}
+															else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+																_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+																/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+																ppJoueur.setString(std::to_string(_ness.getPp()));*/
+															}
+															else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+																_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+																/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+																ppJoueur.setString(std::to_string(_ness.getPp()));*/
+															}
+															if ((_monstre1.getForce() - _ness.getDef()) >= 0) {
+
+																if (_ness.getHp() - (_monstre1.getForce() - _ness.getDef()) <= 0) {
+																	_ness.setHp(0);
+																	fight = false;
+																	lose = true;
+																	hpJoueur.setString(std::to_string(_ness.getHp()));
+																	break;
+																}
+																else {
+																	_ness.setHp(_ness.getHp() - (_monstre1.getForce() - _ness.getDef()));
+																	hpJoueur.setString(std::to_string(_ness.getHp()));
+																}
+
+
+															}
+
+														}
+
+													}
+												}
+
+											}
+
+											if (!fight) {
+												break;
+											}
+
+										}
+										if (!fight) {
+											break;
+										}
+									} while (prev == false);
+								}
+								else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+									bool prev = false;
+									menu = 2;
+
+
+									do {
+										_ness.getInventaire().begin();
+										int cpt = 0;
+										for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+											if (_ness.getInventaire().value().getConso() == true) {
+
+												cpt++;
+											}
+
+											_ness.getInventaire().next();
+										}
+										window.clear();
+										actionJoueur.setSize(Vector2f(400, 90 * cpt));
+										retour.setPosition(Vector2f(500, 90 * cpt));
+										window.draw(fondEcranFight);
+										window.draw(_monstre1.getShape());
+										window.draw(actionJoueur);
+										_ness.getInventaire().begin();
+										int cpt1 = 0;
+										for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+											if (_ness.getInventaire().value().getConso() == true) {
+												obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+												obj[i].setString("");		//Set le texte à afficher
+												obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+												obj[i].setFillColor(Color::White);			//Set la couleur du texte
+												obj[i].setStyle(0);	//Set le style du texte
+												obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+												obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+												window.draw(obj[i]);
+												cpt1++;
+											}
+
+											_ness.getInventaire().next();
+										}
+										window.draw(retour);
+										window.draw(statJoueur);
+										window.draw(nomJoueur);
+										window.draw(hpJoueur);
+										window.draw(vieMonstre);
+										window.draw(hp);
+
+
+										window.display();
+										while (window.pollEvent(event)) {
+											if (event.type == Event::MouseButtonPressed) {
+												if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+													prev = true;
+													menu = 0;
+												}
+												int sizeInventaire = _ness.getInventaire().size();
+												for (int i = 0; i < sizeInventaire; i++) {
+													if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+														_ness.getInventaire().begin();
+														for (int j = 0; j < i; j++) {
+															_ness.getInventaire().next();
+														}
+														std::string effetObj = _ness.getInventaire().value().getStat();
+														if (effetObj == "pp") {
+															_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+															ppJoueur.setString(std::to_string(_ness.getPp()));
+
+														}
+														else if (effetObj == "force") {
+															_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+															ppJoueur.setString(std::to_string(_ness.getForce()));
+														}
+														else if (effetObj == "def") {
+															_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+															ppJoueur.setString(std::to_string(_ness.getDef()));
+														}
+														else if (effetObj == "hp") {
+															_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+
+														}
+														if (_ness.getInventaire().value().getConso() == true) {
+															_ness.getInventaire().erase();
+														}
+														if ((_monstre1.getForce() - _ness.getDef()) >= 0) {
+
+															if (_ness.getHp() - (_monstre1.getForce() - _ness.getDef()) <= 0) {
+																_ness.setHp(0);
+																fight = false;
+																lose = true;
+																hpJoueur.setString(std::to_string(_ness.getHp()));
+																break;
+															}
+															else {
+																_ness.setHp(_ness.getHp() - (_monstre1.getForce() - _ness.getDef()));
+																hpJoueur.setString(std::to_string(_ness.getHp()));
+															}
+
+
+														}
+													}
+												}
+
+											}
+
+										}
+									} while (prev == false);
+
+
+								}
+								else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+									int chanceFuite = rand() % (10 + 1 - 1) + 1;
+									bool next = false;
+									if (chanceFuite > 1 && chanceFuite < 5) {
+										do {
+											window.draw(actionJoueur);
+											resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+											resultSuite.setPosition(Vector2f(75, 50));
+											window.draw(resultSuite);
+											window.draw(suivant);
+											window.draw(statJoueur);
+											window.draw(nomJoueur);
+											window.draw(hpJoueur);
+											window.draw(hp);
+
+
+											window.display();
+											while (window.pollEvent(event)) {
+												if (event.type == Event::MouseButtonPressed) {
+													if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+														next = true;
+														_monstre1.~Monstre();
+
+													}
+												}
+											}
+										} while (next == false);
+
+
+										fight = false;
+									}
+									else {
+										do {
+											window.draw(actionJoueur);
+											resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+											resultSuite.setPosition(Vector2f(75, 50));
+											window.draw(resultSuite);
+											window.draw(suivant);
+											window.draw(statJoueur);
+											window.draw(nomJoueur);
+											window.draw(hpJoueur);
+											window.draw(hp);
+
+
+											window.display();
+											while (window.pollEvent(event)) {
+												if (event.type == Event::MouseButtonPressed) {
+													if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+														next = true;
+													}
+												}
+											}
+
+										} while (next == false);
+										if ((_monstre1.getForce() - _ness.getDef()) >= 0) {
+
+											if (_ness.getHp() - (_monstre1.getForce() - _ness.getDef()) <= 0) {
+												_ness.setHp(0);
+												fight = false;
+												lose = true;
+												hpJoueur.setString(std::to_string(_ness.getHp()));
+												break;
+											}
+											else {
+												_ness.setHp(_ness.getHp() - (_monstre1.getForce() - _ness.getDef()));
+												hpJoueur.setString(std::to_string(_ness.getHp()));
+											}
+
+
+										}
+									}
+
+
+								}
+
+							}
+
+
+						
+					}
+}
+				
+		
+			}
+			combat.setFillColor(Color::White);
+			item.setFillColor(Color::White);
+			fuite.setFillColor(Color::White);
+			suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre2.getPosition().x;
+		float positionMonstreY = _monstre2.getPosition().y;
+		_monstre2.setPosition(Vector2f(700, 360));
+		_monstre2.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre2.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre2.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre2.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre2);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre2);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
 				while (window.pollEvent(event)) {
-					
+
 					actionJoueur.setSize(Vector2f(400, 180));
 					window.clear();
 					window.setView(viewFight);
 					window.draw(fondEcranFight);
-					window.draw(_monstre1.getShape());
+					window.draw(_monstre2.getShape());
 					window.draw(actionJoueur);
-					if (menu == 0) 
+					if (menu == 0)
 					{
-						
-						window.draw(attaque);
+						window.draw(combat);
 						window.draw(item);
 						window.draw(fuite);
 						window.draw(statJoueur);
 						window.draw(nomJoueur);
 						window.draw(hpJoueur);
+						window.draw(vieMonstre);
 						window.draw(hp);
-						window.draw(ppJoueur);
-						window.draw(pp);
+
+
 						window.display();
 					}
-					
+
 					if (event.type == Event::MouseButtonPressed || menu > 0)
 					{
-						if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
-							window.draw(actionJoueur);
-							window.draw(attaque);
-							menu = 1;
-						}
-						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
-							
-							bool prev = false; 
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
 							menu = 2;
-							
-							
+
+
 							do {
-								_ness.getInventaire().begin();
-								actionJoueur.setSize(Vector2f(400, 90 * _ness.getInventaire().size()));
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre2.getShape());
 								window.draw(actionJoueur);
-								for (int i = 0; i < _ness.getInventaire().size(); i++) {
-									obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
-									obj[i].setString("");		//Set le texte à afficher
-									obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
-									obj[i].setFillColor(Color::White);			//Set la couleur du texte
-									obj[i].setStyle(0);	//Set le style du texte
-									obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
-									obj[i].setPosition(Vector2f(75, 50 + (90 * i)));
-									window.draw(obj[i]);
-									_ness.getInventaire().next();
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
 								}
 								window.draw(retour);
 								window.draw(statJoueur);
 								window.draw(nomJoueur);
 								window.draw(hpJoueur);
+								window.draw(vieMonstre);
 								window.draw(hp);
-								window.draw(ppJoueur);
-								window.draw(pp);
+
+
 								window.display();
 								while (window.pollEvent(event)) {
 									if (event.type == Event::MouseButtonPressed) {
@@ -1256,7 +2132,143 @@ void Game::play()
 											prev = true;
 											menu = 0;
 										}
-										for (int i = 0; i < _ness.getInventaire().size(); i++) {
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre2.getHp() - (_ness.getForce() - _monstre2.getDef()) <= 0) {
+															_monstre2.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre2.getHp()));
+															_ness.addItem(_monstre2.getButtin());
+															_monstre2.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre2.setHp(_monstre2.getHp() - (_ness.getForce() - _monstre2.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre2.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre2.setDef(_monstre2.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre2.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre2.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre2.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre2.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
 											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
 												_ness.getInventaire().begin();
 												for (int j = 0; j < i; j++) {
@@ -1266,35 +2278,55 @@ void Game::play()
 												if (effetObj == "pp") {
 													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
 													ppJoueur.setString(std::to_string(_ness.getPp()));
-													
+
 												}
 												else if (effetObj == "force") {
 													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
-													ppJoueur.setString(std::to_string(_ness.getPp()));
+													ppJoueur.setString(std::to_string(_ness.getForce()));
 												}
 												else if (effetObj == "def") {
 													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
-													ppJoueur.setString(std::to_string(_ness.getPp()));
+													ppJoueur.setString(std::to_string(_ness.getDef()));
 												}
 												else if (effetObj == "hp") {
 													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
 													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre2.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre2.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre2.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
 												}
 											}
 										}
-										
+
 									}
 
 								}
 							} while (prev == false);
-						
-							
+
+
 						}
 						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
 							int chanceFuite = rand() % (10 + 1 - 1) + 1;
 							bool next = false;
 							if (chanceFuite > 1 && chanceFuite < 5) {
-								 do {
+								do {
 									window.draw(actionJoueur);
 									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
 									resultSuite.setPosition(Vector2f(75, 50));
@@ -1304,21 +2336,21 @@ void Game::play()
 									window.draw(nomJoueur);
 									window.draw(hpJoueur);
 									window.draw(hp);
-									window.draw(ppJoueur);
-									window.draw(pp);
+
+
 									window.display();
 									while (window.pollEvent(event)) {
 										if (event.type == Event::MouseButtonPressed) {
 											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
 												next = true;
-												_monstre1.~Monstre();
-												
+												_monstre2.~Monstre();
+
 											}
 										}
 									}
 								} while (next == false);
 
-								
+
 								fight = false;
 							}
 							else {
@@ -1332,8 +2364,8 @@ void Game::play()
 									window.draw(nomJoueur);
 									window.draw(hpJoueur);
 									window.draw(hp);
-									window.draw(ppJoueur);
-									window.draw(pp);
+
+
 									window.display();
 									while (window.pollEvent(event)) {
 										if (event.type == Event::MouseButtonPressed) {
@@ -1342,142 +2374,6467 @@ void Game::play()
 											}
 										}
 									}
+
 								} while (next == false);
+								if ((_monstre2.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre2.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre2.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
 							}
-							
-							
+
+
 						}
 
 					}
-					
+
+
 				}
-		
 			}
-			attaque.setFillColor(Color::White);
-			item.setFillColor(Color::White);
-			fuite.setFillColor(Color::White);
-			suivant.setFillColor(Color::White);
+			else {
+				if ((_monstre2.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre2.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre2.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre2.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre2.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre2.getHp() - (_ness.getForce() - _monstre2.getDef()) <= 0) {
+															_monstre2.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre2.getHp()));
+															_ness.addItem(_monstre2.getButtin());
+															_monstre2.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre2.setHp(_monstre2.getHp() - (_ness.getForce() - _monstre2.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre2.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre2.setDef(_monstre2.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre2.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre2.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre2.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre2.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre2.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre2.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre2.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre2.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre2.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre2.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre2.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
 
 		}
-		else if (_ness.getShape().getGlobalBounds().intersects(_monstre2.getShape().getGlobalBounds())) {
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre3.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
 		bool fight = true;
 		int menu = 0;
-		float positionMonstreX = _monstre2.getPosition().x;
-		float positionMonstreY = _monstre2.getPosition().y;
-		_monstre2.setPosition(Vector2f(700, 360));
-		_monstre2.setSize(200, 180);
+		float positionMonstreX = _monstre3.getPosition().x;
+		float positionMonstreY = _monstre3.getPosition().y;
+		_monstre3.setPosition(Vector2f(700, 360));
+		_monstre3.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre3.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre3.getPosition().y - 60));
 		actionJoueur.setPosition(Vector2f(60, 45));
-		attaque.setPosition(Vector2f(75, 50));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
 		item.setPosition(Vector2f(75, 150));
 		fuite.setPosition(Vector2f(300, 150));
 		statJoueur.setPosition(Vector2f(720, 650));
 		nomJoueur.setPosition(Vector2f(755, 660));
-		hp.setPosition(Vector2f(725, 720));
-		hpJoueur.setPosition(Vector2f(800, 720));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
 		pp.setPosition(Vector2f(725, 780));
 		ppJoueur.setPosition(Vector2f(800, 780));
 		suivant.setPosition(Vector2f(500, 150));
 
+
 		while (fight == true) {
-			while (window.pollEvent(event)) {
+			if (_monstre3.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre3);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre3);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre3.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
 
 
-				window.clear();
-				window.setView(viewFight);
-				window.draw(fondEcranFight);
-				window.draw(_monstre2.getShape());
-				window.draw(actionJoueur);
-				if (menu == 0)
-				{
-					window.draw(attaque);
-					window.draw(item);
-					window.draw(fuite);
-					window.draw(statJoueur);
-					window.draw(nomJoueur);
-					window.draw(hpJoueur);
-					window.draw(hp);
-					window.draw(ppJoueur);
-					window.draw(pp);
-					window.display();
-				}
-
-				if (event.type == Event::MouseButtonPressed || menu > 0)
-				{
-					if (attaque.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
-						
-						window.draw(actionJoueur);
-						window.draw(attaque);
-						menu = 1;
+						window.display();
 					}
-					else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
-						
-						menu = 2;
-					}
-					else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
-						
-						int chanceFuite = rand() % (4 + 1 - 1) + 1;
-						bool next = false;
-						if (chanceFuite == 1) {
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
 							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre3.getShape());
 								window.draw(actionJoueur);
-								resultSuite.setString("Vous avez réussi \nà vous enfuir!");
-								resultSuite.setPosition(Vector2f(75, 50));
-								window.draw(resultSuite);
-								window.draw(suivant);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
 								window.draw(statJoueur);
 								window.draw(nomJoueur);
 								window.draw(hpJoueur);
+								window.draw(vieMonstre);
 								window.draw(hp);
-								window.draw(ppJoueur);
-								window.draw(pp);
+
+
 								window.display();
 								while (window.pollEvent(event)) {
 									if (event.type == Event::MouseButtonPressed) {
-										if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
-											next = true;
-											_monstre2.~Monstre();
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
 										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre3.getHp() - (_ness.getForce() - _monstre3.getDef()) <= 0) {
+															_monstre3.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre3.getHp()));
+															_ness.addItem(_monstre3.getButtin());
+															_monstre3.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre3.setHp(_monstre3.getHp() - (_ness.getForce() - _monstre3.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre3.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre3.setDef(_monstre3.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre3.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre3.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre3.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
 									}
+
+
 								}
-							} while (next == false);
-							fight = false;
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
 						}
-						else {
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
 							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre3.getShape());
 								window.draw(actionJoueur);
-								resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
-								resultSuite.setPosition(Vector2f(75, 50));
-								window.draw(resultSuite);
-								window.draw(suivant);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
 								window.draw(statJoueur);
 								window.draw(nomJoueur);
 								window.draw(hpJoueur);
+								window.draw(vieMonstre);
 								window.draw(hp);
-								window.draw(ppJoueur);
-								window.draw(pp);
+
+
 								window.display();
 								while (window.pollEvent(event)) {
 									if (event.type == Event::MouseButtonPressed) {
-										if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
-											next = true;
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre3.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre3.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre3.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre3.~Monstre();
+
+											}
 										}
 									}
-								}
-							} while (next == false);
-						}
+								} while (next == false);
 
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre3.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre3.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre3.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
 
 					}
 
-				}
 
+				}
+			}
+			else {
+				if ((_monstre3.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre3.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre3.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre3.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre3.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre3.getHp() - (_ness.getForce() - _monstre3.getDef()) <= 0) {
+															_monstre3.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre3.getHp()));
+															_ness.addItem(_monstre3.getButtin());
+															_monstre3.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre3.setHp(_monstre3.getHp() - (_ness.getForce() - _monstre3.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre3.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre3.setDef(_monstre3.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre3.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre3.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre3.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre3.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre3.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre3.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre3.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre3.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre3.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre3.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre3.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
 			}
 
+
 		}
-		attaque.setFillColor(Color::White);
+		combat.setFillColor(Color::White);
 		item.setFillColor(Color::White);
 		fuite.setFillColor(Color::White);
 		suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre4.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre4.getPosition().x;
+		float positionMonstreY = _monstre4.getPosition().y;
+		_monstre4.setPosition(Vector2f(700, 360));
+		_monstre4.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre4.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre4.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre4.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre4);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre4);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre4.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre4.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre4.getHp() - (_ness.getForce() - _monstre4.getDef()) <= 0) {
+															_monstre4.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre4.getHp()));
+															_ness.addItem(_monstre4.getButtin());
+															_monstre4.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre4.setHp(_monstre4.getHp() - (_ness.getForce() - _monstre4.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre4.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre4.setDef(_monstre4.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre4.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre4.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre4.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre4.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre4.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre4.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre4.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre4.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre4.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre4.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre4.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+				}
+			}
+			else {
+				if ((_monstre4.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre4.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre4.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre4.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre4.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre4.getHp() - (_ness.getForce() - _monstre4.getDef()) <= 0) {
+															_monstre4.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre4.getHp()));
+															_ness.addItem(_monstre4.getButtin());
+															_monstre4.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre4.setHp(_monstre4.getHp() - (_ness.getForce() - _monstre4.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre4.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre4.setDef(_monstre4.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre4.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre4.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre4.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre4.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre4.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre4.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre4.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre4.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre4.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre4.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre4.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
+
+		}
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre5.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre5.getPosition().x;
+		float positionMonstreY = _monstre5.getPosition().y;
+		_monstre5.setPosition(Vector2f(700, 360));
+		_monstre5.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre5.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre5.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre5.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre5);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre5);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre5.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre5.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre5.getHp() - (_ness.getForce() - _monstre5.getDef()) <= 0) {
+															_monstre5.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre5.getHp()));
+															_ness.addItem(_monstre5.getButtin());
+															_monstre5.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre5.setHp(_monstre5.getHp() - (_ness.getForce() - _monstre5.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre5.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre5.setDef(_monstre5.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre5.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre5.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre5.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre5.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre5.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre5.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre5.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre5.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre5.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre5.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre5.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+				}
+			}
+			else {
+				if ((_monstre5.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre5.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre5.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre5.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre5.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre5.getHp() - (_ness.getForce() - _monstre5.getDef()) <= 0) {
+															_monstre5.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre5.getHp()));
+															_ness.addItem(_monstre5.getButtin());
+															_monstre5.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre5.setHp(_monstre5.getHp() - (_ness.getForce() - _monstre5.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre5.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre5.setDef(_monstre5.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre5.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre5.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre5.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre5.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre5.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre5.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre5.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre5.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre5.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre5.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre5.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
+
+		}
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre6.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre6.getPosition().x;
+		float positionMonstreY = _monstre6.getPosition().y;
+		_monstre6.setPosition(Vector2f(700, 360));
+		_monstre6.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre6.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre6.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre6.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre6);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre6);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre6.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre6.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre6.getHp() - (_ness.getForce() - _monstre6.getDef()) <= 0) {
+															_monstre6.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre6.getHp()));
+															_ness.addItem(_monstre6.getButtin());
+															_monstre6.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre6.setHp(_monstre6.getHp() - (_ness.getForce() - _monstre6.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre6.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre6.setDef(_monstre6.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre6.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre6.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre6.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre6.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre6.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre6.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre6.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre6.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre6.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre6.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre6.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+				}
+			}
+			else {
+				if ((_monstre6.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre6.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre6.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre6.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre6.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre6.getHp() - (_ness.getForce() - _monstre6.getDef()) <= 0) {
+															_monstre6.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre6.getHp()));
+															_ness.addItem(_monstre6.getButtin());
+															_monstre6.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre6.setHp(_monstre6.getHp() - (_ness.getForce() - _monstre6.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre6.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre6.setDef(_monstre6.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre6.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre6.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre6.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre6.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre6.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre6.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre6.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre6.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre6.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre6.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre6.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
+
+		}
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre7.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre7.getPosition().x;
+		float positionMonstreY = _monstre7.getPosition().y;
+		_monstre7.setPosition(Vector2f(700, 360));
+		_monstre7.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre7.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre7.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre7.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre7);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre7);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre7.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre7.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre7.getHp() - (_ness.getForce() - _monstre7.getDef()) <= 0) {
+															_monstre7.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre7.getHp()));
+															_ness.addItem(_monstre7.getButtin());
+															_monstre7.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre7.setHp(_monstre7.getHp() - (_ness.getForce() - _monstre7.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre7.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre7.setDef(_monstre7.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre7.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre7.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre7.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre7.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre7.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre7.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre7.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre7.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre7.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre7.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre7.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+				}
+			}
+			else {
+				if ((_monstre7.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre7.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre7.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre7.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre7.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre7.getHp() - (_ness.getForce() - _monstre7.getDef()) <= 0) {
+															_monstre7.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre7.getHp()));
+															_ness.addItem(_monstre7.getButtin());
+															_monstre7.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre7.setHp(_monstre7.getHp() - (_ness.getForce() - _monstre7.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre7.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre7.setDef(_monstre7.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre7.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre7.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre7.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre7.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre7.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre7.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre7.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre7.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre7.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre7.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre7.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
+
+		}
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre8.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre8.getPosition().x;
+		float positionMonstreY = _monstre8.getPosition().y;
+		_monstre8.setPosition(Vector2f(700, 360));
+		_monstre8.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre8.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre8.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre8.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre8);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre8);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre8.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre8.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre8.getHp() - (_ness.getForce() - _monstre8.getDef()) <= 0) {
+															_monstre8.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre8.getHp()));
+															_ness.addItem(_monstre8.getButtin());
+															_monstre8.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre8.setHp(_monstre8.getHp() - (_ness.getForce() - _monstre8.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre8.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre8.setDef(_monstre8.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre8.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre8.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre8.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre8.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre8.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre8.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre8.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre8.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre8.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre8.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre8.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+				}
+			}
+			else {
+				if ((_monstre8.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre8.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre8.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre8.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre8.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre8.getHp() - (_ness.getForce() - _monstre8.getDef()) <= 0) {
+															_monstre8.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre8.getHp()));
+															_ness.addItem(_monstre8.getButtin());
+															_monstre8.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre8.setHp(_monstre8.getHp() - (_ness.getForce() - _monstre8.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre8.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre8.setDef(_monstre8.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre8.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre8.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre8.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre8.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre8.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre8.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre8.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre8.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre8.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre8.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre8.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
+
+		}
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
+		}
+		else if (_ness.getShape().getGlobalBounds().intersects(_monstre9.getShape().getGlobalBounds()))
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre9.getPosition().x;
+		float positionMonstreY = _monstre9.getPosition().y;
+		_monstre9.setPosition(Vector2f(700, 360));
+		_monstre9.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre9.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre9.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre9.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre9);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre9);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre9.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre9.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre9.getHp() - (_ness.getForce() - _monstre9.getDef()) <= 0) {
+															_monstre9.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre9.getHp()));
+															_ness.addItem(_monstre9.getButtin());
+															_monstre9.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre9.setHp(_monstre9.getHp() - (_ness.getForce() - _monstre9.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre9.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre9.setDef(_monstre9.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre9.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre9.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre9.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre9.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre9.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre9.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre9.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre9.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre9.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre9.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre9.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+				}
+			}
+			else {
+				if ((_monstre9.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre9.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre9.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre9.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre9.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre9.getHp() - (_ness.getForce() - _monstre9.getDef()) <= 0) {
+															_monstre9.setHp(0);
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre9.getHp()));
+															_ness.addItem(_monstre9.getButtin());
+															_monstre9.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre9.setHp(_monstre9.getHp() - (_ness.getForce() - _monstre9.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre9.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre9.setDef(_monstre9.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre9.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre9.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre9.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre9.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre9.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre9.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre9.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre9.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre9.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre9.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre9.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
+
+		}
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
+		}
+
+		//window.draw(mapHitbox.at(nbCellule + 1));
+		//window.draw(mapHitbox.at(nbCellule - 2));
+
+		else if (mapHitbox.at(nbCellule + 1).getFillColor() == Color::Blue || mapHitbox.at(nbCellule - 2).getFillColor()==Color::Blue)
+		{ // Si un combat doit s'ammorcer
+
+		bool premiereAttaque = false;
+		bool fight = true;
+		int menu = 0;
+		float positionMonstreX = _monstre10.getPosition().x;
+		float positionMonstreY = _monstre10.getPosition().y;
+		_monstre10.setPosition(Vector2f(700, 360));
+		_monstre10.setSize(200, 180);
+		vieMonstre.setString("Hp : " + std::to_string(_monstre10.getHp()));
+		vieMonstre.setPosition(Vector2f(700, _monstre10.getPosition().y - 60));
+		actionJoueur.setPosition(Vector2f(60, 45));
+		actionJoueur.setSize(Vector2f(400, 180));
+		combat.setPosition(Vector2f(75, 50));
+		item.setPosition(Vector2f(75, 150));
+		fuite.setPosition(Vector2f(300, 150));
+		statJoueur.setPosition(Vector2f(720, 650));
+		nomJoueur.setPosition(Vector2f(755, 660));
+		hp.setPosition(Vector2f(725, 750));
+		hpJoueur.setPosition(Vector2f(800, 750));
+		hpJoueur.setString(std::to_string(_ness.getHp()));
+		pp.setPosition(Vector2f(725, 780));
+		ppJoueur.setPosition(Vector2f(800, 780));
+		suivant.setPosition(Vector2f(500, 150));
+
+
+		while (fight == true) {
+			if (_monstre10.getSpeed() > _ness.getSpeed()) {
+				ordreCombat.push(_monstre10);
+				ordreCombat.push(_ness);
+			}
+			else {
+				ordreCombat.push(_ness);
+				ordreCombat.push(_monstre10);
+			}
+			if (ordreCombat.front().getNom() == _ness.getNom()) {
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre10.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre10.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre10.getHp() - (_ness.getForce() - _monstre10.getDef()) <= 0) {
+															_monstre10.setHp(0);
+															win = true;
+															fight = false;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre10.getHp()));
+															_monstre10.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+															break;
+														}
+														else {
+															_monstre10.setHp(_monstre10.getHp() - (_ness.getForce() - _monstre10.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre10.getHp()));
+														}
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre10.setDef(_monstre10.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre10.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre10.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre10.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+
+												}
+
+											}
+										}
+										if (!fight) {
+											break;
+										}
+
+									}
+
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre10.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre10.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre10.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre10.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre10.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre10.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre10.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre10.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+				}
+			}
+			else {
+				if ((_monstre10.getForce() - _ness.getDef()) >= 0 && !premiereAttaque) {
+
+					if (_ness.getHp() - (_monstre10.getForce() - _ness.getDef()) <= 0) {
+						_ness.setHp(0);
+						fight = false;
+						lose = true;
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						break;
+					}
+					else {
+						_ness.setHp(_ness.getHp() - (_monstre10.getForce() - _ness.getDef()));
+						hpJoueur.setString(std::to_string(_ness.getHp()));
+						premiereAttaque = true;
+					}
+
+
+				}
+				while (window.pollEvent(event)) {
+
+					actionJoueur.setSize(Vector2f(400, 180));
+					window.clear();
+					window.setView(viewFight);
+					window.draw(fondEcranFight);
+					window.draw(_monstre10.getShape());
+					window.draw(actionJoueur);
+					if (menu == 0)
+					{
+						window.draw(combat);
+						window.draw(item);
+						window.draw(fuite);
+						window.draw(statJoueur);
+						window.draw(nomJoueur);
+						window.draw(hpJoueur);
+						window.draw(vieMonstre);
+						window.draw(hp);
+
+
+						window.display();
+					}
+
+					if (event.type == Event::MouseButtonPressed || menu > 0)
+					{
+						if (combat.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 1) {
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+
+								int cpt = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+									cpt++;
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre10.getShape());
+								window.draw(actionJoueur);
+
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getMoveset().size(); i++) {
+
+
+									move[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+									move[i].setString("");		//Set le texte à afficher
+									move[i].setCharacterSize(40); 			//Set la taille (en pixels)
+									move[i].setFillColor(Color::White);			//Set la couleur du texte
+									move[i].setStyle(0);	//Set le style du texte
+									move[i].setString(_ness.getMoveset().at(i).getNom());		//Set le texte à afficher
+									move[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+									window.draw(move[i]);
+									cpt1++;
+
+
+
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										for (int i = 0; i < _ness.getMoveset().size(); i++) {
+											if (move[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												if (_ness.getMoveset().at(i).getPpCost() <= _ness.getPp()) {
+													if (_ness.getMoveset().at(i).getStatAffect() == "hpMonstre") {
+														if (_monstre10.getHp() - (_ness.getForce() - _monstre10.getDef()) <= 0) {
+															_monstre10.setHp(0);
+															fight = false;
+															win = true;
+															vieMonstre.setString("Hp : " + std::to_string(_monstre10.getHp()));
+															_monstre10.~Monstre();
+															_ness.setDef(_ness.getDef() + 1);
+															_ness.setForce(_ness.getForce() + 1);
+															_ness.setIntel(_ness.getIntel() + 1);
+															_ness.setHp(_ness.getHp() + 10);
+															_ness.setSpeed(_ness.getSpeed() + 2);
+														}
+														else {
+															_monstre10.setHp(_monstre10.getHp() - (_ness.getForce() - _monstre10.getDef()));
+															vieMonstre.setString("Hp : " + std::to_string(_monstre10.getHp()));
+														}
+
+
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defMonstre") {
+														_monstre10.setDef(_monstre10.getDef() - _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "defJoueur") {
+														_ness.setDef(_ness.getDef() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													else if (_ness.getMoveset().at(i).getStatAffect() == "attJoueur") {
+														_ness.setForce(_ness.getForce() + _ness.getIntel());
+
+														/*_ness.setPp(_ness.getPp() - _ness.getMoveset().at(i).getPpCost());
+														ppJoueur.setString(std::to_string(_ness.getPp()));*/
+													}
+													if ((_monstre10.getForce() - _ness.getDef()) >= 0) {
+
+														if (_ness.getHp() - (_monstre10.getForce() - _ness.getDef()) <= 0) {
+															_ness.setHp(0);
+															fight = false;
+															lose = true;
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+															break;
+														}
+														else {
+															_ness.setHp(_ness.getHp() - (_monstre10.getForce() - _ness.getDef()));
+															hpJoueur.setString(std::to_string(_ness.getHp()));
+														}
+
+
+													}
+
+												}
+
+											}
+										}
+
+									}
+
+									if (!fight) {
+										break;
+									}
+
+								}
+								if (!fight) {
+									break;
+								}
+							} while (prev == false);
+						}
+						else if (item.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 2) {
+
+							bool prev = false;
+							menu = 2;
+
+
+							do {
+								_ness.getInventaire().begin();
+								int cpt = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+
+										cpt++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.clear();
+								actionJoueur.setSize(Vector2f(400, 90 * cpt));
+								retour.setPosition(Vector2f(500, 90 * cpt));
+								window.draw(fondEcranFight);
+								window.draw(_monstre10.getShape());
+								window.draw(actionJoueur);
+								_ness.getInventaire().begin();
+								int cpt1 = 0;
+								for (int i = 0; i < _ness.getInventaire().size(); i++) {
+
+									if (_ness.getInventaire().value().getConso() == true) {
+										obj[i].setFont(font); //Set la police à utiliser (elle doit avoir été loadée)
+										obj[i].setString("");		//Set le texte à afficher
+										obj[i].setCharacterSize(40); 			//Set la taille (en pixels)
+										obj[i].setFillColor(Color::White);			//Set la couleur du texte
+										obj[i].setStyle(0);	//Set le style du texte
+										obj[i].setString(_ness.getInventaire().value().getNom());		//Set le texte à afficher
+										obj[i].setPosition(Vector2f(75, 50 + (90 * cpt1)));
+										window.draw(obj[i]);
+										cpt1++;
+									}
+
+									_ness.getInventaire().next();
+								}
+								window.draw(retour);
+								window.draw(statJoueur);
+								window.draw(nomJoueur);
+								window.draw(hpJoueur);
+								window.draw(vieMonstre);
+								window.draw(hp);
+
+
+								window.display();
+								while (window.pollEvent(event)) {
+									if (event.type == Event::MouseButtonPressed) {
+										if (retour.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+											prev = true;
+											menu = 0;
+										}
+										int sizeInventaire = _ness.getInventaire().size();
+										for (int i = 0; i < sizeInventaire; i++) {
+											if (obj[i].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												_ness.getInventaire().begin();
+												for (int j = 0; j < i; j++) {
+													_ness.getInventaire().next();
+												}
+												std::string effetObj = _ness.getInventaire().value().getStat();
+												if (effetObj == "pp") {
+													_ness.setPp(_ness.getPp() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getPp()));
+
+												}
+												else if (effetObj == "force") {
+													_ness.setForce(_ness.getForce() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getForce()));
+												}
+												else if (effetObj == "def") {
+													_ness.setDef(_ness.getDef() + _ness.getInventaire().value().getForce());
+													ppJoueur.setString(std::to_string(_ness.getDef()));
+												}
+												else if (effetObj == "hp") {
+													_ness.setHp(_ness.getHp() + _ness.getInventaire().value().getForce());
+													hpJoueur.setString(std::to_string(_ness.getHp()));
+
+												}
+												if (_ness.getInventaire().value().getConso() == true) {
+													_ness.getInventaire().erase();
+												}
+												if ((_monstre10.getForce() - _ness.getDef()) >= 0) {
+
+													if (_ness.getHp() - (_monstre10.getForce() - _ness.getDef()) <= 0) {
+														_ness.setHp(0);
+														fight = false;
+														lose = true;
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+														break;
+													}
+													else {
+														_ness.setHp(_ness.getHp() - (_monstre10.getForce() - _ness.getDef()));
+														hpJoueur.setString(std::to_string(_ness.getHp()));
+													}
+
+
+												}
+											}
+										}
+
+									}
+
+								}
+							} while (prev == false);
+
+
+						}
+						else if (fuite.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) || menu == 3) {
+							int chanceFuite = rand() % (10 + 1 - 1) + 1;
+							bool next = false;
+							if (chanceFuite > 1 && chanceFuite < 5) {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous avez réussi \nà vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+												_monstre10.~Monstre();
+
+											}
+										}
+									}
+								} while (next == false);
+
+
+								fight = false;
+							}
+							else {
+								do {
+									window.draw(actionJoueur);
+									resultSuite.setString("Vous n'avez pas \nréussi à vous enfuir!");
+									resultSuite.setPosition(Vector2f(75, 50));
+									window.draw(resultSuite);
+									window.draw(suivant);
+									window.draw(statJoueur);
+									window.draw(nomJoueur);
+									window.draw(hpJoueur);
+									window.draw(hp);
+
+
+									window.display();
+									while (window.pollEvent(event)) {
+										if (event.type == Event::MouseButtonPressed) {
+											if (suivant.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+												next = true;
+											}
+										}
+									}
+
+								} while (next == false);
+								if ((_monstre10.getForce() - _ness.getDef()) >= 0) {
+
+									if (_ness.getHp() - (_monstre10.getForce() - _ness.getDef()) <= 0) {
+										_ness.setHp(0);
+										fight = false;
+										lose = true;
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+										break;
+									}
+									else {
+										_ness.setHp(_ness.getHp() - (_monstre10.getForce() - _ness.getDef()));
+										hpJoueur.setString(std::to_string(_ness.getHp()));
+									}
+
+
+								}
+							}
+
+
+						}
+
+					}
+
+
+
+				}
+			}
+
+
+		}
+		combat.setFillColor(Color::White);
+		item.setFillColor(Color::White);
+		fuite.setFillColor(Color::White);
+		suivant.setFillColor(Color::White);
+
 		}
 		else
 		{	// Affichage normal en jeu /////////////////////////////////////////////////
@@ -1526,10 +8883,7 @@ void Game::play()
 				}
 			}
 
-
-			int ligne = _ness.getHitboxPosition().y / 5;
-			int col = _ness.getHitboxPosition().x / 5;
-			int nbCellule = ((ligne + 3) * 343) + col + 1;
+			// Affichage carré hitbox
 			window.draw(mapHitbox.at(nbCellule+1));
 			window.draw(mapHitbox.at(nbCellule - 2));
 
@@ -1555,8 +8909,8 @@ bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
 	int col = _ness.getHitboxPosition().x / 5;
 	int nbCellule = ((ligne + 3) * 343) + col + 1;
 
-
-	return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
+	return false;
+	//return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
 }
 
 const sf::RectangleShape Game::getBG() const

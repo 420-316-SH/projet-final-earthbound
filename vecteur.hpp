@@ -21,8 +21,8 @@ class vecteur {
 		int size()const;
 		void resize(int newdim);
 		void print(std::ostream& output)const;
-		int& at(int index);
-		int& at(int index)const;
+		TYPE& at(int index);
+		TYPE& at(int index)const;
 		void clear();
 		void reverse();
 		void reverseRecursive(int = 0);
@@ -165,14 +165,14 @@ void vecteur<TYPE>::print(std::ostream& output) const
 }
 
 template <class TYPE>
-int& vecteur<TYPE>::at(int index)
+TYPE& vecteur<TYPE>::at(int index)
 {
 	assert(index >= 0 && index < _dim);
 	return *(_tab + index);
 }
 
 template <class TYPE>
-int& vecteur<TYPE>::at(int index)const
+TYPE& vecteur<TYPE>::at(int index)const
 {
 	assert(index >= 0 && index < _dim);
 	return *(_tab + index);
