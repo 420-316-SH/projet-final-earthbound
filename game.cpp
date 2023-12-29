@@ -46,19 +46,19 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	sf::IntRect monstre9(0, 0, 63, 64);
 	sf::IntRect monstre10(0, 0, 61, 64);
 
- 	_ness.setJoueur(true, 10, 2, 200, 0, 0, 1, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
+ 	_ness.setJoueur(true, 10, 1, 2, 0, 0, 5, 1, 0, 10, 10, moveNess, 1275, 350, 16, 24, rectSpriteNess, "img/charsetsNess.png");
 	_ness.setNom("Ness");
 
-	_monstre1.setMonstre(true, 100, 2, 2, 0, 0, 10, 1, 0, moveNess, 1380, 410, 22, 40, monstre1, "img/monstre1.png");
-	_monstre2.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 845, 370, 28, 30, monstre2, "img/monstre2.png");
-	_monstre3.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 1020, 610, 24, 30, monstre3, "img/monstre3.png");
-	_monstre4.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 705, 450, 29, 30, monstre4, "img/monstre4.png");
-	_monstre5.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 480, 30, 32, monstre5, "img/monstre5.png");
-	_monstre6.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 265, 280, 28, 32, monstre6, "img/monstre6.png");
-	_monstre7.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 370, 210, 32, 54, monstre7, "img/monstre7.png");
-	_monstre8.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 820, 165, 63, 32, monstre8, "img/monstre8.png");
-	_monstre9.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 740, 85, 33, 34, monstre9, "img/monstre9.png");
-	_monstre10.setMonstre(true, 100, 2, 2, 0, 0, 1, 1, 0, moveNess, 740, 85, 61, 64, monstre10, "img/monstre10.png");
+	_monstre1.setMonstre(true, 10, 2, 1, 0, 0, 1, 1, 0, moveNess, 1380, 410, 22, 40, monstre1, "img/monstre1.png");
+	_monstre2.setMonstre(true, 20, 2, 2, 0, 0, 3, 1, 0, moveNess, 845, 370, 28, 30, monstre2, "img/monstre2.png");
+	_monstre3.setMonstre(true, 30, 2, 3, 0, 0, 7, 1, 0, moveNess, 1020, 610, 24, 30, monstre3, "img/monstre3.png");
+	_monstre4.setMonstre(true, 40, 2, 4, 0, 0, 8, 1, 0, moveNess, 705, 450, 29, 30, monstre4, "img/monstre4.png");
+	_monstre5.setMonstre(true, 50, 2, 6, 0, 0, 6, 1, 0, moveNess, 265, 480, 30, 32, monstre5, "img/monstre5.png");
+	_monstre6.setMonstre(true, 60, 2, 8, 0, 0, 4, 1, 0, moveNess, 265, 280, 28, 32, monstre6, "img/monstre6.png");
+	_monstre7.setMonstre(true, 70, 2, 7, 0, 0, 8, 1, 0, moveNess, 370, 210, 32, 54, monstre7, "img/monstre7.png");
+	_monstre8.setMonstre(true, 80, 2, 9, 0, 0, 15, 1, 0, moveNess, 820, 165, 63, 32, monstre8, "img/monstre8.png");
+	_monstre9.setMonstre(true, 90, 2, 12, 0, 0, 10, 1, 0, moveNess, 740, 85, 33, 34, monstre9, "img/monstre9.png");
+	_monstre10.setMonstre(true, 100, 2, 10, 0, 0, 20, 1, 0, moveNess, 740, 85, 61, 64, monstre10, "img/monstre10.png");
 }
 
 void Game::setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style)
@@ -534,15 +534,24 @@ void Game::play()
 	Item cookie(6, "cookie", 10, "hp", true);
 	Item casquette(7, "casquette", 10, "hp", false);
 
+	_monstre1.setButtin(burger);
+	_monstre2.setButtin(banane);
+	_monstre3.setButtin(frites);
+	_monstre4.setButtin(cookie);
+	_monstre5.setButtin(banane);
+	_monstre6.setButtin(cookie);
+	_monstre7.setButtin(burger);
+	_monstre8.setButtin(frites);
+	_monstre9.setButtin(burger);
+
+
 	Move attaque("Pow", _ness.getForce(), 1, "hpMonstre");
-	Move defense("Pif", _ness.getForce(), 1, "defJoueur");
-	Move diminue("Paf", _ness.getForce(), 1, "defMonstre");
-	Move boostAttaque("Pouf", _ness.getForce(), 1, "attJoueur");
+	Move defense("Boost def", _ness.getForce(), 1, "defJoueur");
+	Move diminue("Def drop", _ness.getForce(), 1, "defMonstre");
+	Move boostAttaque("Boost force", _ness.getForce(), 1, "attJoueur");
 
 	_ness.addItem(casquette);
-	_ness.addItem(burger);
-	_ness.addItem(cookie);
-	_ness.addItem(cookie);
+	
 	_ness.addMove(attaque);
 	_ness.addMove(defense);
 	_ness.addMove(diminue);
@@ -1405,7 +1414,9 @@ void Game::play()
 																_monstre1.setHp(0);
 																fight = false;
 																vieMonstre.setString("Hp : " + std::to_string(_monstre1.getHp()));
+																_ness.addItem(_monstre1.getButtin());
 																_monstre1.~Monstre();
+																
 																_ness.setDef(_ness.getDef() + 1);
 																_ness.setForce(_ness.getForce() + 1);
 																_ness.setIntel(_ness.getIntel() + 1);
@@ -1776,6 +1787,7 @@ void Game::play()
 																	_monstre1.setHp(0);
 																	fight = false;
 																	vieMonstre.setString("Hp : " + std::to_string(_monstre1.getHp()));
+																	_ness.addItem(_monstre1.getButtin());
 																	_monstre1.~Monstre();
 																	_ness.setDef(_ness.getDef() + 1);
 																	_ness.setForce(_ness.getForce() + 1);
@@ -2174,6 +2186,7 @@ void Game::play()
 															_monstre2.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre2.getHp()));
+															_ness.addItem(_monstre2.getButtin());
 															_monstre2.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -2545,6 +2558,7 @@ void Game::play()
 															_monstre2.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre2.getHp()));
+															_ness.addItem(_monstre2.getButtin());
 															_monstre2.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -2943,6 +2957,7 @@ void Game::play()
 															_monstre3.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre3.getHp()));
+															_ness.addItem(_monstre3.getButtin());
 															_monstre3.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -3314,6 +3329,7 @@ void Game::play()
 															_monstre3.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre3.getHp()));
+															_ness.addItem(_monstre3.getButtin());
 															_monstre3.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -3712,6 +3728,7 @@ void Game::play()
 															_monstre4.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre4.getHp()));
+															_ness.addItem(_monstre4.getButtin());
 															_monstre4.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -4083,6 +4100,7 @@ void Game::play()
 															_monstre4.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre4.getHp()));
+															_ness.addItem(_monstre4.getButtin());
 															_monstre4.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -4481,6 +4499,7 @@ void Game::play()
 															_monstre5.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre5.getHp()));
+															_ness.addItem(_monstre5.getButtin());
 															_monstre5.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -4852,6 +4871,7 @@ void Game::play()
 															_monstre5.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre5.getHp()));
+															_ness.addItem(_monstre5.getButtin());
 															_monstre5.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -5250,6 +5270,7 @@ void Game::play()
 															_monstre6.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre6.getHp()));
+															_ness.addItem(_monstre6.getButtin());
 															_monstre6.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -5621,6 +5642,7 @@ void Game::play()
 															_monstre6.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre6.getHp()));
+															_ness.addItem(_monstre6.getButtin());
 															_monstre6.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -6019,6 +6041,7 @@ void Game::play()
 															_monstre7.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre7.getHp()));
+															_ness.addItem(_monstre7.getButtin());
 															_monstre7.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -6390,6 +6413,7 @@ void Game::play()
 															_monstre7.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre7.getHp()));
+															_ness.addItem(_monstre7.getButtin());
 															_monstre7.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -6788,6 +6812,7 @@ void Game::play()
 															_monstre8.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre8.getHp()));
+															_ness.addItem(_monstre8.getButtin());
 															_monstre8.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -7159,6 +7184,7 @@ void Game::play()
 															_monstre8.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre8.getHp()));
+															_ness.addItem(_monstre8.getButtin());
 															_monstre8.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -7557,6 +7583,7 @@ void Game::play()
 															_monstre9.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre9.getHp()));
+															_ness.addItem(_monstre9.getButtin());
 															_monstre9.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);
@@ -7928,6 +7955,7 @@ void Game::play()
 															_monstre9.setHp(0);
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre9.getHp()));
+															_ness.addItem(_monstre9.getButtin());
 															_monstre9.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
 															_ness.setForce(_ness.getForce() + 1);

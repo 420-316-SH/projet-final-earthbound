@@ -13,7 +13,7 @@ private:
 	int _speed;
 	int _lvl;
 	int _expGagne;
-
+	Item _buttin;
 	float _crit;
 
 	std::string _dialogue;
@@ -33,6 +33,7 @@ public:
 	int getSpeed()const;
 	int getLvl()const;
 	int getExpGagne()const;
+	Item getButtin()const;
 	float getCrit()const;
 	std::string getDialogue()const;
 	vecteur<Move> getMoveSet()const;
@@ -50,4 +51,5 @@ public:
 	void setCrit(float crit);
 	void setDialogue(std::string dialogue);
 	void setMoveSet(vecteur<Move> moveSet);
+	void setButtin(Item buttin);
 };

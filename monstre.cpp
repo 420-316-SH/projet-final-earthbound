@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp> //Est-ce necessaire dans mes pages/dans toutes les pages?
 #include "vecteur.hpp"
 #include "entite.h"
+#include "item.h"
 #include "status.h"
 #include "move.h"
 #include "monstre.h"
@@ -64,6 +65,11 @@ int Monstre::getLvl() const
 int Monstre::getExpGagne() const
 {
 	return _expGagne;
+}
+
+Item Monstre::getButtin() const
+{
+	return _buttin;
 }
 
 float Monstre::getCrit() const
@@ -154,4 +160,9 @@ void Monstre::setDialogue(std::string dialogue)
 void Monstre::setMoveSet(vecteur<Move> moveSet)
 {
 	_moveSet = moveSet; //il faudra un opérateur = pour la classe status; Quelle propriété du statut on souhaite affiché? on aura besoin d'un opérateur << dans statut et d'une propriété print
+}
+
+void Monstre::setButtin(Item buttin)
+{
+	_buttin = buttin;
 }
