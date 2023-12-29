@@ -32,6 +32,14 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	{
 		exit(1);
 	}
+
+	Item arme(1, "big league bat", 10, "force", false);
+	Item armure(2, "diamond band", 10, "def", false);
+	Item frites(3, "bag of fries", 10, "def", true);
+	Item banane(4, "banana", 10, "force", true);
+	Item burger(5, "double burger", 10, "hp", true);
+	Item cookie(6, "cookie", 10, "hp", true);
+	Item casquette(7, "casquette", 10, "hp", false);
 	_fondEcranPlay.setTexture(&_textureBgMap);
 	vecteur<Move> moveNess;
 	sf::IntRect rectSpriteNess(0, 0, 16, 24);
@@ -59,6 +67,30 @@ void Game::init(int posX, int posY, int w, int h, const char* nomSprite)
 	_monstre8.setMonstre(true, 80, 2, 9, 0, 0, 15, 1, 0, moveNess, 820, 165, 63, 32, monstre8, "img/monstre8.png");
 	_monstre9.setMonstre(true, 90, 2, 12, 0, 0, 10, 1, 0, moveNess, 740, 85, 33, 34, monstre9, "img/monstre9.png");
 	_monstre10.setMonstre(true, 100, 2, 10, 0, 0, 20, 1, 0, moveNess, 740, 85, 61, 64, monstre10, "img/monstre10.png");
+
+	_monstre1.setButtin(burger);
+	_monstre2.setButtin(banane);
+	_monstre3.setButtin(frites);
+	_monstre4.setButtin(cookie);
+	_monstre5.setButtin(banane);
+	_monstre6.setButtin(cookie);
+	_monstre7.setButtin(burger);
+	_monstre8.setButtin(frites);
+	_monstre9.setButtin(burger);
+
+
+	Move attaque("Pow", _ness.getForce(), 1, "hpMonstre");
+	Move defense("Boost def", _ness.getForce(), 1, "defJoueur");
+	Move diminue("Def drop", _ness.getForce(), 1, "defMonstre");
+	Move boostAttaque("Boost force", _ness.getForce(), 1, "attJoueur");
+
+	_ness.addItem(casquette);
+
+	_ness.addMove(attaque);
+	_ness.addMove(defense);
+	_ness.addMove(diminue);
+	_ness.addMove(boostAttaque);
+
 }
 
 void Game::setText(sf::Text& text, const char* message, sf::Font& font, const char* police, int posX, int posY, int taille, const sf::Color& color, int style)
@@ -526,36 +558,8 @@ void Game::play()
 	Text obj[10];
 	Text move[10];
 
-	Item arme(1, "big league bat", 10, "force", false);
-	Item armure(2, "diamond band", 10, "def", false);
-	Item frites(3, "bag of fries", 10, "def", true);
-	Item banane(4, "banana", 10, "force", true);
-	Item burger(5, "double burger", 10, "hp", true);
-	Item cookie(6, "cookie", 10, "hp", true);
-	Item casquette(7, "casquette", 10, "hp", false);
-
-	_monstre1.setButtin(burger);
-	_monstre2.setButtin(banane);
-	_monstre3.setButtin(frites);
-	_monstre4.setButtin(cookie);
-	_monstre5.setButtin(banane);
-	_monstre6.setButtin(cookie);
-	_monstre7.setButtin(burger);
-	_monstre8.setButtin(frites);
-	_monstre9.setButtin(burger);
 
 
-	Move attaque("Pow", _ness.getForce(), 1, "hpMonstre");
-	Move defense("Boost def", _ness.getForce(), 1, "defJoueur");
-	Move diminue("Def drop", _ness.getForce(), 1, "defMonstre");
-	Move boostAttaque("Boost force", _ness.getForce(), 1, "attJoueur");
-
-	_ness.addItem(casquette);
-	
-	_ness.addMove(attaque);
-	_ness.addMove(defense);
-	_ness.addMove(diminue);
-	_ness.addMove(boostAttaque);
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -796,6 +800,8 @@ void Game::play()
 						musicWin.stop();
 						menubool = true;
 						play.setFillColor(Color::White);
+						init(0, 0, 1716, 760, "img/mapPetite.png");
+
 					}
 					else if (lose == true)
 					{
@@ -803,6 +809,7 @@ void Game::play()
 						musicLose.stop();
 						menubool = true;
 						play.setFillColor(Color::White);
+						init(0, 0, 1716, 760, "img/mapPetite.png");
 					}
 					break;
 				default:
