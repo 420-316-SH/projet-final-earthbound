@@ -250,26 +250,26 @@ int Entite::moveMonstre(int cpt)
 
 	if (cpt >= 0 && cpt < 2500)
 	{
-		_shape.move(0.030, 0);
-		_hitbox.move(0.030, 0);
+		_shape.move(0.015, 0);
+		_hitbox.move(0.015, 0);
 		cpt++;
 	}
 	else if (cpt >= 2500 && cpt < 5000)
 	{
-		_shape.move(0, 0.030);
-		_hitbox.move(0, 0.030);
+		_shape.move(0, 0.015);
+		_hitbox.move(0, 0.015);
 		cpt++;
 	}
 	else if (cpt >= 5000 && cpt < 7500)
 	{
-		_shape.move(-0.030, 0);
-		_hitbox.move(-0.030, 0);
+		_shape.move(-0.015, 0);
+		_hitbox.move(-0.015, 0);
 		cpt++;
 	}
 	else
 	{
-		_shape.move(0, -0.030);
-		_hitbox.move(0, -0.030);
+		_shape.move(0, -0.015);
+		_hitbox.move(0, -0.015);
 		cpt++;
 	}
 	if (cpt == 10000) 
