@@ -1445,6 +1445,8 @@ void Game::play()
 																_ness.setHp(0);
 																fight = false;
 																lose = true;
+																timer = clock.getElapsedTime();
+																gameTime = timer.asSeconds();
 																hpJoueur.setString(std::to_string(_ness.getHp()));
 																break;
 															}
@@ -1566,6 +1568,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -1646,6 +1650,8 @@ void Game::play()
 											_ness.setHp(0);
 											fight = false;
 											lose = true;
+											timer = clock.getElapsedTime();
+											gameTime = timer.asSeconds();
 											hpJoueur.setString(std::to_string(_ness.getHp()));
 											break;
 										}
@@ -1673,6 +1679,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -1809,6 +1817,8 @@ void Game::play()
 																	_ness.setHp(0);
 																	fight = false;
 																	lose = true;
+																	timer = clock.getElapsedTime();
+																	gameTime = timer.asSeconds();
 																	hpJoueur.setString(std::to_string(_ness.getHp()));
 																	break;
 																}
@@ -1929,6 +1939,8 @@ void Game::play()
 																_ness.setHp(0);
 																fight = false;
 																lose = true;
+																timer = clock.getElapsedTime();
+																gameTime = timer.asSeconds();
 																hpJoueur.setString(std::to_string(_ness.getHp()));
 																break;
 															}
@@ -2009,6 +2021,8 @@ void Game::play()
 												_ness.setHp(0);
 												fight = false;
 												lose = true;
+												timer = clock.getElapsedTime();
+												gameTime = timer.asSeconds();
 												hpJoueur.setString(std::to_string(_ness.getHp()));
 												break;
 											}
@@ -2200,6 +2214,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -2321,6 +2337,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -2401,6 +2419,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -2428,6 +2448,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -2564,6 +2586,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -2684,6 +2708,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -2764,6 +2790,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -2955,6 +2983,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -3076,6 +3106,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -3156,6 +3188,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -3183,6 +3217,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -3319,6 +3355,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -3439,6 +3477,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -3519,6 +3559,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -3710,6 +3752,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -3831,6 +3875,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -3911,6 +3957,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -3938,6 +3986,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -4074,6 +4124,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -4194,6 +4246,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -4274,6 +4328,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -4465,6 +4521,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -4586,6 +4644,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -4666,6 +4726,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -4693,6 +4755,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -4829,6 +4893,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -4949,6 +5015,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -5029,6 +5097,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -5220,6 +5290,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -5341,6 +5413,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -5421,6 +5495,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -5448,6 +5524,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -5584,6 +5662,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -5704,6 +5784,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -5784,6 +5866,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -5975,6 +6059,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -6096,6 +6182,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -6176,6 +6264,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -6203,6 +6293,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -6339,6 +6431,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -6459,6 +6553,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -6539,6 +6635,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -6730,6 +6828,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -6851,6 +6951,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -6931,6 +7033,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -6958,6 +7062,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -7094,6 +7200,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -7214,6 +7322,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -7294,6 +7404,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -7485,6 +7597,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -7606,6 +7720,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -7686,6 +7802,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -7713,6 +7831,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -7849,6 +7969,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -7969,6 +8091,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -8049,6 +8173,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -8203,6 +8329,8 @@ void Game::play()
 														if (_monstre10.getHp() - (_ness.getForce() - _monstre10.getDef()) <= 0) {
 															_monstre10.setHp(0);
 															win = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															fight = false;
 															vieMonstre.setString("Hp : " + std::to_string(_monstre10.getHp()));
 															_monstre10.~Monstre();
@@ -8245,6 +8373,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -8366,6 +8496,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -8446,6 +8578,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
@@ -8473,6 +8607,8 @@ void Game::play()
 						_ness.setHp(0);
 						fight = false;
 						lose = true;
+						timer = clock.getElapsedTime();
+						gameTime = timer.asSeconds();
 						hpJoueur.setString(std::to_string(_ness.getHp()));
 						break;
 					}
@@ -8568,6 +8704,8 @@ void Game::play()
 															_monstre10.setHp(0);
 															fight = false;
 															win = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															vieMonstre.setString("Hp : " + std::to_string(_monstre10.getHp()));
 															_monstre10.~Monstre();
 															_ness.setDef(_ness.getDef() + 1);
@@ -8610,6 +8748,8 @@ void Game::play()
 															_ness.setHp(0);
 															fight = false;
 															lose = true;
+															timer = clock.getElapsedTime();
+															gameTime = timer.asSeconds();
 															hpJoueur.setString(std::to_string(_ness.getHp()));
 															break;
 														}
@@ -8730,6 +8870,8 @@ void Game::play()
 														_ness.setHp(0);
 														fight = false;
 														lose = true;
+														timer = clock.getElapsedTime();
+														gameTime = timer.asSeconds();
 														hpJoueur.setString(std::to_string(_ness.getHp()));
 														break;
 													}
@@ -8810,6 +8952,8 @@ void Game::play()
 										_ness.setHp(0);
 										fight = false;
 										lose = true;
+										timer = clock.getElapsedTime();
+										gameTime = timer.asSeconds();
 										hpJoueur.setString(std::to_string(_ness.getHp()));
 										break;
 									}
