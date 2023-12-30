@@ -9067,8 +9067,8 @@ void Game::play()
 			}
 
 			// Affichage carré hitbox
-			window.draw(mapHitbox.at(nbCellule+1));
-			window.draw(mapHitbox.at(nbCellule - 2));
+			//window.draw(mapHitbox.at(nbCellule+1));
+			//window.draw(mapHitbox.at(nbCellule - 2));
 
 
 			cpt1 = _monstre1.moveMonstre(cpt1);
@@ -9092,8 +9092,8 @@ bool Game::ifcollision(std::vector<RectangleShape> &Hitbox)
 	int col = _ness.getHitboxPosition().x / 5;
 	int nbCellule = ((ligne + 3) * 343) + col + 1;
 
-	return false;
-	//return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
+	//return false;
+	return (Hitbox.at(nbCellule+1).getFillColor() == Color::Red || Hitbox.at(nbCellule - 2).getFillColor() == Color::Red);
 }
 
 const sf::RectangleShape Game::getBG() const
