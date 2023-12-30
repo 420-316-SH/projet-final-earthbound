@@ -9,4 +9,12 @@ Validez que le code présent dans la fonction `main` s'exécute correctement ava
 
 Ajoutez l'URL de la vidéo de présentation de votre projet ci-dessous:
 
+https://youtu.be/PunjimhOZXA
 
+## Raccourci et controle:
+wasd : Se déplacer
+m : mute
+f : fullscrean
+n : musique suivante
+o : perdre automatiquement
+i : gagner automatiquement
