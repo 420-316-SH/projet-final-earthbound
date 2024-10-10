@@ -1,25 +1,25 @@
 #include <SFML/Graphics.hpp>
+#include <Windows.h>
+#include "liste.hpp"
+#include "vecteur.hpp"
+#include "status.h"
+#include "move.h"
+#include "entite.h"
+#include "item.h"
+#include "status.h"
+#include "monstre.h"
+#include "joueur.h"
+#include "monstre.h"
+#include "game.h"
 
-using namespace sf;
 
 int main() {
-	RenderWindow window(VideoMode(1280, 720), "Titre de la fenêtre");
-	Event event;
-	RectangleShape fondEcran;
+	// Ajout Antho pour test
+	srand(time(NULL));
+	Game earthbound;
+	earthbound.play();
 
-	fondEcran.setSize(Vector2f(100, 100));
-	fondEcran.setFillColor(Color::Green);
-
-	while (window.isOpen()) {
-		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed)
-				window.close();
-		}
-
-		window.clear();
-		window.draw(fondEcran);
-		window.display();
-	}
+	system("pause>0");
 
 	return 0;
 }

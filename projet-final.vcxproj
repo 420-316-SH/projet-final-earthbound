@@ -130,7 +130,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="entite.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="joueur.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="monstre.cpp" />
+    <ClCompile Include="move.cpp" />
+    <ClCompile Include="npc.cpp" />
+    <ClCompile Include="status.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\OneDrive - Cegep de Sherbrooke\A23\Structures\examFormatif\Project1\Project1\liste.hpp" />
+    <ClInclude Include="entite.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="joueur.h" />
+    <ClInclude Include="monstre.h" />
+    <ClInclude Include="move.h" />
+    <ClInclude Include="npc.h" />
+    <ClInclude Include="queue.hpp" />
+    <ClInclude Include="status.h" />
+    <ClInclude Include="vecteur.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
